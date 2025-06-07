@@ -1,9 +1,7 @@
 <script setup>
-import HeaderVue from './components/common/HeaderVue.vue';
-
 </script>
 <template>
-  <HeaderVue />
+  <h1>App Vue</h1>
 </template>
 <style scoped>
   
