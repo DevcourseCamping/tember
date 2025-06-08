@@ -1,10 +1,5 @@
-<script setup>
-import HeaderVue from './components/common/HeaderVue.vue';
-
-</script>
+<script setup></script>
 <template>
-  <HeaderVue />
+  <h1>App</h1>
 </template>
-<style scoped>
-  
-</style>
+<style scoped></style>
