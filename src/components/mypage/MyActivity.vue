@@ -27,9 +27,9 @@ const clickTab = ref('review')
       북마크
     </button>
   </div>
-  <hr class="mt-[10px] border-t border-[#4B3C2F]/20" />
+  <hr class="mt-[10px] border border-[#4B3C2F]/20" />
 
-  <div class="h-[calc(100vh-333px)] overflow-y-scroll">
+  <div class="h-[calc(100vh-333px)] overflow-y-auto">
     <ReviewCard v-if="clickTab === 'review'" />
     <CommunityCard v-if="clickTab === 'community'" />
     <BookmarkCard v-if="clickTab === 'bookmark'" />
