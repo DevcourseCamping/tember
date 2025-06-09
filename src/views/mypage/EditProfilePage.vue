@@ -8,9 +8,9 @@ const userInfo = {
 }
 </script>
 <template>
-  <div class="fixed w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
+  <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <div class="h-20 bg-[#4B3C2F]"></div>
+    <div class="h-20 bg-[var(--primary)]"></div>
 
     <div class="h-[calc(100vh-250px)] flex flex-col items-center justify-center pt-[100px]">
       <div class="relative">
@@ -28,10 +28,12 @@ const userInfo = {
       <input
         type="text"
         placeholder="변경할 닉네임을 입력해주세요"
-        class="w-[440px] h-[60px] border border-[#4B3C2F] rounded-[5px] mt-[100px] pl-[25px] focus:outline-none"
+        class="w-[440px] h-[60px] border border-[var(--primary)] rounded-[5px] mt-[100px] pl-[25px] focus:outline-none"
       />
 
-      <button class="w-[440px] h-[60px] bg-[#4B3C2F] rounded-[5px] text-[#FFFFFF] mt-[200px]">
+      <button
+        class="w-[440px] h-[60px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] mt-[200px]"
+      >
         저장하기
       </button>
     </div>

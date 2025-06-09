@@ -10,33 +10,29 @@ const clickTab = ref('review')
   <div class="flex justify-between pl-[35px] pr-[35px] pt-[35px] text-[15px] font-bold">
     <button
       @click="clickTab = 'review'"
-      :class="clickTab === 'review' ? 'text-[#4B3C2F]' : 'text-[#4B3C2F] opacity-30'"
+      :class="clickTab === 'review' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
     >
       리뷰
     </button>
     <button
       @click="clickTab = 'community'"
-      :class="clickTab === 'community' ? 'text-[#4B3C2F]' : 'text-[#4B3C2F] opacity-30'"
+      :class="clickTab === 'community' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
     >
       커뮤니티
     </button>
     <button
       @click="clickTab = 'bookmark'"
-      :class="clickTab === 'bookmark' ? 'text-[#4B3C2F]' : 'text-[#4B3C2F] opacity-30'"
+      :class="clickTab === 'bookmark' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
     >
       북마크
     </button>
   </div>
-  <hr class="mt-[10px] border border-[#4B3C2F]/20" />
+  <hr class="mt-[10px] border border-[var(--primary-20)]" />
 
-  <div class="h-[calc(100vh-333px)] overflow-y-auto">
+  <div class="h-[calc(100vh-333px)] overflow-y-auto scrollbar-hide">
     <ReviewCard v-if="clickTab === 'review'" />
     <CommunityCard v-if="clickTab === 'community'" />
     <BookmarkCard v-if="clickTab === 'bookmark'" />
   </div>
 </template>
-<style scoped>
-div::-webkit-scrollbar {
-  display: none;
-}
-</style>
+<style scoped></style>
