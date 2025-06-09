@@ -34,7 +34,7 @@ const posts = [
     <div
       v-for="(post, index) in posts"
       :key="index"
-      class="w-[440px] h-auto border border-[rgba(75,60,47,0.3)] rounded-[5px] cursor-pointer"
+      class="w-[440px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
         <div class="flex items-center">
@@ -45,7 +45,7 @@ const posts = [
           />
           <div class="flex flex-col justify-center">
             <p class="text-[15px] font-semibold">{{ post.userName }}</p>
-            <p class="text-[13px] text-[#A8AEB2]">{{ post.date }}</p>
+            <p class="text-[13px] text-[var(--grey)]">{{ post.date }}</p>
           </div>
         </div>
       </div>
@@ -57,14 +57,14 @@ const posts = [
           class="w-[440px] h-[400px] pt-[15px]"
         />
       </div>
-      <div class="pt-5 pl-5 pr-5 text-4">
+      <div class="pt-5 pl-5 pr-5 text-[15px]">
         <p class="break-words">
           {{ post.content }}
         </p>
       </div>
       <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[10px]">
         <div
-          class="w-20 h-[30px] bg-[#4B3C2F] text-[#FFFFFF] text-[13px] rounded-[5px] flex items-center justify-center"
+          class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
         >
           {{ post.category }}
         </div>

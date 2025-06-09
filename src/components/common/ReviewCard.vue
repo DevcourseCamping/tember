@@ -4,7 +4,7 @@ import outlineStarIcon from '../../assets/icons/star-outline.svg'
 
 const reviews = [
   {
-    username: '나는 캠퍼',
+    userName: '나는 캠퍼',
     date: '2025.06.07',
     userImg:
       'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
@@ -15,7 +15,7 @@ const reviews = [
     isMine: true,
   },
   {
-    username: '나는 캠퍼',
+    userName: '나는 캠퍼',
     date: '2025.06.06',
     userImg:
       'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
@@ -26,7 +26,7 @@ const reviews = [
     isMine: true,
   },
   {
-    username: '나는 캠퍼',
+    userName: '나는 캠퍼',
     date: '2025.06.05',
     userImg:
       'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
@@ -43,7 +43,7 @@ const reviews = [
     <div
       v-for="(review, index) in reviews"
       :key="index"
-      class="w-[440px] h-auto border border-[rgba(75,60,47,0.3)] rounded-[5px] cursor-pointer"
+      class="w-[440px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
       @mouseenter="hoverMoreIndex = index"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
@@ -54,18 +54,18 @@ const reviews = [
             class="w-[52px] h-[52px] rounded-full mr-[15px]"
           />
           <div class="flex flex-col justify-center">
-            <p class="text-[15px] font-semibold">{{ review.username }}</p>
-            <p class="text-[13px] text-gray-500">{{ review.date }}</p>
+            <p class="text-[15px] font-semibold">{{ review.userName }}</p>
+            <p class="text-[13px] text-[var(--grey)]">{{ review.date }}</p>
           </div>
         </div>
       </div>
-      <div class="pt-[25px] pl-5 pr-5 text-4">
+      <div class="pt-[25px] pl-5 pr-5 text-[15px]">
         <p class="break-words">
           {{ review.content }}
         </p>
       </div>
       <div class="pt-[30px] pl-5 pr-5 flex gap-[27px] items-center">
-        <p class="font-bold text-4">만족도</p>
+        <p class="font-bold text-[14px]">만족도</p>
         <div class="flex gap-[3px] items-center">
           <img
             v-for="n in 5"
@@ -77,10 +77,9 @@ const reviews = [
         </div>
       </div>
       <div class="pt-[13px] pl-5 pr-5 pb-5 flex gap-[27px]">
-        <p class="font-bold text-4">청결도</p>
-        <p class="text-[15px]">{{ review.cleanlines }}</p>
+        <p class="font-bold text-[14px]">청결도</p>
+        <p class="text-[14px]">{{ review.cleanlines }}</p>
       </div>
     </div>
   </div>
 </template>
-<style scoped></style>
