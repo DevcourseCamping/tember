@@ -7,10 +7,10 @@ import search from '@/assets/icons/light/light-search.svg'
 const props = defineProps({
   iconType: {
     type: String,
-    default: 'filter',
+    default: 'filter', // filter, arrow
   },
 })
-const emit = defineEmits(['iconClick', 'categoryClick'])
+const emit = defineEmits(['iconClick'])
 </script>
 
 <template>
@@ -24,14 +24,12 @@ const emit = defineEmits(['iconClick', 'categoryClick'])
         <input
           type="text"
           placeholder="검색하기"
-          class="h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px]"
+          class="w-[330px] h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px]"
         />
+        <button @click="emit('iconClick')">
+          <img :src="props.iconType === 'arrow' ? arrow : filter" class="w-5 h-5" />
+        </button>
       </div>
-      <img
-        :src="props.iconType === 'arrow' ? arrow : filter"
-        class="absolute right-[25px] w-5 h-5 cursor-pointer"
-        @click="emit('iconClick')"
-      />
     </div>
   </header>
 </template>
