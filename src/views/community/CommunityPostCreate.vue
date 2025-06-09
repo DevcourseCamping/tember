@@ -69,7 +69,7 @@ const post = {
                 <img
                   src="@/assets/icons/light/light-delete.svg"
                   alt=""
-                  class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10"
+                  class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10 cursor-pointer"
                 />
               </div>
             </swiper-slide>
@@ -80,11 +80,13 @@ const post = {
       <section class="px-[30px]">
         <p class="text-lg mt-8">카테고리 선택</p>
         <div class="flex space-x-[15px] mt-4">
-          <div class="w-[70px] h-[35px] text-sm border border-[var(--primary)] rounded-[5px]">
+          <div
+            class="w-[70px] h-[35px] text-sm border border-[var(--primary)] rounded-[5px] flex justify-center items-center cursor-pointer"
+          >
             일반
           </div>
           <div
-            class="w-20 h-[35px] text-sm border border-[var(--primary)] rounded-[5px] bg-[var(--primary)] text-var(--white)"
+            class="w-20 h-[35px] text-sm border border-[var(--primary)] rounded-[5px] bg-[var(--primary)] text-[var(--white)] flex justify-center items-center cursor-pointer"
           >
             반려동물
           </div>
@@ -101,7 +103,11 @@ const post = {
     </form>
 
     <!-- footer  -->
-    <div class="absolute bottom-0 w-full h-20 bg-[var(--primary)] cursor-pointer">작성완료</div>
+    <div
+      class="absolute bottom-0 w-full h-20 bg-[var(--primary)] cursor-pointer flex justify-center items-center text-[var(--white)] text-xl"
+    >
+      작성완료
+    </div>
   </main>
 </template>
 <style scoped></style>
