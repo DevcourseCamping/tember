@@ -1,8 +1,5 @@
-<script setup>
-</script>
+<script setup></script>
 <template>
-  <h1>App Vue</h1>
+  <h1>App</h1>
 </template>
-<style scoped>
-  
-</style>
+<style scoped></style>
