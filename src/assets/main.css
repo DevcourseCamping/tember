@@ -33,9 +33,9 @@
 }
 
 body {
-  background-color: var(--bg-color);
   font-family: 'Noto Sans KR';
   color: var(--black);
+  background-color: var(--bg-color);
 }
 
 .scrollbar-hide::-webkit-scrollbar {
