@@ -29,14 +29,10 @@ const clickTab = ref('review')
   </div>
   <hr class="mt-[10px] border border-[var(--primary-20)]" />
 
-  <div class="h-[calc(100vh-333px)] overflow-y-auto">
+  <div class="h-[calc(100vh-333px)] overflow-y-auto scrollbar-hide">
     <ReviewCard v-if="clickTab === 'review'" />
     <CommunityCard v-if="clickTab === 'community'" />
     <BookmarkCard v-if="clickTab === 'bookmark'" />
   </div>
 </template>
-<style scoped>
-div::-webkit-scrollbar {
-  display: none;
-}
-</style>
+<style scoped></style>
