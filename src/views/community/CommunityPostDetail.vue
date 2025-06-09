@@ -1,4 +1,6 @@
 <script setup>
+import BottomSheet from '@/components/common/BottomSheet.vue'
+
 const post = {
   user: {
     userName: '나는캠퍼',
@@ -40,11 +42,11 @@ const post = {
 }
 </script>
 <template>
-  <div class="fixed w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
+  <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <div class="h-20 bg-[#4B3C2F] flex items-center justify-center"></div>
+    <div class="h-20 bg-[var(--primary)] flex items-center justify-center"></div>
     <!-- main -->
-    <main class="overflow-y-auto no-scrollbar" style="height: calc(100vh - 80px - 60px)">
+    <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 60px)">
       <!-- post -->
       <section class="my-[30px] px-5 flex items-center justify-between">
         <div class="flex items-center">
@@ -55,7 +57,7 @@ const post = {
           />
           <p v-text="post.user.userName" class="font-bold text-[15px]"></p>
         </div>
-        <p v-text="post.postTime" class="text-[#A8AEB2] text-sm"></p>
+        <p v-text="post.postTime" class="text-[var(--grey)] text-sm"></p>
       </section>
       <section class="w-[500px] h-[480px] overflow-hidden">
         <img :src="post.postImg" alt="게시글 이미지" class="w-full h-full object-cover" />
@@ -67,13 +69,13 @@ const post = {
       <section class="px-5 mb-[30px]">
         <div class="flex items-center mb-[30px]">
           <p class="text-[20px] font-bold mr-[10px]">댓글</p>
-          <p v-text="post.comments.length" class="text-[18px] text-[#A8AEB2]"></p>
+          <p v-text="post.comments.length" class="text-[18px] text-[var(--grey)]"></p>
         </div>
         <ul class="flex flex-col gap-[30px]">
           <li
             v-for="(comment, index) in post.comments"
             :key="index"
-            class="rounded-[5px] w-full border p-4"
+            class="rounded-[5px] w-full border p-4 border-[var(--primary-30)]"
           >
             <div class="flex items-center mb-5 justify-between">
               <div class="flex items-center">
@@ -84,7 +86,7 @@ const post = {
                 />
                 <div>
                   <p v-text="comment.userName" class="font-bold text-[15px] mb-[5px]"></p>
-                  <p v-text="comment.commentTime" class="text-[#A8AEB2] text-[13px]"></p>
+                  <p v-text="comment.commentTime" class="text-[var(--grey)] text-[13px]"></p>
                 </div>
               </div>
               <img
@@ -101,27 +103,20 @@ const post = {
     </main>
     <!-- comment input section -->
     <section
-      class="flex items-center justify-center absolute bottom-0 w-full h-[60px] bg-[#4B3C2F]"
+      class="flex items-center justify-center absolute bottom-0 w-full h-[60px] bg-[var(--primary)]"
     >
       <input
-        class="bg-white w-[390px] h-10 rounded-[5px] mr-[10px] flex items-center px-4 placeholder:font-normal placeholder:text-[#A8AEB2] text-[15px]"
+        class="bg-[var(--white)] w-[390px] h-10 rounded-[5px] mr-[10px] flex items-center px-4 placeholder:font-normal placeholder:text-[var(--grey)] text-[15px]"
         placeholder="댓글을 입력해주세요"
       />
 
       <button
-        class="bg-white w-[60px] h-10 rounded-[5px] flex items-center justify-center text-[15px]"
+        class="bg-[var(--white)] w-[60px] h-10 rounded-[5px] flex items-center justify-center text-[15px]"
       >
         등록
       </button>
     </section>
+    <BottomSheet />
   </div>
 </template>
-<style scoped>
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-</style>
+<style scoped></style>
