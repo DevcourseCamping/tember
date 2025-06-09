@@ -3,8 +3,6 @@ import close from '@/assets/icons/close-white.svg'
 import chatbotWhite from '@/assets/icons/chatbot-white.svg'
 import chatbotBrown from '@/assets/icons/chatbot-brown.svg'
 import send from '@/assets/icons/light/light-send.svg'
-import temberbot from '@/assets/icons/light/TemberBot.svg'
-import temberbotbrown from '@/assets/icons/light/TemberBotbrown.svg'
 </script>
 
 <template>
@@ -13,19 +11,24 @@ import temberbotbrown from '@/assets/icons/light/TemberBotbrown.svg'
       <img :src="close" class="w-5 h-5 mr-6 cursor-pointer" />
       <div class="flex items-center gap-4">
         <img :src="chatbotWhite" class="w-10 h-10" />
-        <img :src="temberbot" class="" />
+        <p class="font-['PostNoBillsJaffna'] font-extrabold text-white flex items-center h-10 text-lg">
+  TemberBot
+</p>
       </div>
-      <div class="flex-1"></div>
     </header>
 
     <main class="flex-1 overflow-y-auto px-8 py-14 flex flex-col gap-y-7">
       <div class="flex items-start space-x-2">
         <img :src="chatbotBrown" class="w-10 h-10" />
-        <div class="flex flex-col">
+        <div class="flex flex-col -mt-2">
             <img :src="temberbotbrown" class="w-16 h-auto mb-1" />
+            <p class="font-['PostNoBillsJaffna'] font-extrabold text-[--primary] flex items-center h-10 text-lg">
+  TemberBot
+</p>
             <div
           class="inline-block
-         w-max
+         w-max rounded-tr-lg rounded-br-lg rounded-bl-lg
+  rounded-tl-none
          bg-gray-100 text-gray-800 rounded-xl 
          px-6 py-4 text-sm"
         >
@@ -45,11 +48,15 @@ import temberbotbrown from '@/assets/icons/light/TemberBotbrown.svg'
 
       <div class="flex items-start space-x-2">
         <img :src="chatbotBrown" class="w-10 h-10" />
-        <div class="flex flex-col">
+        <div class="flex flex-col -mt-2">
             <img :src="temberbotbrown" class="w-16 h-auto mb-1" />
+            <p class="font-['PostNoBillsJaffna'] font-extrabold text-[--primary] flex items-center h-10 text-lg">
+  TemberBot
+</p>
             <div
           class="inline-block
-         w-max
+         w-max rounded-tr-lg rounded-br-lg rounded-bl-lg
+  rounded-tl-none
          bg-gray-100 text-gray-800 rounded-xl 
          px-6 py-4 text-sm"
         >
