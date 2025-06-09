@@ -1,5 +1,5 @@
 <script setup>
-import HeaderSimple from '@/components/common/HeaderSimple.vue'
+import HeaderOther from '@/components/common/HeaderOther.vue'
 import MyActivity from '@/components/mypage/MyActivity.vue'
 import MyProfile from '@/components/mypage/MyProfile.vue'
 const clickBack = () => {
@@ -12,16 +12,14 @@ const clickSetting = () => {
 <template>
   <div class="fixed w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSimple
+    <HeaderOther
       nav-type="back"
       menu-type="setting"
       @navClick="clickBack"
       @menuClick="clickSetting"
     />
-
     <MyProfile />
     <MyActivity />
-
     <!-- footer -->
     <button
       href="#"

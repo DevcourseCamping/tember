@@ -1,9 +1,9 @@
 <script setup>
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// Import Swiper styles
 import 'swiper/css'
+import image from '@/assets/icons/light/light-image.svg'
+import imgDelete from '@/assets/icons/light/light-delete.svg'
+import HeaderSimple from '@/components/common/HeaderSimple.vue'
 
 const post = {
   images: [
@@ -33,16 +33,8 @@ const post = {
 </script>
 <template>
   <main class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
-    <!-- header (임시) -->
-    <div class="h-20 bg-[var(--white)] flex items-center">
-      <img
-        src="@/assets/icons/close-brown.svg"
-        class="w-5 h-5 absolute left-[30px] cursor-pointer"
-        alt=""
-      />
-      <p class="mx-auto">글쓰기</p>
-    </div>
-
+    <!-- header -->
+    <HeaderSimple title="글쓰기" />
     <!-- main -->
     <form class="overflow-y-auto" style="height: calc(100vh - 80px - 80px)">
       <!-- image upload -->
@@ -50,11 +42,7 @@ const post = {
         <div
           class="w-[100px] h-[100px] border border-[var(--primary-30)] rounded-[5px] flex-shrink-0 mt-[5px] flex flex-col justify-center items-center cursor-pointer"
         >
-          <img
-            src="@/assets/icons/light/light-image.svg"
-            alt=""
-            class="w-[26px] h-[26px] mb-[6px]"
-          />
+          <img :src="image" class="w-[26px] h-[26px] mb-[6px]" />
           <p class="text-sm text-[var(--primary)]">{{ post.images.length }} / 10</p>
         </div>
         <div class="w-[325px] flex relative overflow-hidden">
@@ -65,10 +53,9 @@ const post = {
               class="!w-[100px] !h-[110px] flex-shrink-0 !flex flex-col justify-center items-center relative"
             >
               <div class="relative w-[100px] h-[100px]">
-                <img :src="img.src" alt="" class="w-full h-full object-cover rounded-[5px]" />
+                <img :src="img.src" class="w-full h-full object-cover rounded-[5px]" />
                 <img
-                  src="@/assets/icons/light/light-delete.svg"
-                  alt=""
+                  :src="imgDelete"
                   class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10 cursor-pointer"
                 />
               </div>
@@ -101,7 +88,6 @@ const post = {
         ></textarea>
       </section>
     </form>
-
     <!-- footer  -->
     <div
       class="absolute bottom-0 w-full h-20 bg-[var(--primary)] cursor-pointer flex justify-center items-center text-[var(--white)] text-xl"

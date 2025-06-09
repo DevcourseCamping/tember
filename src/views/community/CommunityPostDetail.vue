@@ -1,5 +1,5 @@
 <script setup>
-import HeaderSimple from '@/components/common/HeaderSimple.vue'
+import HeaderOther from '@/components/common/HeaderOther.vue'
 
 const post = {
   user: {
@@ -50,7 +50,7 @@ const clickClose = () => {
 <template>
   <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSimple @navClick="clickClose" @menuClick="clickMore" />
+    <HeaderOther @navClick="clickClose" @menuClick="clickMore" />
     <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 60px)">
       <!-- post -->
