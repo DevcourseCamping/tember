@@ -1,13 +1,16 @@
 <script setup>
-import { defineProps } from 'vue'
 import logo from '@/assets/icons/logo-white.svg'
 import filter from '@/assets/icons/light/light-filter.svg'
 import arrow from '@/assets/icons/light/light-arrow-down.svg'
+import search from '@/assets/icons/light/light-search.svg'
 
 const props = defineProps({
-  iconType: { type: String, default: 'filter' },
-  onClick: { type: Function, default: () => {} },
+  iconType: {
+    type: String,
+    default: 'filter',
+  },
 })
+const emit = defineEmits(['iconClick', 'categoryClick'])
 </script>
 
 <template>
@@ -17,7 +20,7 @@ const props = defineProps({
       class="relative w-[440px] h-[45px] flex items-center justify-between bg-[var(--white)] rounded-[5px] px-5 py-3"
     >
       <div class="flex items-center">
-        <img src="@/assets/icons/light/light-search.svg" class="w-5 h-5 mr-[30px]" />
+        <img :src="search" class="w-5 h-5 mr-[30px]" />
         <input
           type="text"
           placeholder="검색하기"
@@ -27,7 +30,7 @@ const props = defineProps({
       <img
         :src="props.iconType === 'arrow' ? arrow : filter"
         class="absolute right-[25px] w-5 h-5 cursor-pointer"
-        @click="props.onClick"
+        @click="emit('iconClick')"
       />
     </div>
   </header>
