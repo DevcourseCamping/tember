@@ -10,9 +10,9 @@ import chatbot from '@/assets/icons/chatbot-white.svg'
 
 </script>
 <template>
-  <header class="w-[500px] h-[253px] bg-[#4B3C2F] mx-auto flex flex-col items-center justify-center">
+  <header class="w-[500px] h-[253px] bg-[--primary] mx-auto flex flex-col items-center justify-center">
     <img :src="logo" class="w-[106px] h-[53px]" />
-  <div class="relative w-[440px] h-[45px] flex items-center justify-between bg-white rounded-md px-4 mt-7">
+  <div class="relative w-[440px] h-[45px] flex items-center justify-between bg-[--white] rounded-md px-4 mt-7">
   <img :src="search" class="w-5 h-5 mr-4" />
   <input
     type="text"
