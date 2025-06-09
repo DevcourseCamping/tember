@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import './tailwind.css';
+
+:root {
+  --white: #ffffff;
+  --white-30: #ffffff30;
+  --white-50: #ffffff50;
+  --bg-color: #d4cbc2;
+  --black: #222222;
+  --grey: #a8aeb2;
+  --primary: #4b3c2f;
+  --primary-30: #4b3c2f30;
+  --primary-50: #4b3c2f50;
+  --red: #ff2b41;
+}
+
+@font-face {
+  font-family: 'PostNoBillsJaffna';
+  src: url('./fonts/PostNoBillsJaffna-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PostNoBillsJaffna';
+  src: url('./fonts/PostNoBillsJaffna-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+body {
+  background-color: #d4cbc2;
+  font-family: 'Noto Sans KR';
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
