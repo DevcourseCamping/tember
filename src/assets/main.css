@@ -3,12 +3,17 @@
 
 :root {
   --white: #ffffff;
+  --white-20: #ffffff20;
   --white-30: #ffffff30;
   --white-50: #ffffff50;
   --bg-color: #d4cbc2;
   --black: #222222;
+  --black-20: #22222220;
+  --black-30: #22222230;
+  --black-50: #22222250;
   --grey: #a8aeb2;
   --primary: #4b3c2f;
+  --primary-20: #4b3c2f20;
   --primary-30: #4b3c2f30;
   --primary-50: #4b3c2f50;
   --red: #ff2b41;
