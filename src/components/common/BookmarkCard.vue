@@ -31,7 +31,7 @@ const bookmark = [
     <div
       v-for="(favorite, index) in bookmark"
       :key="index"
-      class="relative w-[440px] h-auto border border-[rgba(75,60,47,0.3)] rounded-[5px] cursor-pointer"
+      class="relative w-[440px] h-auto border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
     >
       <img
         :src="favorite.campingImg"
@@ -40,7 +40,7 @@ const bookmark = [
       />
       <div class="flex flex-col pl-[15px]">
         <div class="flex items-center justify-between pt-[15px]">
-          <p class="text-[15px] text-[#222222]">{{ favorite.category }}</p>
+          <p class="text-[14px] text-[var(--black)]">{{ favorite.category }}</p>
           <img
             :src="favorite.isMarked ? filledBookmarkIcon : outlineBookmarkIcon"
             alt="북마크"
@@ -48,8 +48,8 @@ const bookmark = [
           />
         </div>
 
-        <p class="font-semibold text-[18px]">{{ favorite.name }}</p>
-        <p class="text-[#A8AEB2] pt-[5px] text-[15px]">{{ favorite.region }}</p>
+        <p class="font-semibold text-[17px]">{{ favorite.name }}</p>
+        <p class="text-[var(--grey)] pt-[5px] text-[15px]">{{ favorite.region }}</p>
 
         <div class="flex gap-[20px] pb-[20px] pt-[20px]">
           <img
@@ -69,9 +69,9 @@ const bookmark = [
           />
         </div>
         <div
-          class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[#4B3C2F] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
+          class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
         >
-          <p class="text-[#FFFFFF]">4.8</p>
+          <p class="text-[var(--white)]">4.8</p>
           <img :src="filledStarIcon" alt="별점" class="w-[20px] h-[20px]" />
         </div>
       </div>
