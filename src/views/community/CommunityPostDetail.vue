@@ -1,5 +1,5 @@
 <script setup>
-import BottomSheet from '@/components/common/BottomSheet.vue'
+import HeaderSimple from '@/components/common/HeaderSimple.vue'
 
 const post = {
   user: {
@@ -40,27 +40,29 @@ const post = {
     },
   ],
 }
+const clickMore = () => {
+  console.log('more')
+}
+const clickClose = () => {
+  console.log('close')
+}
 </script>
 <template>
   <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <div class="h-20 bg-[var(--primary)] flex items-center justify-center"></div>
+    <HeaderSimple @navClick="clickClose" @menuClick="clickMore" />
     <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 60px)">
       <!-- post -->
       <section class="my-[30px] px-5 flex items-center justify-between">
         <div class="flex items-center">
-          <img
-            :src="post.user.profileImg"
-            alt="유저 프로필 이미지"
-            class="w-[45px] h-[45px] rounded-full mr-[15px]"
-          />
+          <img :src="post.user.profileImg" class="w-[45px] h-[45px] rounded-full mr-[15px]" />
           <p v-text="post.user.userName" class="font-bold text-[15px]"></p>
         </div>
         <p v-text="post.postTime" class="text-[var(--grey)] text-sm"></p>
       </section>
       <section class="w-[500px] h-[480px] overflow-hidden">
-        <img :src="post.postImg" alt="게시글 이미지" class="w-full h-full object-cover" />
+        <img :src="post.postImg" class="w-full h-full object-cover" />
       </section>
       <section class="px-5 mt-[30px] mb-[100px]">
         <p v-text="post.postContent"></p>
@@ -79,11 +81,7 @@ const post = {
           >
             <div class="flex items-center mb-5 justify-between">
               <div class="flex items-center">
-                <img
-                  :src="comment.userProfile"
-                  alt=""
-                  class="w-[50px] h-[50px] rounded-full mr-[15px]"
-                />
+                <img :src="comment.userProfile" class="w-[50px] h-[50px] rounded-full mr-[15px]" />
                 <div>
                   <p v-text="comment.userName" class="font-bold text-[15px] mb-[5px]"></p>
                   <p v-text="comment.commentTime" class="text-[var(--grey)] text-[13px]"></p>
@@ -92,7 +90,6 @@ const post = {
               <img
                 v-if="comment.userName === post.user.userName"
                 src="@/assets/icons/light/light-more.svg"
-                alt="더보기"
                 class="w-[20px] h-[20px] cursor-pointer"
               />
             </div>
@@ -116,7 +113,6 @@ const post = {
         등록
       </button>
     </section>
-    <BottomSheet />
   </div>
 </template>
 <style scoped></style>
