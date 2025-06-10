@@ -1,24 +1,46 @@
-<script setup></script>
+<script setup>
+import homeon from '@/assets/icons/nav/nav-home-on.svg'
+import homeoff from '@/assets/icons/nav/nav-home-off.svg'
+import searchon from '@/assets/icons/nav/nav-search-on.svg'
+import searchoff from '@/assets/icons/nav/nav-search-off.svg'
+import communityon from '@/assets/icons/nav/nav-community-on.svg'
+import communityoff from '@/assets/icons/nav/nav-community-off.svg'
+import myoff from '@/assets/icons/nav/nav-mypage-off.svg'
+import myon from '@/assets/icons/nav/nav-mypage-on.svg'
+
+import { ref } from 'vue'
+
+const currentTab = ref('home') // 초기 선택 탭
+
+const tabs = [
+  { name: 'home', label: '홈', on: homeon, off: homeoff },
+  { name: 'search', label: '검색', on: searchon, off: searchoff },
+  { name: 'community', label: '커뮤니티', on: communityon, off: communityoff },
+  { name: 'my', label: '마이', on: myon, off: myoff },
+]
+
+const changeTab = (name) => {
+  currentTab.value = name
+}
+</script>
 <template>
-  <section
-    class="w-full h-[60px] bg-[var(--primary)] bottom-0 absolute px-8 flex items-center justify-between"
-  >
-    <div class="flex flex-col items-center cursor-pointer">
-      <img src="@/assets/icons/nav/nav-home-off.svg" alt="홈" class="w-6 h-6" />
-      <p class="text-[var(--white-30)] text-sm mt-1">홈</p>
+  <footer class="w-full h-[60px] bg-[--primary] flex">
+    <div class="w-full px-8 flex justify-between items-center">
+      <div
+        v-for="tab in tabs"
+        :key="tab.name"
+        class="flex flex-col items-center justify-center cursor-pointer"
+        @click="changeTab(tab.name)"
+      >
+        <img :src="currentTab === tab.name ? tab.on : tab.off" class="w-[20px] h-[20px]" />
+        <span
+          class="text-sm mt-1"
+          :class="currentTab === tab.name ? 'text-[--white]' : 'text-[--white-30]'"
+        >
+          {{ tab.label }}
+        </span>
+      </div>
     </div>
-    <div class="flex flex-col items-center cursor-pointer">
-      <img src="@/assets/icons/nav/nav-search-off.svg" alt="검색" class="w-6 h-6" />
-      <p class="text-[var(--white-30)] text-sm mt-1">검색</p>
-    </div>
-    <div class="flex flex-col items-center cursor-pointer">
-      <img src="@/assets/icons/nav/nav-community-on.svg" alt="커뮤니티" class="w-6 h-6" />
-      <p class="text-[var(--white)] text-sm mt-1">커뮤니티</p>
-    </div>
-    <div class="flex flex-col items-center cursor-pointer">
-      <img src="@/assets/icons/nav/nav-mypage-off.svg" alt="마이" class="w-6 h-6" />
-      <p class="text-[var(--white-30)] text-sm mt-1">마이</p>
-    </div>
-  </section>
+  </footer>
 </template>
 <style scoped></style>
