@@ -1,4 +1,5 @@
 <script setup>
+import HeaderSimple from '@/components/common/HeaderSimple.vue'
 import editProfileIcon from '../../assets/icons/light/light-edit-profile.svg'
 
 const userInfo = {
@@ -10,7 +11,7 @@ const userInfo = {
 <template>
   <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <div class="h-20 bg-[var(--primary)]"></div>
+    <HeaderSimple title="프로필 편집" />
 
     <div class="h-[calc(100vh-250px)] flex flex-col items-center justify-center pt-[100px]">
       <div class="relative">

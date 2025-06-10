@@ -1,4 +1,5 @@
 <script setup>
+import HeaderSimple from '@/components/common/HeaderSimple.vue'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
 import outlineStarIcon from '../../assets/icons/star-outline.svg'
 import { ref } from 'vue'
@@ -20,7 +21,7 @@ const setRating = (index) => {
 <template>
   <div class="fixed w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
     <!-- header -->
-    <div class="h-20 bg-[#4B3C2F]"></div>
+    <HeaderSimple title="리뷰쓰기" />
 
     <div class="flex flex-col items-center justify-center pt-20">
       <p class="font-bold text-[18px]">만족하셨나요?</p>

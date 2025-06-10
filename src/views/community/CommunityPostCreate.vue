@@ -1,9 +1,9 @@
 <script setup>
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// Import Swiper styles
 import 'swiper/css'
+import image from '@/assets/icons/light/light-image.svg'
+import imgDelete from '@/assets/icons/light/light-delete.svg'
+import HeaderSimple from '@/components/common/HeaderSimple.vue'
 
 const post = {
   images: [
@@ -32,30 +32,18 @@ const post = {
 }
 </script>
 <template>
-  <main class="fixed w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
-    <!-- header (임시) -->
-    <div class="h-20 bg-white flex items-center">
-      <img
-        src="@/assets/icons/close-brown.svg"
-        class="w-5 h-5 absolute left-[30px] cursor-pointer"
-        alt=""
-      />
-      <p class="mx-auto">글쓰기</p>
-    </div>
-
+  <main class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+    <!-- header -->
+    <HeaderSimple title="글쓰기" />
     <!-- main -->
     <form class="overflow-y-auto" style="height: calc(100vh - 80px - 80px)">
       <!-- image upload -->
       <section class="flex px-[30px] py-[10px] space-x-[15px]">
         <div
-          class="w-[100px] h-[100px] border border-[rgba(75,60,47,0.3)] rounded-[5px] flex-shrink-0 mt-[5px] flex flex-col justify-center items-center cursor-pointer"
+          class="w-[100px] h-[100px] border border-[var(--primary-30)] rounded-[5px] flex-shrink-0 mt-[5px] flex flex-col justify-center items-center cursor-pointer"
         >
-          <img
-            src="@/assets/icons/light/light-image.svg"
-            alt=""
-            class="w-[26px] h-[26px] mb-[6px]"
-          />
-          <p class="text-sm text-[#4B3C2F]">{{ post.images.length }} / 10</p>
+          <img :src="image" class="w-[26px] h-[26px] mb-[6px]" />
+          <p class="text-sm text-[var(--primary)]">{{ post.images.length }} / 10</p>
         </div>
         <div class="w-[325px] flex relative overflow-hidden">
           <swiper :slides-per-view="'auto'" :space-between="15" class="flex flex-grow">
@@ -65,11 +53,10 @@ const post = {
               class="!w-[100px] !h-[110px] flex-shrink-0 !flex flex-col justify-center items-center relative"
             >
               <div class="relative w-[100px] h-[100px]">
-                <img :src="img.src" alt="" class="w-full h-full object-cover rounded-[5px]" />
+                <img :src="img.src" class="w-full h-full object-cover rounded-[5px]" />
                 <img
-                  src="@/assets/icons/light/light-delete.svg"
-                  alt=""
-                  class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10"
+                  :src="imgDelete"
+                  class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10 cursor-pointer"
                 />
               </div>
             </swiper-slide>
@@ -80,28 +67,33 @@ const post = {
       <section class="px-[30px]">
         <p class="text-lg mt-8">카테고리 선택</p>
         <div class="flex space-x-[15px] mt-4">
-          <button class="w-[70px] h-[35px] text-sm border border-[#4B3C2F] rounded-[5px]">
+          <div
+            class="w-[70px] h-[35px] text-sm border border-[var(--primary)] rounded-[5px] flex justify-center items-center cursor-pointer"
+          >
             일반
-          </button>
-          <button
-            class="w-20 h-[35px] text-sm border border-[#4B3C2F] rounded-[5px] bg-[#4B3C2F] text-white"
+          </div>
+          <div
+            class="w-20 h-[35px] text-sm border border-[var(--primary)] rounded-[5px] bg-[var(--primary)] text-[var(--white)] flex justify-center items-center cursor-pointer"
           >
             반려동물
-          </button>
+          </div>
         </div>
       </section>
       <!-- editor -->
       <section class="flex justify-center mt-[35px]">
         <textarea
           name="content"
-          class="w-[440px] h-[400px] border border-[rgba(75,60,47,0.3) rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[#A8AEB2] text-base"
+          class="w-[440px] h-[400px] border border-[rgba(75,60,47,0.3) rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] text-base"
           placeholder="이곳에 글을 작성해주세요"
         ></textarea>
       </section>
     </form>
-
-    <!-- nav (임시) -->
-    <div class="absolute bottom-0 w-full h-20 bg-[#4B3C2F]"></div>
+    <!-- footer  -->
+    <div
+      class="absolute bottom-0 w-full h-20 bg-[var(--primary)] cursor-pointer flex justify-center items-center text-[var(--white)] text-xl"
+    >
+      작성완료
+    </div>
   </main>
 </template>
 <style scoped></style>
