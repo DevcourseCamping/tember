@@ -1,4 +1,5 @@
 <script setup>
+import HeaderSearchMain from '@/components/common/HeaderSearchMain.vue'
 import { ref } from 'vue'
 
 const cardWidth = 300
@@ -49,7 +50,8 @@ function moveCommunityLeft() {
 </script>
 
 <template>
-  <div class="max-w-[500px] mx-auto bg-[#FFFFFF] min-h-screen">
+  <div class="max-w-[500px] mx-auto bg-[--white] min-h-screen">
+    <HeaderSearchMain class="mb-[78px]" />
     <section class="w-[500px] bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px]">
       <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">Popular</h2>
 
