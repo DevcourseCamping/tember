@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup>
+import CampingDetail from './views/camping/CampingDetail.vue'
+</script>
 <template>
-  <h1>App</h1>
+  <CampingDetail />
 </template>
 <style scoped></style>
