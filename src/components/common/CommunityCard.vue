@@ -34,7 +34,7 @@ const posts = [
     <div
       v-for="(post, index) in posts"
       :key="index"
-      class="w-[440px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+      class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
         <div class="flex items-center">

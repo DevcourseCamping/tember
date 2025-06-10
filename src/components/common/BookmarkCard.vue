@@ -31,7 +31,7 @@ const bookmark = [
     <div
       v-for="(favorite, index) in bookmark"
       :key="index"
-      class="relative w-[440px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+      class="relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
     >
       <img
         :src="favorite.campingImg"

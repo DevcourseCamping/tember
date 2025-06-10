@@ -1,4 +1,7 @@
 <script setup>
+import { useRouter, useRoute } from 'vue-router'
+import { computed } from 'vue'
+
 import homeon from '@/assets/icons/nav/nav-home-on.svg'
 import homeoff from '@/assets/icons/nav/nav-home-off.svg'
 import searchon from '@/assets/icons/nav/nav-search-on.svg'
@@ -8,29 +11,33 @@ import communityoff from '@/assets/icons/nav/nav-community-off.svg'
 import myoff from '@/assets/icons/nav/nav-mypage-off.svg'
 import myon from '@/assets/icons/nav/nav-mypage-on.svg'
 
-import { ref } from 'vue'
-
-const currentTab = ref('home') // 초기 선택 탭
+const router = useRouter()
+const route = useRoute()
 
 const tabs = [
-  { name: 'home', label: '홈', on: homeon, off: homeoff },
-  { name: 'search', label: '검색', on: searchon, off: searchoff },
-  { name: 'community', label: '커뮤니티', on: communityon, off: communityoff },
-  { name: 'my', label: '마이', on: myon, off: myoff },
+  { name: 'home', label: '홈', path: '/', on: homeon, off: homeoff },
+  { name: 'search', label: '검색', path: '/search', on: searchon, off: searchoff },
+  { name: 'community', label: '커뮤니티', path: '/community', on: communityon, off: communityoff },
+  { name: 'mypage', label: '마이', path: '/mypage', on: myon, off: myoff },
 ]
 
-const changeTab = (name) => {
-  currentTab.value = name
+const currentTab = computed(() => {
+  const matched = tabs.find((tab) => route.path === tab.path)
+  return matched?.name || ''
+})
+
+const changeTab = (tab) => {
+  router.push(tab.path)
 }
 </script>
 <template>
-  <footer class="w-full h-[60px] bg-[--primary] flex">
+  <footer class="fixed bottom-0 w-[500px] h-[60px] bg-[--primary] flex">
     <div class="w-full px-8 flex justify-between items-center">
       <div
         v-for="tab in tabs"
         :key="tab.name"
         class="flex flex-col items-center justify-center cursor-pointer"
-        @click="changeTab(tab.name)"
+        @click="changeTab(tab)"
       >
         <img :src="currentTab === tab.name ? tab.on : tab.off" class="w-[20px] h-[20px]" />
         <span
@@ -43,4 +50,3 @@ const changeTab = (name) => {
     </div>
   </footer>
 </template>
-<style scoped></style>
