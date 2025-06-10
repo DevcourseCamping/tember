@@ -31,7 +31,7 @@
           <span class="text-md opacity-50">글램핑</span>
         </div>
         <div class="flex items-center justify-between gap-2 mt-[10px]">
-          <span class="text-md font-bold">포천 썬오브 글램핑카라반</span>
+          <span class="text-[20px] font-bold">포천 썬오브 글램핑카라반</span>
           <div class="flex items-center gap-4">
             <img
               src="../../assets/icons/light/light-caravan-off.svg"
