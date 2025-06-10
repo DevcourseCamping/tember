@@ -34,6 +34,11 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/mypage/LogIn.vue'),
     },
+    {
+      path: '/camping/:id',
+      name: 'campingDetail',
+      component: () => import('../views/camping/CampingDetail.vue'),
+    },
   ],
 })
 
