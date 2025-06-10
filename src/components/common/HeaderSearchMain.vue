@@ -12,7 +12,7 @@ const emit = defineEmits(['filterClick', 'categoryClick'])
 </script>
 
 <template>
-  <header class="w-[500px] bg-[var(--primary)] flex flex-col items-center pt-5 py-[30px] pb-[25px]">
+  <header class="bg-[var(--primary)] flex flex-col items-center pt-5 py-[30px] pb-[25px]">
     <img :src="logo" class="w-[106px] h-[53px] mb-5" />
     <section
       class="relative w-[440px] h-[45px] flex items-center justify-between bg-[var(--white)] rounded-[5px] px-5 py-3"
