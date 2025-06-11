@@ -32,11 +32,11 @@ const post = {
 }
 </script>
 <template>
-  <main class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <main class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
     <HeaderSimple title="글쓰기" />
     <!-- main -->
-    <form class="overflow-y-auto" style="height: calc(100vh - 80px - 80px)">
+    <form class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 80px)">
       <!-- image upload -->
       <section class="flex px-[30px] py-[10px] space-x-[15px]">
         <div
@@ -80,17 +80,17 @@ const post = {
         </div>
       </section>
       <!-- editor -->
-      <section class="flex justify-center mt-[35px]">
+      <section class="flex justify-center my-[35px]">
         <textarea
           name="content"
-          class="w-[440px] h-[400px] border border-[rgba(75,60,47,0.3) rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] text-base"
+          class="w-[440px] h-[400px] border border-[var(--primary-30)] rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] text-base focus:outline-none"
           placeholder="이곳에 글을 작성해주세요"
         ></textarea>
       </section>
     </form>
     <!-- footer  -->
     <div
-      class="absolute bottom-0 w-full h-20 bg-[var(--primary)] cursor-pointer flex justify-center items-center text-[var(--white)] text-xl"
+      class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] cursor-pointer flex justify-center items-center text-[var(--white)] text-lg"
     >
       작성완료
     </div>
