@@ -1,5 +1,5 @@
 <script setup>
-import CommunityCard from '@/components/common/CommunityCard.vue'
+import PostCard from '@/components/community/PostCard.vue'
 import HeaderSearch from '@/components/common/HeaderSearch.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
@@ -20,7 +20,7 @@ const goToCreatePost = () => {
     <HeaderSearch iconType="arrow" @iconClick="openBottomSheet" />
     <!-- post list -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <CommunityCard />
+      <PostCard />
     </main>
     <!-- nav -->
     <NavBar />
