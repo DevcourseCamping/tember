@@ -36,7 +36,7 @@ import star_filled from '../../../assets/icons/star-filled.svg'
 const router = useRouter()
 
 const handleClickBackButton = () => {
-  router.back()
+  router.go(-1)
 }
 
 const props = defineProps({
