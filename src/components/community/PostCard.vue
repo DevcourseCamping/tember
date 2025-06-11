@@ -7,6 +7,7 @@ import commentIcon from '../../assets/icons/light/light-comment.svg'
 import like from '../../assets/icons/light/light-like-filled.svg'
 import unlike from '../../assets/icons/light/light-like-outline.svg'
 import { useRouter } from 'vue-router'
+import SkeletonPostCard from './SkeletonPostCard.vue'
 
 const communityStore = useCommunityStore()
 const { posts, loading } = storeToRefs(communityStore)
@@ -26,7 +27,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="p-[30px] flex flex-col gap-[30px]">
-    <div v-if="loading">loading</div>
+    <SkeletonPostCard v-if="loading" />
     <div
       v-else
       v-for="post in posts"
