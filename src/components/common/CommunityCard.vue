@@ -17,7 +17,7 @@ onMounted(async () => {
   const postData = await getPost(user.id)
 
   posts.value = postData.data
-  console.log(postData.data)
+  // console.log(postData.data)
 })
 </script>
 <template>
@@ -57,7 +57,7 @@ onMounted(async () => {
         <div
           class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
         >
-          {{ post.category }}
+          {{ post.category === 'pet' ? '반려동물' : '일반' }}
         </div>
         <div class="flex gap-[3px] text-[15px]">
           <img :src="post.isLiked ? filledLikeIcon : outlineLikeIcon" alt="좋아요 아이콘" />
