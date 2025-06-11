@@ -3,12 +3,19 @@ import CommunityCard from '@/components/common/CommunityCard.vue'
 import HeaderSearch from '@/components/common/HeaderSearch.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post.svg'
+import { useRouter } from 'vue-router'
 const openBottomSheet = () => {
   console.log('Open Bottom Sheet')
 }
+
+const router = useRouter()
+
+const goToCreatePost = () => {
+  router.push('/community/post/create')
+}
 </script>
 <template>
-  <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
     <HeaderSearch iconType="arrow" @iconClick="openBottomSheet" />
     <!-- post list -->
@@ -18,7 +25,10 @@ const openBottomSheet = () => {
     <!-- nav -->
     <NavBar />
     <!-- create post button -->
-    <div class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px]">
+    <div
+      class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px] cursor-pointer"
+      @click="goToCreatePost"
+    >
       <img :src="post" />
     </div>
   </div>
