@@ -2,53 +2,9 @@
 import HeaderSearchMain from '@/components/common/HeaderSearchMain.vue'
 import NavBar from '@/components/common/NavBar.vue'
 
-import { ref } from 'vue'
-
-const cardWidth = 300
-
-const popularSlideCoord = ref(-cardWidth)
-const popularTransition = ref(true)
-const popularItems = ref([1, 2, 3])
-function movePopularRight() {
-  popularSlideCoord.value -= cardWidth
-  popularTransition.value = true
-  setTimeout(() => {
-    popularItems.value.push(popularItems.value.shift())
-    popularTransition.value = false
-    popularSlideCoord.value = -cardWidth
-  }, 300)
-}
-function movePopularLeft() {
-  popularSlideCoord.value += cardWidth
-  popularTransition.value = true
-  setTimeout(() => {
-    popularItems.value.unshift(popularItems.value.pop())
-    popularTransition.value = false
-    popularSlideCoord.value = -cardWidth
-  }, 300)
-}
-
-const communitySlideCoord = ref(-cardWidth)
-const communityTransition = ref(true)
-const communityItems = ref([1, 2, 3])
-function moveCommunityRight() {
-  communitySlideCoord.value -= cardWidth
-  communityTransition.value = true
-  setTimeout(() => {
-    communityItems.value.push(communityItems.value.shift())
-    communityTransition.value = false
-    communitySlideCoord.value = -cardWidth
-  }, 300)
-}
-function moveCommunityLeft() {
-  communitySlideCoord.value += cardWidth
-  communityTransition.value = true
-  setTimeout(() => {
-    communityItems.value.unshift(communityItems.value.pop())
-    communityTransition.value = false
-    communitySlideCoord.value = -cardWidth
-  }, 300)
-}
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/free-mode'
 </script>
 
 <template>
@@ -56,79 +12,71 @@ function moveCommunityLeft() {
     <HeaderSearchMain class="min-h-[168px]" />
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
-      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px]">
+      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
         <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">Popular</h2>
-
-        <div class="flex justify-between px-4 mb-2">
-          <button @click="movePopularLeft">◀️</button>
-          <button @click="movePopularRight">▶️</button>
-        </div>
-
-        <div class="overflow-hidden px-[35px]">
-          <div
-            class="flex gap-[30px]"
-            :class="{ 'transition-all duration-300 ease-in-out': popularTransition }"
-            :style="{ transform: `translate3d(${popularSlideCoord}px, 0, 0)` }"
+        <Swiper
+          :slides-per-view="'auto'"
+          :space-between="30"
+          :centered-slides="true"
+          :initial-slide="1"
+          grab-cursor
+          free-mode
+          class="px-[35px]"
+        >
+          <SwiperSlide
+            v-for="item in [1, 2, 3]"
+            :key="`popular-${item}`"
+            class="!w-[300px] flex flex-col gap-6 flex-shrink-0"
           >
             <div
-              v-for="item in popularItems"
-              :key="'popular-' + item"
-              class="flex flex-col gap-6 w-[300px] flex-shrink-0"
+              class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden mb-[30px]"
             >
-              <div class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden">
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                  alt="캠핑장 사진"
-                  class="w-[100px] h-full object-cover"
-                />
-                <div class="flex flex-col justify-between p-2 flex-1">
-                  <div>
-                    <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                    <p class="text-[10px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
-                  </div>
-                  <div class="w-full h-[1px] bg-[#4B3C2F] my-1"></div>
-                  <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
-                    <img
-                      src="../assets/icons/light/light-caravan-off.svg"
-                      class="w-[16px] h-[16px]"
-                    />
-                    <img
-                      src="../assets/icons/light/light-trailer-on.svg"
-                      class="w-[16px] h-[16px]"
-                    />
-                    <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
-                  </div>
+              <img
+                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
+                alt="캠핑장 사진"
+                class="w-[100px] h-full object-cover"
+              />
+              <div class="flex flex-col justify-between p-2 flex-1">
+                <div>
+                  <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
+                  <p class="text-[10px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-              </div>
-
-              <div class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden">
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                  alt="캠핑장 사진"
-                  class="w-[100px] h-full object-cover"
-                />
-                <div class="flex flex-col justify-between p-2 flex-1">
-                  <div>
-                    <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                    <p class="text-[10px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
-                  </div>
-                  <div class="w-full h-[1px] bg-[#4B3C2F] my-1"></div>
-                  <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
-                    <img
-                      src="../assets/icons/light/light-caravan-off.svg"
-                      class="w-[16px] h-[16px]"
-                    />
-                    <img
-                      src="../assets/icons/light/light-trailer-on.svg"
-                      class="w-[16px] h-[16px]"
-                    />
-                    <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
-                  </div>
+                <div class="w-full h-[1px] bg-[#4B3C2F] my-1"></div>
+                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
+                  <img
+                    src="../assets/icons/light/light-caravan-off.svg"
+                    class="w-[16px] h-[16px]"
+                  />
+                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[16px] h-[16px]" />
+                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+
+            <div class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden">
+              <img
+                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
+                alt="캠핑장 사진"
+                class="w-[100px] h-full object-cover"
+              />
+              <div class="flex flex-col justify-between p-2 flex-1">
+                <div>
+                  <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
+                  <p class="text-[10px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
+                </div>
+                <div class="w-full h-[1px] bg-[#4B3C2F] my-1"></div>
+                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
+                  <img
+                    src="../assets/icons/light/light-caravan-off.svg"
+                    class="w-[16px] h-[16px]"
+                  />
+                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[16px] h-[16px]" />
+                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </section>
 
       <section class="bg-[#FFFFFF] pt-[72px] pb-[72px]">
@@ -177,75 +125,74 @@ function moveCommunityLeft() {
         </ul>
       </section>
 
-      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px]">
+      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
         <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">
           Community
         </h2>
 
-        <div class="flex justify-between px-4 mb-2">
-          <button @click="moveCommunityLeft">◀️</button>
-          <button @click="moveCommunityRight">▶️</button>
-        </div>
-
-        <div class="overflow-hidden px-[35px]">
-          <div
-            class="flex gap-[30px]"
-            :class="{ 'transition-all duration-300 ease-in-out': communityTransition }"
-            :style="{ transform: `translate3d(${communitySlideCoord}px, 0, 0)` }"
+        <Swiper
+          :slides-per-view="'auto'"
+          :space-between="30"
+          :centered-slides="true"
+          :initial-slide="1"
+          grab-cursor
+          free-mode
+          class="px-[35px]"
+        >
+          <SwiperSlide
+            v-for="item in [1, 2, 3]"
+            :key="`popular-${item}`"
+            class="!w-[300px] flex flex-col gap-6 flex-shrink-0"
           >
             <div
-              v-for="item in communityItems"
-              :key="'community-' + item"
-              class="flex flex-col gap-6 w-[300px] flex-shrink-0"
+              class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden mb-[30px]"
             >
-              <div class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden">
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                  alt="캠핑장 사진"
-                  class="w-[100px] h-full object-cover"
-                />
-                <div class="flex flex-col justify-between p-2 flex-1">
-                  <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
-                    서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
-                  </p>
-                  <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px]"></div>
-                  <div class="flex justify-end items-center gap-[10px] mb-[10px]">
-                    <img
-                      src="../assets/icons/light/light-like-outline.svg"
-                      class="w-[20px] h-[20px]"
-                    />
-                    <p class="text-[14px]">8</p>
-                    <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
-                    <p class="text-[14px]">10</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden">
-                <img
-                  src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                  alt="캠핑장 사진"
-                  class="w-[100px] h-full object-cover"
-                />
-                <div class="flex flex-col justify-between p-2 flex-1">
-                  <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
-                    서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
-                  </p>
-                  <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px]"></div>
-                  <div class="flex justify-end items-center gap-[10px] mb-[10px]">
-                    <img
-                      src="../assets/icons/light/light-like-outline.svg"
-                      class="w-[20px] h-[20px]"
-                    />
-                    <p class="text-[14px]">8</p>
-                    <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
-                    <p class="text-[14px]">10</p>
-                  </div>
+              <img
+                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
+                alt="캠핑장 사진"
+                class="w-[100px] h-full object-cover"
+              />
+              <div class="flex flex-col justify-between p-2 flex-1">
+                <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
+                  서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
+                </p>
+                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px]"></div>
+                <div class="flex justify-end items-center gap-[10px] mb-[10px]">
+                  <img
+                    src="../assets/icons/light/light-like-outline.svg"
+                    class="w-[20px] h-[20px]"
+                  />
+                  <p class="text-[14px]">8</p>
+                  <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
+                  <p class="text-[14px]">10</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+
+            <div class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden">
+              <img
+                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
+                alt="캠핑장 사진"
+                class="w-[100px] h-full object-cover"
+              />
+              <div class="flex flex-col justify-between p-2 flex-1">
+                <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
+                  서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
+                </p>
+                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px]"></div>
+                <div class="flex justify-end items-center gap-[10px] mb-[10px]">
+                  <img
+                    src="../assets/icons/light/light-like-outline.svg"
+                    class="w-[20px] h-[20px]"
+                  />
+                  <p class="text-[14px]">8</p>
+                  <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
+                  <p class="text-[14px]">10</p>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </section>
 
       <section class="bg-[#FFFFFF] pt-[72px] pb-[160px]">

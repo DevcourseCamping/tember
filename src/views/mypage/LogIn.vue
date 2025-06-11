@@ -5,15 +5,21 @@ import HeaderSimple from '@/components/common/HeaderSimple.vue'
 import supabase from '@/utils/supabase'
 
 const handleGoogleLogin = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data,error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: window.location.origin
+      redirectTo: window.location.origin,
+      queryParams: {
+      prompt: 'select_account',
+      access_type: 'offline'
+    }
     }
   })
-  if (error) {
-    console.error('로그인 요청 중 에러:', error.message)
-  }
+ if (error) {
+  console.error(error.message)
+} else if (data?.url) {
+  window.location.href = data.url
+}
 }
 </script>
 <template>
