@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useCommunityStore } from '@/stores/community'
+import { useCommunityStore } from '@/stores/communityStore'
 
 import commentIcon from '../../assets/icons/light/light-comment.svg'
 import like from '../../assets/icons/light/light-like-filled.svg'
@@ -14,6 +14,10 @@ const { posts, loading } = storeToRefs(communityStore)
 const router = useRouter()
 const goToDetail = (postId) => {
   router.push(`/community/post/${postId}`)
+}
+const toggleLike = async (event, post) => {
+  event.stopPropagation()
+  await communityStore.toggleLike(post)
 }
 
 onMounted(() => {
@@ -59,12 +63,16 @@ onMounted(() => {
         >
           {{ post.category === 'pet' ? '반려동물' : '일반' }}
         </div>
-        <div class="flex gap-[3px] text-[15px]">
-          <img :src="post.isLiked ? like : unlike" alt="좋아요 아이콘" />
-          <p>{{ post.likeCount }}</p>
-          <img :src="commentIcon" alt="댓글 아이콘" class="pl-[10px]" />
-          <p>{{ post.commentCount }}</p>
-        </div>
+        <template class="flex gap-4 text-sm cursor-pointer">
+          <div class="flex gap-[3px]" @click.stop="toggleLike($event, post)">
+            <img :src="post.isLiked ? like : unlike" alt="좋아요 아이콘" />
+            <p>{{ post.likeCount }}</p>
+          </div>
+          <div class="flex gap-[3px]">
+            <img :src="commentIcon" alt="댓글 아이콘" />
+            <p>{{ post.commentCount }}</p>
+          </div>
+        </template>
       </div>
     </div>
   </div>
