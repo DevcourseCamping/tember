@@ -35,7 +35,7 @@ onMounted(async () => {
     }
   })
 
-  console.log(bookmarkData)
+  // console.log(bookmarkData)
 })
 </script>
 <template>
