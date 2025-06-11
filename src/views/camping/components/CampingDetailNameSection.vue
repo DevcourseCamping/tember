@@ -29,8 +29,6 @@ import light_bookmark_outlined from '../../../assets/icons/light/light-bookmark-
 import supabase from '@/utils/supabase'
 import { onMounted, ref } from 'vue'
 
-// TODO: 로그인 후 유저 아이디 받아오기
-const userId = '15a90d52-1eda-42fe-b59f-075299b3ee79'
 const { campingName, campingInduty, campingId, campingCaravan, campingTrailer, campingPet } =
   defineProps({
     campingName: {
@@ -63,12 +61,36 @@ const bookmarkImage = ref(light_bookmark_outlined)
 const caravanImage = ref(light_caravan_off)
 const trailerImage = ref(light_trailer_off)
 const petImage = ref(light_pet_off)
+const userInfo = ref(null)
+const isBookmarked = ref(false)
 
 const toggleBookmark = async () => {
-  // TODO: 북마크 추가 및 삭제
-  // await supabase.from('bookmarks').insert({
-  //   camp_id: campingId,
-  // })
+  try {
+    if (isBookmarked.value) {
+      // 북마크 삭제
+      const { error } = await supabase
+        .from('bookmark')
+        .delete()
+        .eq('camp_id', campingId)
+        .eq('user_id', userInfo.value.id)
+
+      if (error) throw error
+      alert('북마크가 삭제되었습니다.')
+    } else {
+      // 북마크 추가
+      const { error } = await supabase
+        .from('bookmark')
+        .insert([{ camp_id: campingId, user_id: userInfo.value.id }])
+        .select()
+      if (error) throw error
+
+      alert('북마크가 추가되었습니다.')
+    }
+    await getBookmark()
+  } catch (error) {
+    console.log(error)
+    alert('북마크 추가 또는 삭제에 실패했습니다.')
+  }
 }
 
 const getBookmark = async () => {
@@ -77,24 +99,35 @@ const getBookmark = async () => {
       .from('bookmark')
       .select('*')
       .eq('camp_id', campingId)
-      .eq('user_id', userId)
+      .eq('user_id', userInfo.value.id)
 
-    console.log(data)
     if (error) {
       throw error
     }
     if (data.length > 0) {
       bookmarkImage.value = light_bookmark_filled
+      isBookmarked.value = true
     } else {
       bookmarkImage.value = light_bookmark_outlined
+      isBookmarked.value = false
     }
   } catch (error) {
     console.log(error)
   }
 }
 
+const getUserInfo = async () => {
+  const { data, error } = await supabase.auth.getUser()
+
+  if (error) {
+    console.log(error)
+  } else userInfo.value = data.user
+}
+
 onMounted(async () => {
+  await getUserInfo()
   await getBookmark()
+
   if (campingCaravan === 'Y') {
     caravanImage.value = light_caravan_on
   }
