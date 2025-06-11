@@ -40,10 +40,17 @@ const router = createRouter({
       component: () => import('../views/mypage/LogIn.vue'),
     },
     {
+<<<<<<< HEAD
       path: '/camping/:id',
       name: 'campingDetail',
       component: () => import('../views/camping/CampingDetail.vue'),
     },
+=======
+    path: '/chatbot',
+    name: 'Chatbot',
+    component: ()=> import('../views/ChatBot.vue')
+  }
+>>>>>>> main
   ],
 })
 
