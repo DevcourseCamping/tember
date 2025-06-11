@@ -68,7 +68,7 @@ const getCampingDetail = async () => {
   } catch (error) {
     console.error('캠핑장 정보 조회 실패:', error)
     alert('캠핑장 정보 조회 실패')
-    // router.push('/')
+    router.push('/')
   } finally {
     loading.value = false
   }
