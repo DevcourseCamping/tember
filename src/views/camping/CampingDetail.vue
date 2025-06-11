@@ -21,11 +21,18 @@
       <CampingDetailBtnGroup />
       <CampingDetailIntro :camping-detail="campingDetail.campInfo" />
       <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailInfo />
+      <CampingDetailInfo :camping-intro="campingDetail.campInfo.intro" />
       <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailLocation />
+      <CampingDetailLocation
+        :camping-location="{
+          x: campingDetail.campInfo.map_x,
+          y: campingDetail.campInfo.map_y,
+          add1: campingDetail.campInfo.addr1,
+          add2: campingDetail.campInfo.addr2,
+        }"
+      />
       <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailReview />
+      <CampingDetailReview :camping-review="campingDetail.campReview" />
     </template>
   </div>
 </template>

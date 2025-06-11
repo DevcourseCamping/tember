@@ -1,7 +1,14 @@
 <template>
   <div class="w-full h-[400px] relative">
     <div class="w-full h-full">
-      <img :src="props.campingImage" alt="" class="w-full h-full object-cover rounded-b-[20px]" />
+      <img
+        :src="
+          props.campingImage ||
+          'https://images.unsplash.com/photo-1508873696983-2dfd5898f08b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+        "
+        alt=""
+        class="w-full h-full object-cover rounded-b-[20px]"
+      />
     </div>
     <div class="absolute top-[20px] left-[20px] z-10">
       <img
