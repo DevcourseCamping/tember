@@ -2,14 +2,14 @@
 import CommunityCard from '@/components/common/CommunityCard.vue'
 import HeaderSearch from '@/components/common/HeaderSearch.vue'
 import NavBar from '@/components/common/NavBar.vue'
-import post from '@/assets/icons/light/light-post.svg'
+import post from '@/assets/icons/light/light-post-opacity.svg'
 import { useRouter } from 'vue-router'
+
+// bottom sheet 완성되면 마무리
 const openBottomSheet = () => {
-  console.log('Open Bottom Sheet')
+  console.log('🧸 Open Bottom Sheet')
 }
-
 const router = useRouter()
-
 const goToCreatePost = () => {
   router.push('/community/post/create')
 }

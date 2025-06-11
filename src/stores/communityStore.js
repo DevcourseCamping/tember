@@ -83,6 +83,7 @@ export const useCommunityStore = defineStore('community', () => {
         commentTime: comment.created_at,
         userName: comment.profiles.username,
         userProfile: comment.profiles.avatar_url,
+        userId: comment.user_id,
       }))
 
       return {
@@ -121,6 +122,57 @@ export const useCommunityStore = defineStore('community', () => {
     }
   }
 
+  // add comment
+  const addComment = async (postId, content) => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const userId = session?.user?.id
+      if (!userId) throw new Error('Login is required.')
+
+      const { error } = await supabase.from('comments').insert([
+        {
+          post_id: postId,
+          user_id: userId,
+          content,
+        },
+      ])
+
+      if (error) throw error
+
+      console.log('🧸 Comment added!')
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  // update comment
+  const updateComment = async (commentId, newContent) => {
+    try {
+      const { error } = await supabase
+        .from('comments')
+        .update({ content: newContent })
+        .eq('id', commentId)
+
+      if (error) throw error
+      console.log('🧸 Comment updated!')
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  // delete comment
+  const deleteComment = async (commentId) => {
+    try {
+      const { error } = await supabase.from('comments').delete().eq('id', commentId)
+      if (error) throw error
+      console.log('🧸 Comment deleted!')
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   return {
     posts,
     loading,
@@ -131,5 +183,8 @@ export const useCommunityStore = defineStore('community', () => {
     getCommunityPosts,
     getCommunityPostById,
     toggleLike,
+    addComment,
+    updateComment,
+    deleteComment,
   }
 })
