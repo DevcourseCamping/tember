@@ -5,7 +5,7 @@ defineProps({
 </script>
 <template>
   <div
-    class="inline-flex items-center justify-center h-[25px] px-[15px] rounded-[20px] text-[14px] text-[#222222] border border-[#4B3C2F] cursor-pointer whitespace-nowrap"
+    class="inline-flex items-center justify-center h-[25px] px-[15px] rounded-[20px] text-[14px] text-[#222222] border border-[#--primary] cursor-pointer whitespace-nowrap"
   >
     {{ label }}
   </div>

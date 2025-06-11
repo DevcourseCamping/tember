@@ -38,7 +38,7 @@ const clickSetting = () => {
     <button
     @click="handleLogout"
       href="#"
-      class="absolute bottom-0 w-full h-[60px] bg-[#4B3C2F] flex justify-center items-center text-[18px] text-[#FFFFFF]"
+      class="absolute bottom-0 w-full h-[60px] bg-[#--primary] flex justify-center items-center text-[18px] text-[#FFFFFF]"
     >
       로그아웃
     </button>
