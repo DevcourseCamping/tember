@@ -3,27 +3,27 @@
     <div class="m-[10px] p-[20px] flex flex-col gap-2">
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">환경</span>
-        <span class="text-[#222222] dark:text-white">숲</span>
+        <span class="text-[#222222] dark:text-white">{{ campingDetail.lct_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">사업주체</span>
-        <span class="text-[#222222] dark:text-white">민간</span>
+        <span class="text-[#222222] dark:text-white">{{ campingDetail.faclt_div_nm || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">운영기간</span>
-        <span class="text-[#222222] dark:text-white">봄,여름,가을,겨울</span>
+        <span class="text-[#222222] dark:text-white">{{ campingDetail.oper_pd_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">운영일</span>
-        <span class="text-[#222222] dark:text-white">평일+주말</span>
+        <span class="text-[#222222] dark:text-white">{{ campingDetail.oper_de_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">예약 방법</span>
-        <span class="text-[#222222] dark:text-white">온라인실시간예약</span>
+        <span class="text-[#222222] dark:text-white">{{ campingDetail.resve_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">화로대</span>
-        <span class="text-[#222222] dark:text-white">개별</span>
+        <span class="text-[#222222] dark:text-white">{{ campingDetail.brazier_cl || '-' }}</span>
       </div>
     </div>
   </div>
@@ -63,6 +63,25 @@ import light_amenity_pool from '../../../assets/icons/light/amenity/light-amenit
 import light_amenity_playground from '../../../assets/icons/light/amenity/light-amenity-playground.svg'
 import light_amenity_trampoline from '../../../assets/icons/light/amenity/light-amenity-trampoline.svg'
 import light_amenity_gym from '../../../assets/icons/light/amenity/light-amenity-gym.svg'
+import { onMounted } from 'vue'
+
+const { campingDetail } = defineProps({
+  campingDetail: {
+    type: Object,
+    required: true,
+  },
+})
+
+const getSbrsCl = () => {
+  if (campingDetail.sbrs_cl) {
+    const sbrsCl = campingDetail.sbrs_cl.split(',')
+    console.log(sbrsCl)
+  }
+}
+
+onMounted(() => {
+  getSbrsCl()
+})
 </script>
 
 <style lang="scss" scoped></style>

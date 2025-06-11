@@ -6,10 +6,20 @@
       <CampingDetailSkeleton />
     </template>
     <template v-else>
-      <CampingDetailImageSection />
-      <CampingDetailNameSection />
+      <CampingDetailImageSection
+        :camping-image="campingDetail.campInfo.first_image_url"
+        :review="campingDetail.campReview"
+      />
+      <CampingDetailNameSection
+        :camping-name="campingDetail.campInfo.faclt_nm"
+        :camping-induty="campingDetail.campInfo.induty"
+        :camping-id="campingDetail.campInfo.content_id"
+        :camping-caravan="campingDetail.campInfo.carav_acmpny_at"
+        :camping-trailer="campingDetail.campInfo.trler_acmpny_at"
+        :camping-pet="campingDetail.campInfo.animal_cmg_cl"
+      />
       <CampingDetailBtnGroup />
-      <CampingDetailIntro />
+      <CampingDetailIntro :camping-detail="campingDetail.campInfo" />
       <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
       <CampingDetailInfo />
       <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
@@ -37,7 +47,7 @@ import axios from 'axios'
 const route = useRoute()
 const router = useRouter()
 const campingId = route.params.id
-const loading = ref(false)
+const loading = ref(true)
 const campingDetail = ref(null)
 
 const getCampingDetail = async () => {
