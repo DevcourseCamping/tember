@@ -157,20 +157,22 @@ onMounted(async () => {
     </main>
     <!-- comment input -->
     <section
-      class="flex items-center justify-center absolute bottom-0 w-full h-[60px] bg-[var(--primary)]"
+      class="flex items-center justify-center absolute bottom-0 w-full max-w-[500px] h-[60px] bg-[var(--primary)] px-5"
     >
-      <input
-        v-model="commentInput"
-        class="bg-[var(--white)] w-[390px] h-10 rounded-[5px] mr-[10px] flex items-center px-4 placeholder:font-normal placeholder:text-[var(--grey)] text-[15px] focus:outline-none"
-        placeholder="댓글을 입력해주세요"
-      />
+      <div class="flex w-full gap-[10px] justify-center items-center">
+        <input
+          v-model="commentInput"
+          class="bg-[var(--white)] px-6 w-full h-10 rounded-[5px] flex items-center placeholder:font-normal placeholder:text-[var(--grey)] text-[15px] focus:outline-none"
+          placeholder="댓글을 입력해주세요"
+        />
 
-      <button
-        class="bg-[var(--white)] w-[60px] h-10 rounded-[5px] flex items-center justify-center text-[15px]"
-        @click="submitComment"
-      >
-        등록
-      </button>
+        <button
+          class="bg-[var(--white)] w-[60px] h-10 rounded-[5px] flex items-center justify-center text-[15px]"
+          @click="submitComment"
+        >
+          등록
+        </button>
+      </div>
     </section>
   </div>
 </template>

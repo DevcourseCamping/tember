@@ -72,7 +72,7 @@ const cancelEdit = () => {
       <textarea
         v-else
         v-model="editedContent"
-        class="w-full h-[70px] border px-2 py-1 text-sm rounded scrollbar-hide focus:outline-none resize-none text-[15px]"
+        class="w-full h-[70px] border border-[var(--primary-30)] px-2 py-1 text-sm rounded scrollbar-hide focus:outline-none resize-none text-[15px]"
         :placeholder="comment.content"
       />
     </div>
