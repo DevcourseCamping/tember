@@ -22,7 +22,7 @@ const clickFollow = () => {
   <ProfileSkeleton v-if="isLoading" />
   <div v-else class="flex items-center text-[var(--black)] pt-[35px] pl-[35px]">
     <img
-      :src="profile.user?.avatar_url"
+      :src="profile.user?.image || profile.user?.avatar_url"
       alt="사용자 임시 이미지"
       class="w-[90px] h-[90px] rounded-full"
     />
