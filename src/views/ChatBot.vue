@@ -98,7 +98,7 @@ const scrollToBottom = () => {
       </div>
     </header>
 
-    <main ref="chatContainer" class="flex-1 overflow-y-auto px-8 py-14 flex flex-col gap-y-7">
+    <main ref="chatContainer" class="flex-1 overflow-y-auto px-8 py-14 flex flex-col gap-y-7 scrollbar-hide">
       <div v-for="message in messages" :key="message.id" 
            class="flex items-start space-x-2"
            :class="{'justify-end': message.sender === 'user'}">
@@ -151,11 +151,4 @@ const scrollToBottom = () => {
 </template>
 
 <style scoped>
-main::-webkit-scrollbar {
-  width: 6px;
-}
-main::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.1);
-  border-radius: 3px;
-}
 </style>
