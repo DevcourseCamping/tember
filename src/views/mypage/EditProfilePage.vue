@@ -1,39 +1,108 @@
 <script setup>
 import HeaderSimple from '@/components/common/HeaderSimple.vue'
 import editProfileIcon from '../../assets/icons/light/light-edit-profile.svg'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+import { onMounted, ref } from 'vue'
+import { useUserApi } from '@/composables/user'
 
-const userInfo = {
-  userName: '나는 캠퍼',
-  userImg:
-    'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
+const router = useRouter()
+const profile = useUserStore()
+const username = ref('')
+const fileInput = ref(null)
+const previewImg = ref(null)
+const selectedImg = ref(null)
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = true
+
+  await profile.fetchUser()
+  isLoading.value = false
+})
+
+const clickImg = () => {
+  fileInput.value?.click()
+}
+
+const handleImage = async (e) => {
+  const file = e.target.files[0]
+  if (!file) return
+
+  selectedImg.value = file
+  previewImg.value = URL.createObjectURL(file)
+}
+
+const save = async () => {
+  const formData = new FormData()
+  formData.append('username', username.value)
+  formData.append('userId', profile.user.id)
+  if (selectedImg.value) {
+    formData.append('image', selectedImg.value)
+  }
+
+  try {
+    const { updateUser } = useUserApi()
+
+    const savedUser = await updateUser(formData)
+    profile.updateUser({
+      ...(savedUser.username && { username: savedUser.username }),
+      avatar_url: savedUser.image,
+    })
+  } catch (error) {
+    console.error(error)
+  }
+
+  router.push({ name: 'mypage' })
+}
+
+const clickClose = () => {
+  router.push({ name: 'mypage' })
 }
 </script>
 <template>
-  <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSimple title="프로필 편집" />
+    <HeaderSimple title="프로필 편집" type="close" @click="clickClose" />
 
-    <div class="h-[calc(100vh-250px)] flex flex-col items-center justify-center pt-[100px]">
-      <div class="relative">
-        <img
-          :src="userInfo.userImg"
-          alt="사용자 임시 이미지"
-          class="w-[150px] h-[150px] rounded-full"
-        />
-        <button class="absolute right-0 bottom-0 w-[45px] h-[45px]">
-          <img :src="editProfileIcon" alt="사진 편집" />
-        </button>
+    <div class="h-auto flex flex-col items-center justify-center pt-[100px]">
+      <div v-if="isLoading">
+        <div class="w-[150px] h-[150px] rounded-full bg-[var(--grey)] opacity-30"></div>
       </div>
-      <p class="pt-[40px] font-bold text-[20px]">{{ userInfo.userName }}</p>
+      <div v-else>
+        <div class="relative">
+          <img
+            :src="previewImg || profile.user?.image || profile.user?.avatar_url"
+            alt="사용자 프로필"
+            class="w-[150px] h-[150px] rounded-full"
+          />
+
+          <button class="absolute right-0 bottom-0 w-[45px] h-[45px]" @click="clickImg">
+            <img :src="editProfileIcon" alt="사진 편집" />
+          </button>
+
+          <input
+            type="file"
+            ref="fileInput"
+            accept="image/*"
+            class="hidden"
+            @change="handleImage"
+          />
+        </div>
+      </div>
+
+      <p class="pt-[40px] font-bold text-[20px]">{{ profile.user?.username }}</p>
 
       <input
+        v-model="username"
         type="text"
         placeholder="변경할 닉네임을 입력해주세요"
-        class="w-[440px] h-[60px] border border-[var(--primary)] rounded-[5px] mt-[100px] pl-[25px] focus:outline-none"
+        class="w-full max-w-[400px] h-[60px] border border-[var(--primary)] rounded-[5px] mt-[100px] pl-[25px] focus:outline-none"
       />
 
       <button
-        class="w-[440px] h-[60px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] mt-[200px]"
+        @click="save"
+        class="w-full max-w-[400px] h-[60px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] mt-[200px]"
       >
         저장하기
       </button>
