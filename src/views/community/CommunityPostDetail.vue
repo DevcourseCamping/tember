@@ -1,12 +1,15 @@
 <script setup>
 import HeaderOther from '@/components/common/HeaderOther.vue'
 import { useCommunityStore } from '@/stores/communityStore'
+
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+
 import comment from '@/assets/icons/dark/dark-comment.svg'
 import unlike from '@/assets/icons/dark/dark-like-outline.svg'
 import like from '@/assets/icons/dark/dark-like-filled.svg'
 import supabase from '@/utils/supabase'
+
 import CommentItem from '@/components/community/CommentItem.vue'
 import router from '@/router'
 import PostContent from '@/components/community/PostContent.vue'
@@ -110,19 +113,6 @@ const submitComment = async () => {
   isSubmitting = false
 }
 
-const editComment = async (editedComment) => {
-  if (!editedComment.content.trim()) return
-
-  await communityStore.updateComment(editedComment.id, editedComment.content)
-  post.value = await communityStore.getCommunityPostById(postId)
-}
-
-const deleteComment = async (comment) => {
-  if (!confirm('댓글을 삭제하시겠어요?')) return
-  await communityStore.deleteComment(comment.id)
-  post.value = await communityStore.getCommunityPostById(postId)
-}
-
 const clickLike = async () => {
   if (!post.value) return
   const result = await communityStore.toggleLikeById(post.value.id)
@@ -152,7 +142,21 @@ onMounted(async () => {
 </script>
 <template>
   <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
-    <HeaderOther @navClick="() => router.push('/community')" />
+    <!-- header -->
+    <HeaderOther
+      nav-type="back"
+      menu-type="setting"
+      @navClick="() => router.back()"
+      @menuClick="clickMore"
+    />
+    <!-- 바텀시트 -->
+    <BottomSheetWrapper
+      :show="isBottomOpen"
+      @close="isBottomOpen = false"
+      class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[500px] z-50"
+    >
+      <BottomSheet type="post" @close="clickClose" @select="handleSelect" />
+    </BottomSheetWrapper>
 
     <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
       <div class="flex justify-end gap-3 px-5" v-if="isMyPost && !isEditing">
@@ -233,6 +237,22 @@ onMounted(async () => {
         </section>
       </template>
     </main>
+
+    <!--   
+<BottomSheetWrapper
+    :show="isCommentSheetOpen"
+    @close="isCommentSheetOpen = false"
+  >
+    <BottomSheet
+      type="comment"
+      @close="isCommentSheetOpen = false"
+      @select="key => {
+        isCommentSheetOpen = false
+        if (key === 'edit') startEdit()
+        if (key === 'delete') props.onDelete(c)
+      }"
+    />
+  </BottomSheetWrapper> -->
   </div>
 </template>
 <style scoped>

@@ -6,6 +6,9 @@ import HeaderSimple from '@/components/common/HeaderSimple.vue'
 import ImageUploader from '../../components/community/ImageUploader.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 
+const handleClose = () => {
+  router.back()
+}
 const communityStore = useCommunityStore()
 
 const router = useRouter()
@@ -31,7 +34,7 @@ const submitPost = async () => {
 <template>
   <main class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSimple title="글쓰기" />
+    <HeaderSimple title="글쓰기" nav-type="close" center-content="title" @navClick="handleClose" />
     <!-- main -->
     <form class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 80px)">
       <!-- category -->
