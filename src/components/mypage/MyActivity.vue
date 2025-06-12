@@ -35,4 +35,3 @@ const clickTab = ref('review')
     <BookmarkCard v-if="clickTab === 'bookmark'" />
   </div>
 </template>
-<style scoped></style>
