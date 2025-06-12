@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import { ref } from 'vue'
-import SearchFilter from '@/components/common/SearchFilter.vue'
+import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 
 const isFilterModalOpen = ref(false)
 
