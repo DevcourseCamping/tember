@@ -11,12 +11,14 @@
   --black-20: #22222220;
   --black-30: #22222230;
   --black-50: #22222250;
+  --black-70: #22222270;
   --grey: #a8aeb2;
   --primary: #4b3c2f;
   --primary-20: #4b3c2f20;
   --primary-30: #4b3c2f30;
   --primary-50: #4b3c2f50;
   --red: #ff2b41;
+  --blue: #2563eb;
 }
 
 @font-face {
