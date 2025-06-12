@@ -35,6 +35,16 @@ const router = createRouter({
       component: () => import('../views/mypage/MyPage.vue'),
     },
     {
+      path: '/mypage/edit',
+      name: 'edit',
+      component: () => import('../views/mypage/EditProfilePage.vue'),
+    },
+    {
+      path: '/mypage/follow',
+      name: 'follow',
+      component: () => import('../views/mypage/FollowPage.vue'),
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/mypage/LogIn.vue'),

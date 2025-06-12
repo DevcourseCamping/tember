@@ -9,61 +9,74 @@ import offPetIcon from '../../assets/icons/light/light-pet-off.svg'
 import onTrailerIcon from '../../assets/icons/light/light-trailer-on.svg'
 import offTrailerIcon from '../../assets/icons/light/light-trailer-off.svg'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
+import { useUserStore } from '@/stores/userStore'
+import { onMounted, ref } from 'vue'
+import { useUserApi } from '@/composables/user'
 
-const bookmark = [
-  {
-    category: '글램핑',
-    name: '포천 썬오브 글램핑카라반',
-    filter: {
-      caravan: true,
-      trailer: false,
-      pet: false,
-    },
-    region: '경기도 포천시',
-    campingImg:
-      'https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
-    isMarked: true,
-  },
-]
+const profile = useUserStore()
+const bookmarks = ref([])
+
+onMounted(async () => {
+  const { getBookmark } = useUserApi()
+  const user = await profile.fetchUser()
+  if (!user || !user.id) return
+
+  const bookmarkData = await getBookmark(user.id)
+  bookmarks.value = bookmarkData.map((item) => {
+    const site = item.camp_sites || {}
+    return {
+      ...item,
+      isMarked: true,
+      filter: {
+        pet: site.animal_cmg_cl === '가능',
+        caravan: site.carav_acmpny_at === 'Y',
+        trailer: site.trler_acmpny_at === 'Y',
+      },
+    }
+  })
+
+  // console.log(bookmarkData)
+})
 </script>
 <template>
   <div class="p-[30px] flex flex-col gap-[30px]">
     <div
-      v-for="(favorite, index) in bookmark"
-      :key="index"
+      v-for="item in bookmarks"
+      :key="item.camp_id"
       class="relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
     >
       <img
-        :src="favorite.campingImg"
+        v-if="item.camp_sites.first_image_url"
+        :src="item.camp_sites.first_image_url"
         alt="임시 캠핑장 이미지"
         class="w-[440px] h-[216px] rounded-tl-[5px] rounded-tr-[5px]"
       />
       <div class="flex flex-col pl-[15px]">
         <div class="flex items-center justify-between pt-[15px]">
-          <p class="text-[14px] text-[var(--black)]">{{ favorite.category }}</p>
+          <p class="text-[14px] text-[var(--black)]">{{ item.camp_sites.induty }}</p>
           <img
-            :src="favorite.isMarked ? filledBookmarkIcon : outlineBookmarkIcon"
+            :src="item.isMarked ? filledBookmarkIcon : outlineBookmarkIcon"
             alt="북마크"
             class="pr-[15px]"
           />
         </div>
 
-        <p class="font-semibold text-[17px]">{{ favorite.name }}</p>
-        <p class="text-[var(--grey)] pt-[5px] text-[15px]">{{ favorite.region }}</p>
+        <p class="font-semibold text-[17px]">{{ item.camp_sites.faclt_nm }}</p>
+        <p class="text-[var(--grey)] pt-[5px] text-[15px]">{{ item.camp_sites.sigungu_nm }}</p>
 
         <div class="flex gap-[20px] pb-[20px] pt-[20px]">
           <img
-            :src="favorite.filter.caravan ? onCaravanIcon : offCaravanIcon"
+            :src="item.filter?.caravan ? onCaravanIcon : offCaravanIcon"
             alt="카라반"
             class="w-[24px] h-[24px]"
           />
           <img
-            :src="favorite.filter.trailer ? onTrailerIcon : offTrailerIcon"
+            :src="item.filter?.trailer ? onTrailerIcon : offTrailerIcon"
             alt="트레일러"
             class="w-[24px] h-[24px]"
           />
           <img
-            :src="favorite.filter.pet ? onPetIcon : offPetIcon"
+            :src="item.filter?.pet ? onPetIcon : offPetIcon"
             alt="반려동물"
             class="w-[24px] h-[24px]"
           />
