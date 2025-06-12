@@ -18,7 +18,7 @@ const handleFilterClick = () => {
 
 const handleFilterClose = () => {
   isFilterModalOpen.value = false
-
+}
 const handleCategoryClick = (category) => {
   if (category === 'chatbot') {
     router.push('/chatbot')
@@ -31,7 +31,11 @@ const handleCategoryClick = (category) => {
 
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
-    <HeaderSearchMain @filterClick="handleFilterClick" @categoryClick="handleCategoryClick" class="min-h-[168px]" />
+    <HeaderSearchMain
+      @filterClick="handleFilterClick"
+      @categoryClick="handleCategoryClick"
+      class="min-h-[168px]"
+    />
     <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
       <SearchFilter @close="handleFilterClose" />
     </div>
