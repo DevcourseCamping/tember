@@ -11,6 +11,19 @@ const profile = useUserStore()
 const posts = ref([])
 const isLoading = ref(true)
 
+const formDate = (value) => {
+  const now = new Date()
+  const timeValue = new Date(value)
+
+  const time = Math.floor(now.getTime() - timeValue.getTime()) / 1000
+  if (time < 60) return '방금 전'
+  if (time < 3600) return `${Math.floor(time / 60)}분 전`
+  if (time < 86400) return `${Math.floor(time / 3600)}시간 전`
+  if (time < 31536000) return `${Math.floor(time / 86400)}일 전`
+
+  return `${Math.floor(time / 31536000)}년 전`
+}
+
 onMounted(async () => {
   isLoading.value = true
   const user = await profile.fetchUser()
@@ -56,8 +69,8 @@ onMounted(async () => {
               class="w-[52px] h-[52px] rounded-full mr-[15px]"
             />
             <div class="flex flex-col justify-center">
-              <p class="text-[15px] font-semibold">{{ post.profiles.username }}</p>
-              <p class="text-[13px] text-[var(--grey)]">{{ post.created_at }}</p>
+              <p class="text-[14px] font-semibold">{{ post.profiles.username }}</p>
+              <p class="text-[13px] text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
             </div>
           </div>
         </div>
