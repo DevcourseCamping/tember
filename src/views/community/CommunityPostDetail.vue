@@ -7,8 +7,9 @@ import comment from '@/assets/icons/dark/dark-comment.svg'
 import unlike from '@/assets/icons/dark/dark-like-outline.svg'
 import like from '@/assets/icons/dark/dark-like-filled.svg'
 import supabase from '@/utils/supabase'
-import CommentItem from '@/components/community/CommentItem.vue'
+// import CommentItem from '@/components/community/CommentItem.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
+import more from '@/assets/icons/light/light-more.svg'
 
 const route = useRoute()
 const router=useRouter()
@@ -42,6 +43,10 @@ const handleSelect = (key) => {
   }
 }
 
+const isCommentSheetOpen = ref(false)
+// const openCommentMenu = () => { isCommentSheetOpen.value = true }
+// const closeCommentMenu = () => { isCommentSheetOpen.value = false }
+
 console.log('🧸 postId:', postId)
 
 const clickLike = async () => {
@@ -69,27 +74,27 @@ const submitComment = async () => {
   commentInput.value = ''
 }
 
-const editComment = async (editedComment) => {
-  if (!editedComment.content.trim()) return
+// const editComment = async (editedComment) => {
+//   if (!editedComment.content.trim()) return
 
-  const { error } = await supabase
-    .from('comments')
-    .update({ content: editedComment.content })
-    .eq('id', editedComment.id)
+//   const { error } = await supabase
+//     .from('comments')
+//     .update({ content: editedComment.content })
+//     .eq('id', editedComment.id)
 
-  if (error) {
-    console.error(error)
-    return
-  }
+//   if (error) {
+//     console.error(error)
+//     return
+//   }
 
-  post.value = await communityStore.getCommunityPostById(postId)
-}
+//   post.value = await communityStore.getCommunityPostById(postId)
+// }
 
-const deleteComment = async (comment) => {
-  if (!confirm('댓글을 삭제하시겠어요?')) return
-  await communityStore.deleteComment(comment.id)
-  post.value = await communityStore.getCommunityPostById(postId)
-}
+// const deleteComment = async (comment) => {
+//   if (!confirm('댓글을 삭제하시겠어요?')) return
+//   await communityStore.deleteComment(comment.id)
+//   post.value = await communityStore.getCommunityPostById(postId)
+// }
 
 onMounted(async () => {
   const {
@@ -178,14 +183,47 @@ onMounted(async () => {
         </div>
         <!-- comment list -->
         <ul class="flex flex-col gap-[30px]">
-          <CommentItem
+          <!-- <CommentItem
             v-for="comment in post.comments"
             :key="comment.id"
             :comment="comment"
             :loginUserId="loginUserId"
             :onEdit="editComment"
             :onDelete="deleteComment"
+          /> -->
+          <li
+        v-for="c in post.comments"
+        :key="c.id"
+        class="rounded-[5px] w-full border p-4 border-[var(--primary-30)]"
+      >
+        <div class="flex items-center mb-5 justify-between">
+          <div class="flex items-center">
+            <img :src="c.userProfile" class="w-10 h-10 rounded-full mr-[15px]" />
+            <div>
+              <p class="font-bold text-[14px] mb-[5px]">{{ c.userName }}</p>
+              <p class="text-[var(--grey)] text-[13px]">{{ c.commentTime }}</p>
+            </div>
+          </div>
+
+          <template v-if="c.userId === loginUserId">
+           <div class="w-5 h-5 cursor-pointer" @click="isCommentSheetOpen = true">
+             <img :src="more" alt="메뉴" />
+           </div>
+          </template>
+        </div>
+
+        <div>
+          <p v-if="!isEditing" class="text-[15px]">{{ c.content }}</p>
+          <textarea
+            v-else
+            v-model="editedContent"
+            class="w-full h-[70px] border border-[var(--primary-30)]
+                   px-2 py-1 text-sm rounded scrollbar-hide
+                   focus:outline-none resize-none text-[15px]"
+            :placeholder="c.content"
           />
+        </div>
+      </li>
         </ul>
       </section>
     </main>
@@ -208,6 +246,27 @@ onMounted(async () => {
         </button>
       </div>
     </section>
+    <Teleport to="body">
+      <div
+        v-if="isCommentSheetOpen"
+        class="fixed bottom-0 left-1/2 transform -translate-x-1/2
+               w-full max-w-[500px] z-50"
+      >
+        <BottomSheet
+          type="comment"
+          @close="isCommentSheetOpen = false"
+          @select="key => {
+            isCommentSheetOpen = false
+            if (key === 'edit') {
+              startEdit()
+            }
+            if (key === 'delete') {
+              props.onDelete(c)
+            }
+          }"
+        />
+      </div>
+    </Teleport>
   </div>
 </template>
 <style scoped></style>
