@@ -1,15 +1,27 @@
 <script setup>
 import HeaderSearchMain from '@/components/common/HeaderSearchMain.vue'
 import NavBar from '@/components/common/NavBar.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
+
+const handleCategoryClick = (category) => {
+  if (category === 'chatbot') {
+    router.push('/chatbot')
+  } else {
+    console.log('선택된 카테고리:', category)
+    // 다른 카테고리에 대한 처리도 여기에.. 다른 카테고리는 무슨 페이지가 나오는지 모르겠음 ㅠㅠ
+  }
+}
 </script>
 
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
-    <HeaderSearchMain class="min-h-[168px]" />
+    <HeaderSearchMain class="min-h-[168px]" @categoryClick="handleCategoryClick" />
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
       <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">

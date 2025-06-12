@@ -4,6 +4,13 @@ import close from '@/assets/icons/close-white.svg'
 import chatbotWhite from '@/assets/icons/chatbot-white.svg'
 import chatbotBrown from '@/assets/icons/chatbot-brown.svg'
 import send from '@/assets/icons/light/light-send.svg'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleClose = () => {
+  router.back()
+}
 
 console.log('읽어온 API 키:', import.meta.env.VITE_OPENAI_API_KEY); 
 
@@ -89,7 +96,7 @@ const scrollToBottom = () => {
 <template>
   <div class="w-[500px] h-screen bg-[var(--white)] mx-auto flex flex-col">
     <header class="h-[80px] bg-[--primary] flex items-center px-6 rounded-b-2xl flex-shrink-0">
-      <img :src="close" class="w-5 h-5 mr-6 cursor-pointer" />
+      <img :src="close" class="w-5 h-5 mr-6 cursor-pointer" @click="handleClose" />
       <div class="flex items-center gap-4">
         <img :src="chatbotWhite" class="w-10 h-10" />
         <p class="font-['PostNoBillsJaffna'] font-extrabold text-white flex items-center h-10 text-lg">
