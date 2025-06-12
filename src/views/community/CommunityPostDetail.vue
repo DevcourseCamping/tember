@@ -154,7 +154,7 @@ onMounted(async () => {
   <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
     <HeaderOther @navClick="() => router.push('/community')" />
 
-    <main class="overflow-y-auto scrollbar-hide pb-[60px]" style="height: calc(100vh - 80px)">
+    <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
       <div class="flex justify-end gap-3 px-5" v-if="isMyPost && !isEditing">
         <div @click="startEdit" class="cursor-pointer">게시글 수정</div>
         <div @click="deletePost" class="cursor-pointer">게시글 삭제</div>
