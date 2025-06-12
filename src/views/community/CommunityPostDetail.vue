@@ -2,14 +2,16 @@
 import HeaderOther from '@/components/common/HeaderOther.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 import comment from '@/assets/icons/dark/dark-comment.svg'
 import unlike from '@/assets/icons/dark/dark-like-outline.svg'
 import like from '@/assets/icons/dark/dark-like-filled.svg'
 import supabase from '@/utils/supabase'
 import CommentItem from '@/components/community/CommentItem.vue'
+import BottomSheet from '@/components/common/BottomSheet.vue'
 
 const route = useRoute()
+const router=useRouter()
 const postId = route.params.postId
 const communityStore = useCommunityStore()
 
@@ -18,14 +20,29 @@ const isLiked = ref(false)
 const commentInput = ref('')
 const loginUserId = ref(null)
 
-console.log('🧸 postId:', postId)
-
+const isBottomOpen = ref(false)
 const clickMore = () => {
+  isBottomOpen.value = true
   console.log('more')
 }
 const clickClose = () => {
+  isBottomOpen.value = false
   console.log('close')
 }
+
+const handleSelect = (key) => {
+  isBottomOpen.value = false
+  if (key === 'edit') {
+    router.push({ name: 'communityPostCreate', params: { postId } })
+  }
+  if (key === 'delete') {
+    communityStore.deletePost(postId).then(() => {
+      router.push({ name: 'communityList' })
+    })
+  }
+}
+
+console.log('🧸 postId:', postId)
 
 const clickLike = async () => {
   if (!loginUserId.value || !post.value) return
@@ -104,7 +121,24 @@ onMounted(async () => {
     class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2"
   >
     <!-- header -->
-    <HeaderOther @navClick="clickClose" @menuClick="clickMore" />
+    <HeaderOther nav-type="back"
+      menu-type="setting"
+      @navClick="() => router.back()"
+      @menuClick="clickMore" />
+    <!-- 바텀시트 -->
+    <Teleport to="body">
+      <div
+        v-if="isBottomOpen"
+        class="fixed bottom-0 left-1/2 transform -translate-x-1/2
+               w-full max-w-[500px] z-50"
+      >
+        <BottomSheet
+          type="post"
+          @close="clickClose"
+          @select="handleSelect"
+        />
+      </div>
+    </Teleport>
     <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 60px)">
       <!-- post header -->
