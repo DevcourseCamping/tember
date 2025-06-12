@@ -5,25 +5,39 @@ import filledLikeIcon from '../../assets/icons/light/light-like-filled.svg'
 import outlineLikeIcon from '../../assets/icons/light/light-like-outline.svg'
 import { useUserStore } from '@/stores/userStore'
 import { useUserApi } from '@/composables/user'
+import CommunitySkeleton from '../mypage/CommunitySkeleton.vue'
 
 const profile = useUserStore()
 const posts = ref([])
+const isLoading = ref(true)
 
 onMounted(async () => {
+  isLoading.value = true
   const user = await profile.fetchUser()
-  if (!user || !user.id) return
+  if (!user || !user.id) {
+    isLoading.value = false
+    return
+  }
 
-  const { getPost } = useUserApi()
-  const postData = await getPost(user.id)
+  try {
+    const { getPost } = useUserApi()
+    const postData = await getPost(user.id)
 
-  posts.value = postData.data
-  // console.log(postData.data)
+    posts.value = postData.data
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoading.value = false
+  }
 })
 </script>
 <template>
   <div class="p-[30px] flex flex-col">
+    <div v-if="isLoading">
+      <CommunitySkeleton v-for="n in 4" :key="n" />
+    </div>
     <div
-      v-if="posts.length === 0"
+      v-else-if="posts.length === 0"
       class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-450px)]"
     >
       작성하신 게시글이 없습니다.
@@ -37,7 +51,7 @@ onMounted(async () => {
         <div class="flex items-center justify-between pl-[15px] pt-[15px]">
           <div class="flex items-center">
             <img
-              :src="post.profiles.avatar_url"
+              :src="post.profiles.image || post.profiles.avatar_url"
               alt="임시 사용자 이미지"
               class="w-[52px] h-[52px] rounded-full mr-[15px]"
             />
