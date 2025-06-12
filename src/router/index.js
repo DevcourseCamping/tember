@@ -50,10 +50,15 @@ const router = createRouter({
       component: () => import('../views/mypage/LogIn.vue'),
     },
     {
-    path: '/chatbot',
-    name: 'Chatbot',
-    component: ()=> import('../views/ChatBot.vue')
-  }
+      path: '/camping/:id',
+      name: 'campingDetail',
+      component: () => import('../views/camping/CampingDetail.vue'),
+    },
+    {
+      path: '/chatbot',
+      name: 'Chatbot',
+      component: () => import('../views/ChatBot.vue'),
+    },
   ],
 })
 
