@@ -9,70 +9,105 @@ import offPetIcon from '../../assets/icons/light/light-pet-off.svg'
 import onTrailerIcon from '../../assets/icons/light/light-trailer-on.svg'
 import offTrailerIcon from '../../assets/icons/light/light-trailer-off.svg'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
+import { useUserStore } from '@/stores/userStore'
+import { onMounted, ref } from 'vue'
+import { useUserApi } from '@/composables/user'
+import BookmarkSkeleton from '../mypage/BookmarkSkeleton.vue'
 
-const bookmark = [
-  {
-    category: '글램핑',
-    name: '포천 썬오브 글램핑카라반',
-    filter: {
-      caravan: true,
-      trailer: false,
-      pet: false,
-    },
-    region: '경기도 포천시',
-    campingImg:
-      'https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
-    isMarked: true,
-  },
-]
+const profile = useUserStore()
+const bookmarks = ref([])
+const defaultImage =
+  'https://images.unsplash.com/photo-1492648272180-61e45a8d98a7?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D'
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = true
+  const { getBookmark } = useUserApi()
+  const user = await profile.fetchUser()
+  if (!user || !user.id) {
+    isLoading.value = false
+    return
+  }
+
+  try {
+    const bookmarkData = await getBookmark(user.id)
+    bookmarks.value = bookmarkData.map((item) => {
+      const site = item.camp_sites || {}
+      return {
+        ...item,
+        isMarked: true,
+        filter: {
+          pet: site.animal_cmg_cl === '가능',
+          caravan: site.carav_acmpny_at === 'Y',
+          trailer: site.trler_acmpny_at === 'Y',
+        },
+      }
+    })
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoading.value = false
+  }
+})
 </script>
 <template>
-  <div class="p-[30px] flex flex-col gap-[30px]">
+  <div class="p-[30px] flex flex-col">
+    <div v-if="isLoading">
+      <BookmarkSkeleton v-for="n in 2" :key="n" class="mb-[30px]" />
+    </div>
     <div
-      v-for="(favorite, index) in bookmark"
-      :key="index"
-      class="relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+      v-else-if="bookmarks.length === 0"
+      class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-450px)]"
     >
-      <img
-        :src="favorite.campingImg"
-        alt="임시 캠핑장 이미지"
-        class="w-[440px] h-[216px] rounded-tl-[5px] rounded-tr-[5px]"
-      />
-      <div class="flex flex-col pl-[15px]">
-        <div class="flex items-center justify-between pt-[15px]">
-          <p class="text-[14px] text-[var(--black)]">{{ favorite.category }}</p>
-          <img
-            :src="favorite.isMarked ? filledBookmarkIcon : outlineBookmarkIcon"
-            alt="북마크"
-            class="pr-[15px]"
-          />
-        </div>
+      북마크한 캠핑장이 없습니다.
+    </div>
+    <div v-else>
+      <div
+        v-for="item in bookmarks"
+        :key="item.camp_id"
+        class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+      >
+        <img
+          :src="item.camp_sites.first_image_url ? item.camp_sites.first_image_url : defaultImage"
+          alt="임시 캠핑장 이미지"
+          class="w-[440px] h-[216px] rounded-tl-[5px] rounded-tr-[5px]"
+        />
+        <div class="flex flex-col pl-[15px]">
+          <div class="flex items-center justify-between pt-[15px]">
+            <p class="text-[14px] text-[var(--black)]">{{ item.camp_sites.induty }}</p>
+            <img
+              :src="item.isMarked ? filledBookmarkIcon : outlineBookmarkIcon"
+              alt="북마크"
+              class="pr-[15px]"
+            />
+          </div>
 
-        <p class="font-semibold text-[17px]">{{ favorite.name }}</p>
-        <p class="text-[var(--grey)] pt-[5px] text-[15px]">{{ favorite.region }}</p>
+          <p class="font-semibold text-[17px]">{{ item.camp_sites.faclt_nm }}</p>
+          <p class="text-[var(--grey)] pt-[5px] text-[15px]">{{ item.camp_sites.sigungu_nm }}</p>
 
-        <div class="flex gap-[20px] pb-[20px] pt-[20px]">
-          <img
-            :src="favorite.filter.caravan ? onCaravanIcon : offCaravanIcon"
-            alt="카라반"
-            class="w-[24px] h-[24px]"
-          />
-          <img
-            :src="favorite.filter.trailer ? onTrailerIcon : offTrailerIcon"
-            alt="트레일러"
-            class="w-[24px] h-[24px]"
-          />
-          <img
-            :src="favorite.filter.pet ? onPetIcon : offPetIcon"
-            alt="반려동물"
-            class="w-[24px] h-[24px]"
-          />
-        </div>
-        <div
-          class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
-        >
-          <p class="text-[var(--white)]">4.8</p>
-          <img :src="filledStarIcon" alt="별점" class="w-[20px] h-[20px]" />
+          <div class="flex gap-[20px] pb-[20px] pt-[20px]">
+            <img
+              :src="item.filter?.caravan ? onCaravanIcon : offCaravanIcon"
+              alt="카라반"
+              class="w-[24px] h-[24px]"
+            />
+            <img
+              :src="item.filter?.trailer ? onTrailerIcon : offTrailerIcon"
+              alt="트레일러"
+              class="w-[24px] h-[24px]"
+            />
+            <img
+              :src="item.filter?.pet ? onPetIcon : offPetIcon"
+              alt="반려동물"
+              class="w-[24px] h-[24px]"
+            />
+          </div>
+          <div
+            class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
+          >
+            <p class="text-[var(--white)]">4.8</p>
+            <img :src="filledStarIcon" alt="별점" class="w-[20px] h-[20px]" />
+          </div>
         </div>
       </div>
     </div>

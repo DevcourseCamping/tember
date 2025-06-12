@@ -18,7 +18,7 @@ const props = defineProps({
 const emit = defineEmits(['navClick'])
 </script>
 <template>
-  <header class="relative h-20 bg-[var(--white)] flex items-center">
+  <header class="relative w-full max-w-[500px] h-20 bg-[var(--white)] flex items-center">
     <button @click="emit('navClick')" class="absolute left-[30px]">
       <img v-if="props.navType === 'close'" :src="close" class="w-5 h-5" />
       <img v-else :src="back" class="w-7 h-7" />

@@ -45,7 +45,7 @@ const setRating = (index) => {
     </div>
 
     <div class="flex items-center justify-center pt-[50px]">
-      <hr class="w-[440px] border-[#4B3C2F]/20" />
+      <hr class="w-[440px] border-[#--primary]/20" />
     </div>
 
     <div class="flex flex-col items-center justify-center pt-[50px]">
@@ -58,15 +58,15 @@ const setRating = (index) => {
         <div v-for="(_, index) in labels" :key="index" class="flex items-center">
           <!-- 원 -->
           <div
-            class="w-[50px] h-[50px] rounded-full border border-[#4B3C2F]/30 transition-colors cursor-pointer"
-            :class="selected === index ? 'bg-[#4B3C2F]' : 'bg-transparent'"
+            class="w-[50px] h-[50px] rounded-full border border-[#--primary]/30 transition-colors cursor-pointer"
+            :class="selected === index ? 'bg-[#--primary]' : 'bg-transparent'"
             @click="selected = index"
           ></div>
 
           <!-- 선 -->
           <div
             v-if="index < labels.length - 1"
-            class="h-[1px] w-[62px] bg-[#4B3C2F]/30 border border-dotted"
+            class="h-[1px] w-[62px] bg-[#--primary]/30 border border-dotted"
           ></div>
         </div>
       </div>
@@ -74,7 +74,7 @@ const setRating = (index) => {
         <p
           v-for="(label, index) in labels"
           class="text-[15px] font-semibold transition-colors"
-          :class="selected === index ? 'text-[#222222]' : 'text-[#A8AEB2]'"
+          :class="selected === index ? 'text-[#222222]' : 'text-[#--grey]'"
         >
           {{ label }}
         </p>
@@ -82,7 +82,7 @@ const setRating = (index) => {
     </div>
 
     <div class="flex items-center justify-center pt-[50px]">
-      <hr class="w-[440px] border-[#4B3C2F]/20" />
+      <hr class="w-[440px] border-[#--primary]/20" />
     </div>
 
     <div class="flex flex-col items-center justify-center pt-[50px]">
@@ -92,14 +92,14 @@ const setRating = (index) => {
     <div class="flex items-center justify-center pt-[40px]">
       <textarea
         maxlength="50"
-        class="w-[440px] h-[173px] border border-[#4B3C2F]/30 rounded-[5px] focus:outline-none p-[25px] text-[15px] placeholder:text-[#A8AEB2]"
+        class="w-[440px] h-[173px] border border-[#--primary]/30 rounded-[5px] focus:outline-none p-[25px] text-[15px] placeholder:text-[#--grey]"
         placeholder="한 줄 리뷰를 작성해주세요. (50자 이내)"
       ></textarea>
     </div>
 
     <!-- footer -->
     <button
-      class="absolute bottom-0 w-full h-[60px] bg-[#4B3C2F] flex justify-center items-center text-[18px] text-[#FFFFFF]"
+      class="absolute bottom-0 w-full h-[60px] bg-[#--primary] flex justify-center items-center text-[18px] text-[#FFFFFF]"
     >
       등록하기
     </button>

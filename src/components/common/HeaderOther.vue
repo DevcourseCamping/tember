@@ -20,7 +20,7 @@ const emit = defineEmits(['navClick', 'menuClick'])
 
 <template>
   <header>
-    <div class="h-[80px] flex items-center px-[30px] justify-between">
+    <div class="w-full max-w-[500px] h-[80px] flex items-center px-[30px] justify-between">
       <button @click="emit('navClick')">
         <img v-if="props.navType === 'close'" :src="close" class="w-5 h-5" />
         <img v-else :src="back" class="w-7 h-7" />
