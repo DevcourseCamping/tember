@@ -2,11 +2,14 @@
 import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCommunityStore } from '@/stores/communityStore'
-
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper/modules'
+import { useRouter } from 'vue-router'
+import 'swiper/css'
+import 'swiper/css/pagination'
 import commentIcon from '../../assets/icons/light/light-comment.svg'
 import like from '../../assets/icons/light/light-like-filled.svg'
 import unlike from '../../assets/icons/light/light-like-outline.svg'
-import { useRouter } from 'vue-router'
 import SkeletonPostCard from './SkeletonPostCard.vue'
 
 const communityStore = useCommunityStore()
@@ -21,6 +24,15 @@ const toggleLike = async (event, post) => {
   await communityStore.toggleLike(post)
 }
 
+const parseImage = (imageField) => {
+  try {
+    const parsed = JSON.parse(imageField)
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
 onMounted(() => {
   communityStore.getCommunityPosts()
 })
@@ -29,7 +41,6 @@ onMounted(() => {
   <div class="p-[30px] flex flex-col gap-[30px]">
     <SkeletonPostCard v-if="loading" />
     <div
-      v-else
       v-for="post in posts"
       :key="post.id"
       class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
@@ -50,8 +61,29 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div v-if="post.image">
-        <img :src="post.image" alt="게시글 이미지" class="w-[440px] h-[400px] pt-[15px]" />
+      <div v-if="parseImage(post.image).length">
+        <section v-if="parseImage(post.image).length === 1">
+          <img
+            :src="parseImage(post.image)[0]"
+            alt="게시글 이미지"
+            class="w-full h-[400px] pt-[15px] object-cover"
+          />
+        </section>
+        <section v-else class="pt-[15px]">
+          <Swiper
+            :modules="[Pagination]"
+            :pagination="{ clickable: true }"
+            class="w-full h-[400px]"
+          >
+            <SwiperSlide
+              v-for="(img, idx) in parseImage(post.image)"
+              :key="idx"
+              class="w-full h-full"
+            >
+              <img :src="img" class="w-full h-full object-cover" />
+            </SwiperSlide>
+          </Swiper>
+        </section>
       </div>
       <div class="pt-5 pl-5 pr-5 text-[15px]">
         <p class="break-words">
@@ -78,3 +110,23 @@ onMounted(() => {
     </div>
   </div>
 </template>
+<style scoped>
+:deep(.swiper-pagination) {
+  bottom: 10px !important;
+  text-align: center;
+}
+
+:deep(.swiper-pagination-bullet) {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-30);
+  opacity: 1;
+  margin: 0 4px;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: var(--primary);
+}
+</style>
