@@ -6,6 +6,8 @@ import MyProfile from '@/components/mypage/MyProfile.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import supabase from '@/utils/supabase'
+import NavBar from '@/components/common/NavBar.vue'
+import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 
 const isBottomOpen = ref(false)
 
@@ -28,15 +30,18 @@ const clickSetting = () => {
   isBottomOpen.value = !isBottomOpen.value
 }
 
-const handleSelect = (key) => {
+const handleSelect = async (key) => {
+  isBottomOpen.value = false
+
   if (key === 'edit') {
     router.push({ name: 'edit' })
+  } else if (key === 'logout') {
+    await handleLogout()
   }
 }
 </script>
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
-    <!-- header -->
     <HeaderOther
       nav-type="back"
       menu-type="setting"
@@ -47,15 +52,10 @@ const handleSelect = (key) => {
     <MyProfile />
     <MyActivity />
 
-    <BottomSheet v-if="isBottomOpen" type="my" @close="clickSetting" @select="handleSelect" />
-    <!-- footer -->
-    <button
-      v-if="!isBottomOpen"
-      @click="handleLogout"
-      href="#"
-      class="absolute bottom-0 w-full h-[60px] bg-[#--primary] flex justify-center items-center text-[18px] text-[#FFFFFF]"
-    >
-      로그아웃
-    </button>
+    <BottomSheetWrapper v-show="isBottomOpen" :show="isBottomOpen" @close="!isBottomOpen">
+      <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
+    </BottomSheetWrapper>
+
+    <NavBar v-if="!isBottomOpen" class="absolute bottom-0 w-full h-[60px]" />
   </div>
 </template>
