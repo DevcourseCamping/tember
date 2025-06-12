@@ -4,6 +4,7 @@ import HeaderSearch from '@/components/common/HeaderSearch.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
+import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -44,18 +45,15 @@ const goToCreatePost = () => {
       <img :src="post" />
     </div>
   </div>
-    <Teleport to="body">
-   <div
-     v-if="isBottomOpen"
-     class="fixed bottom-0 left-1/2 transform -translate-x-1/2
-             w-full max-w-[500px] z-50"
-   >
-     <BottomSheet
-       type="sort"
-       @select="handleSelect"
-       @close="closeSheet"
-     />
-   </div>
-  </Teleport>
+    <BottomSheetWrapper
+    :show="isBottomOpen"
+    @close="closeSheet"
+  >
+    <BottomSheet
+      type="sort"
+      @select="handleSelect"
+      @close="closeSheet"
+    />
+  </BottomSheetWrapper>
 </template>
 <style scoped></style>

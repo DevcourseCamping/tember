@@ -10,6 +10,7 @@ import supabase from '@/utils/supabase'
 // import CommentItem from '@/components/community/CommentItem.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import more from '@/assets/icons/light/light-more.svg'
+import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 
 const route = useRoute()
 const router=useRouter()
@@ -131,9 +132,7 @@ onMounted(async () => {
       @navClick="() => router.back()"
       @menuClick="clickMore" />
     <!-- 바텀시트 -->
-    <Teleport to="body">
-      <div
-        v-if="isBottomOpen"
+      <BottomSheetWrapper :show="isBottomOpen" @close="isBottomOpen = false"
         class="fixed bottom-0 left-1/2 transform -translate-x-1/2
                w-full max-w-[500px] z-50"
       >
@@ -142,8 +141,7 @@ onMounted(async () => {
           @close="clickClose"
           @select="handleSelect"
         />
-      </div>
-    </Teleport>
+      </BottomSheetWrapper>
     <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 60px)">
       <!-- post header -->
@@ -246,27 +244,20 @@ onMounted(async () => {
         </button>
       </div>
     </section>
-    <Teleport to="body">
-      <div
-        v-if="isCommentSheetOpen"
-        class="fixed bottom-0 left-1/2 transform -translate-x-1/2
-               w-full max-w-[500px] z-50"
-      >
-        <BottomSheet
-          type="comment"
-          @close="isCommentSheetOpen = false"
-          @select="key => {
-            isCommentSheetOpen = false
-            if (key === 'edit') {
-              startEdit()
-            }
-            if (key === 'delete') {
-              props.onDelete(c)
-            }
-          }"
-        />
-      </div>
-    </Teleport>
+    <BottomSheetWrapper
+    :show="isCommentSheetOpen"
+    @close="isCommentSheetOpen = false"
+  >
+    <BottomSheet
+      type="comment"
+      @close="isCommentSheetOpen = false"
+      @select="key => {
+        isCommentSheetOpen = false
+        if (key === 'edit') startEdit()
+        if (key === 'delete') props.onDelete(c)
+      }"
+    />
+  </BottomSheetWrapper>
   </div>
 </template>
 <style scoped></style>
