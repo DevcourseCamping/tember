@@ -4,6 +4,13 @@ import 'swiper/css'
 import image from '@/assets/icons/light/light-image.svg'
 import imgDelete from '@/assets/icons/light/light-delete.svg'
 import HeaderSimple from '@/components/common/HeaderSimple.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleClose = () => {
+  router.back()
+}
 
 const post = {
   images: [
@@ -34,7 +41,9 @@ const post = {
 <template>
   <main class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSimple title="글쓰기" />
+    <HeaderSimple title="글쓰기" nav-type="close" 
+      center-content="title"
+      @navClick="handleClose" />
     <!-- main -->
     <form class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 80px)">
       <!-- image upload -->
