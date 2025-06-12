@@ -1,13 +1,26 @@
 <script setup>
-defineProps({
+const props = defineProps({
   label: String,
+  modelValue: Boolean,
 })
+
+const emit = defineEmits(['update:modelValue'])
+
+const toggle = () => {
+  emit('update:modelValue', !props.modelValue)
+}
 </script>
 <template>
-  <div
-    class="inline-flex items-center justify-center h-[25px] px-[15px] rounded-[20px] text-[14px] text-[#222222] border border-[#4B3C2F] cursor-pointer whitespace-nowrap"
+  <button
+    @click="toggle"
+    class="h-[30px] text-[12px] text-center rounded-[5px] px-[10px] border"
+    :class="
+      modelValue
+        ? 'bg-[#4B3C2F] text-[#FFFFFF] border-[#4B3C2F]'
+        : 'bg-[#FFFFFF] text-[#222222] border-[#E0E0E0]'
+    "
   >
     {{ label }}
-  </div>
+  </button>
 </template>
 <style scoped></style>

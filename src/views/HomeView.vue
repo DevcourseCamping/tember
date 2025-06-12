@@ -5,11 +5,26 @@ import NavBar from '@/components/common/NavBar.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
+import { ref } from 'vue'
+import SearchFilter from '@/components/common/SearchFilter.vue'
+
+const isFilterModalOpen = ref(false)
+
+const handleFilterClick = () => {
+  isFilterModalOpen.value = true
+}
+
+const handleFilterClose = () => {
+  isFilterModalOpen.value = false
+}
 </script>
 
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
-    <HeaderSearchMain class="min-h-[168px]" />
+    <HeaderSearchMain @filterClick="handleFilterClick" class="min-h-[168px]" />
+    <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
+      <SearchFilter @close="handleFilterClose" />
+    </div>
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
       <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
@@ -38,17 +53,17 @@ import 'swiper/css/free-mode'
               />
               <div class="flex flex-col justify-between p-2 flex-1">
                 <div>
-                  <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[10px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
+                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
+                  <p class="text-[13px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[#4B3C2F] my-1"></div>
-                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
+                <div class="w-full h-[1px] bg-[#--primary] mt-[12px] mb-[4px]"></div>
+                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
-                    class="w-[16px] h-[16px]"
+                    class="w-[20px] h-[20px]"
                   />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[16px] h-[16px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
+                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
+                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -61,17 +76,17 @@ import 'swiper/css/free-mode'
               />
               <div class="flex flex-col justify-between p-2 flex-1">
                 <div>
-                  <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[10px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
+                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
+                  <p class="text-[13px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[#4B3C2F] my-1"></div>
-                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
+                <div class="w-full h-[1px] bg-[#--primary] mt-[12px] mb-[4px]"></div>
+                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
-                    class="w-[16px] h-[16px]"
+                    class="w-[20px] h-[20px]"
                   />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[16px] h-[16px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
+                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
+                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -152,17 +167,17 @@ import 'swiper/css/free-mode'
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-2 flex-1">
+              <div class="flex flex-col justify-between p-[15px] flex-1">
                 <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px]"></div>
-                <div class="flex justify-end items-center gap-[10px] mb-[10px]">
+                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px] mb-[5px]"></div>
+                <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
                     class="w-[20px] h-[20px]"
                   />
-                  <p class="text-[14px]">8</p>
+                  <p class="text-[14px] mr-[10px]">8</p>
                   <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
@@ -175,17 +190,17 @@ import 'swiper/css/free-mode'
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-2 flex-1">
+              <div class="flex flex-col justify-between p-[15px] flex-1">
                 <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px]"></div>
-                <div class="flex justify-end items-center gap-[10px] mb-[10px]">
+                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px] mb-[5px]"></div>
+                <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
                     class="w-[20px] h-[20px]"
                   />
-                  <p class="text-[14px]">8</p>
+                  <p class="text-[14px] mr-[10px]">8</p>
                   <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
