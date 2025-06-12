@@ -12,36 +12,51 @@ import filledStarIcon from '../../assets/icons/star-filled.svg'
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, ref } from 'vue'
 import { useUserApi } from '@/composables/user'
+import BookmarkSkeleton from '../mypage/BookmarkSkeleton.vue'
 
 const profile = useUserStore()
 const bookmarks = ref([])
+const defaultImage =
+  'https://images.unsplash.com/photo-1492648272180-61e45a8d98a7?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D'
+const isLoading = ref(true)
 
 onMounted(async () => {
+  isLoading.value = true
   const { getBookmark } = useUserApi()
   const user = await profile.fetchUser()
-  if (!user || !user.id) return
+  if (!user || !user.id) {
+    isLoading.value = false
+    return
+  }
 
-  const bookmarkData = await getBookmark(user.id)
-  bookmarks.value = bookmarkData.map((item) => {
-    const site = item.camp_sites || {}
-    return {
-      ...item,
-      isMarked: true,
-      filter: {
-        pet: site.animal_cmg_cl === '가능',
-        caravan: site.carav_acmpny_at === 'Y',
-        trailer: site.trler_acmpny_at === 'Y',
-      },
-    }
-  })
-
-  // console.log(bookmarkData)
+  try {
+    const bookmarkData = await getBookmark(user.id)
+    bookmarks.value = bookmarkData.map((item) => {
+      const site = item.camp_sites || {}
+      return {
+        ...item,
+        isMarked: true,
+        filter: {
+          pet: site.animal_cmg_cl === '가능',
+          caravan: site.carav_acmpny_at === 'Y',
+          trailer: site.trler_acmpny_at === 'Y',
+        },
+      }
+    })
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoading.value = false
+  }
 })
 </script>
 <template>
   <div class="p-[30px] flex flex-col">
+    <div v-if="isLoading">
+      <BookmarkSkeleton v-for="n in 2" :key="n" class="mb-[30px]" />
+    </div>
     <div
-      v-if="bookmarks.length === 0"
+      v-else-if="bookmarks.length === 0"
       class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-450px)]"
     >
       북마크한 캠핑장이 없습니다.
@@ -53,8 +68,7 @@ onMounted(async () => {
         class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
       >
         <img
-          v-if="item.camp_sites.first_image_url"
-          :src="item.camp_sites.first_image_url"
+          :src="item.camp_sites.first_image_url ? item.camp_sites.first_image_url : defaultImage"
           alt="임시 캠핑장 이미지"
           class="w-[440px] h-[216px] rounded-tl-[5px] rounded-tr-[5px]"
         />
