@@ -197,7 +197,6 @@ import 'swiper/css/free-mode'
 
       <section class="bg-[#FFFFFF] pt-[72px] pb-[160px]">
         <h2 class="text-center font-bold text-[17px] text-[#4A4A4A] mb-8">Review</h2>
-
         <div class="max-w-[500px] mx-auto px-4 flex justify-center">
           <div class="w-[300px] bg-white rounded-[5px] shadow p-4 text-center">
             <h3 class="font-bold text-[15px] text-[#222222] mb-2">가평 블루래빗 캠핑장</h3>
