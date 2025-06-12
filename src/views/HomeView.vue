@@ -2,12 +2,22 @@
 import HeaderSearchMain from '@/components/common/HeaderSearchMain.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
+import { ref } from 'vue'
+import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
+
+const router = useRouter()
+
+const isFilterModalOpen = ref(false)
+
+const handleFilterClick = () => {
+  isFilterModalOpen.value = true
+}
+
+const handleFilterClose = () => {
+  isFilterModalOpen.value = false
 
 const handleCategoryClick = (category) => {
   if (category === 'chatbot') {
@@ -21,7 +31,11 @@ const handleCategoryClick = (category) => {
 
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
-    <HeaderSearchMain class="min-h-[168px]" @categoryClick="handleCategoryClick" />
+    <HeaderSearchMain @filterClick="handleFilterClick" @categoryClick="handleCategoryClick" class="min-h-[168px]" />
+    <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
+      <SearchFilter @close="handleFilterClose" />
+    </div>
+
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
       <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
