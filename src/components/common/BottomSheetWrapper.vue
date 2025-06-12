@@ -17,14 +17,14 @@ const emit  = defineEmits(['close'])
 
     <!-- 슬라이드 애니메이션 적용 -->
     <transition
-  appear
-  enter-active-class="transition-all duration-500 ease-out"
-  enter-from-class="translate-y-20 opacity-0"
-  enter-to-class="translate-y-0   opacity-100"
-  leave-active-class="transition-all duration-500 ease-in-out"
-  leave-from-class="translate-y-0   opacity-100"
-  leave-to-class="translate-y-20  opacity-0"
->
+    appear
+  enter-from-class="translate-y-20"
+  enter-active-class="transition-transform duration-[500ms] ease-out"
+  enter-to-class="translate-y-0"
+  leave-from-class="translate-y-0"
+  leave-active-class="transition-transform duration-[500ms] ease-linear"
+  leave-to-class="translate-y-40"
+    >
   <div
     v-if="props.show"
     class="fixed bottom-0 left-1/2 -translate-x-1/2
