@@ -71,7 +71,7 @@ onMounted(async () => {
               class="w-[52px] h-[52px] rounded-full mr-[15px]"
             />
             <div class="flex flex-col justify-center">
-              <p class="text-[15px] font-semibold">{{ review.profiles.username }}</p>
+              <p class="text-[14px] font-semibold">{{ review.profiles.username }}</p>
               <p class="text-[13px] text-[var(--grey)]">{{ formDate(review.created_at) }}</p>
             </div>
           </div>
