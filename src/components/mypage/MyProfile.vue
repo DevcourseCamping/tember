@@ -1,24 +1,40 @@
 <script setup>
-const userInfo = {
-  userName: '나는 캠퍼',
-  userImg:
-    'https://images.unsplash.com/photo-1471115853179-bb1d604434e0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D',
-  followers: 10,
-  following: 8,
+import { useUserStore } from '@/stores/userStore'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import ProfileSkeleton from './ProfileSkeleton.vue'
+
+const router = useRouter()
+const profile = useUserStore()
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = true
+  await profile.fetchUser()
+  isLoading.value = false
+})
+
+const clickFollow = () => {
+  router.push({ name: 'follow' })
 }
 </script>
 <template>
-  <div class="flex items-center text-[var(--black)] pt-[35px] pl-[35px]">
-    <img :src="userInfo.userImg" alt="사용자 임시 이미지" class="w-[90px] h-[90px] rounded-full" />
+  <ProfileSkeleton v-if="isLoading" />
+  <div v-else class="flex items-center text-[var(--black)] pt-[35px] pl-[35px]">
+    <img
+      :src="profile.user?.avatar_url"
+      alt="사용자 임시 이미지"
+      class="w-[90px] h-[90px] rounded-full"
+    />
 
     <div class="pl-[45px]">
-      <p class="text-[18px] font-bold">{{ userInfo.userName }}</p>
-      <div class="flex gap-[60px] text-4 pt-[10px]">
+      <p class="text-[18px] font-bold">{{ profile.user?.username }}</p>
+      <div class="flex gap-[60px] text-4 pt-[10px]" @click="clickFollow">
         <button>
-          팔로워 <span class="font-semibold pl-[10px]">{{ userInfo.followers }}</span>
+          팔로워 <span class="font-semibold pl-[10px]">{{ profile.user?.followingCount }}</span>
         </button>
         <button>
-          팔로잉 <span class="font-semibold pl-[10px]">{{ userInfo.following }}</span>
+          팔로잉 <span class="font-semibold pl-[10px]">{{ profile.user?.followerCount }}</span>
         </button>
       </div>
     </div>

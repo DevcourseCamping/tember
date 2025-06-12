@@ -39,9 +39,9 @@ import 'swiper/css/free-mode'
               <div class="flex flex-col justify-between p-2 flex-1">
                 <div>
                   <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[13px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
+                  <p class="text-[13px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[12px] mb-[4px]"></div>
+                <div class="w-full h-[1px] bg-[#--primary] mt-[12px] mb-[4px]"></div>
                 <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
@@ -62,9 +62,9 @@ import 'swiper/css/free-mode'
               <div class="flex flex-col justify-between p-2 flex-1">
                 <div>
                   <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[13px] text-[#A8AEB2] mt-[8px]">강원 평창군 용평면</p>
+                  <p class="text-[13px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[12px] mb-[4px]"></div>
+                <div class="w-full h-[1px] bg-[#--primary] mt-[12px] mb-[4px]"></div>
                 <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
@@ -89,7 +89,7 @@ import 'swiper/css/free-mode'
             />
             <div>
               <p class="text-[18px] font-bold text-[#222222]">개인 카라반 동반</p>
-              <p class="text-[15px] text-[#A8AEB2] mt-[10px]">
+              <p class="text-[15px] text-[#--grey] mt-[10px]">
                 내 집처럼 편안하게 캠핑을 즐겨보세요
               </p>
             </div>
@@ -103,7 +103,7 @@ import 'swiper/css/free-mode'
             />
             <div>
               <p class="text-[18px] font-bold text-[#222222]">개인 트레일러 동반</p>
-              <p class="text-[15px] text-[#A8AEB2] mt-[10px]">
+              <p class="text-[15px] text-[#--grey] mt-[10px]">
                 트레일러와 함께 어디든 자유롭게 떠나요
               </p>
             </div>
@@ -117,7 +117,7 @@ import 'swiper/css/free-mode'
             />
             <div>
               <p class="text-[18px] font-bold text-[#222222]">반려 동물 동반</p>
-              <p class="text-[15px] text-[#A8AEB2] mt-[10px]">
+              <p class="text-[15px] text-[#--grey] mt-[10px]">
                 사랑하는 반려동물과 함께하는 특별한 추억을 만들어보세요
               </p>
             </div>
@@ -153,10 +153,10 @@ import 'swiper/css/free-mode'
                 class="w-[100px] h-full object-cover"
               />
               <div class="flex flex-col justify-between p-[15px] flex-1">
-                <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
+                <p class="text-[14px] text-[#--grey] mt-[10px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px] mb-[5px]"></div>
+                <div class="w-full h-[1px] bg-[#--primary] mt-[10px] mb-[5px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
@@ -176,10 +176,10 @@ import 'swiper/css/free-mode'
                 class="w-[100px] h-full object-cover"
               />
               <div class="flex flex-col justify-between p-[15px] flex-1">
-                <p class="text-[14px] text-[#A8AEB2] mt-[10px]">
+                <p class="text-[14px] text-[#--grey] mt-[10px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[#4B3C2F] mt-[10px] mb-[5px]"></div>
+                <div class="w-full h-[1px] bg-[#--primary] mt-[10px] mb-[5px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
@@ -204,7 +204,7 @@ import 'swiper/css/free-mode'
             <p class="text-[14px] text-[#4A4A4A] mb-2 line-clamp-2">
               캠핑장 다녀왔는데 시설도 깨끗하고 사장님도 친절하고 좋았고 추천합니다!
             </p>
-            <p class="text-[13px] text-[#A8AEB2] mb-2">작성자 1</p>
+            <p class="text-[13px] text-[#--grey] mb-2">작성자 1</p>
             <div class="text-[#FFD700] text-[18px]">★★★★★</div>
           </div>
           <NavBar />

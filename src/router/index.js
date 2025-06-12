@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import('../views/community/CommunityPostList.vue'),
     },
     {
-      path: '/community/add',
+      path: '/community/post/create',
       name: 'communityPostCreate',
       component: () => import('../views/community/CommunityPostCreate.vue'),
     },
@@ -35,9 +35,29 @@ const router = createRouter({
       component: () => import('../views/mypage/MyPage.vue'),
     },
     {
+      path: '/mypage/edit',
+      name: 'edit',
+      component: () => import('../views/mypage/EditProfilePage.vue'),
+    },
+    {
+      path: '/mypage/follow',
+      name: 'follow',
+      component: () => import('../views/mypage/FollowPage.vue'),
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/mypage/LogIn.vue'),
+    },
+    {
+      path: '/camping/:id',
+      name: 'campingDetail',
+      component: () => import('../views/camping/CampingDetail.vue'),
+    },
+    {
+      path: '/chatbot',
+      name: 'Chatbot',
+      component: () => import('../views/ChatBot.vue'),
     },
   ],
 })

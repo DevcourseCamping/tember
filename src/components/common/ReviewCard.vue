@@ -43,7 +43,7 @@ const reviews = [
     <div
       v-for="(review, index) in reviews"
       :key="index"
-      class="w-[440px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+      class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
       @mouseenter="hoverMoreIndex = index"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
