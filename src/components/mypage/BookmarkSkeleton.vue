@@ -2,7 +2,7 @@
 <template>
   <div class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer">
     <div
-      class="w-[440px] h-[216px] rounded-tl-[5px] rounded-tr-[5px] bg-[var(--grey)] opacity-30"
+      class="w-full max-w-[440px] h-[216px] rounded-tl-[5px] rounded-tr-[5px] bg-[var(--grey)] opacity-30"
     ></div>
     <div class="flex flex-col pl-[15px]">
       <div class="flex items-center justify-between pt-[15px]">

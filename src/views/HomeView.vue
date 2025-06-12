@@ -1,12 +1,14 @@
 <script setup>
 import HeaderSearchMain from '@/components/common/HeaderSearchMain.vue'
 import NavBar from '@/components/common/NavBar.vue'
-
+import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import { ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
+
+const router = useRouter()
 
 const isFilterModalOpen = ref(false)
 
@@ -16,15 +18,24 @@ const handleFilterClick = () => {
 
 const handleFilterClose = () => {
   isFilterModalOpen.value = false
+
+const handleCategoryClick = (category) => {
+  if (category === 'chatbot') {
+    router.push('/chatbot')
+  } else {
+    console.log('선택된 카테고리:', category)
+    // 다른 카테고리에 대한 처리도 여기에.. 다른 카테고리는 무슨 페이지가 나오는지 모르겠음 ㅠㅠ
+  }
 }
 </script>
 
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
-    <HeaderSearchMain @filterClick="handleFilterClick" class="min-h-[168px]" />
+    <HeaderSearchMain @filterClick="handleFilterClick" @categoryClick="handleCategoryClick" class="min-h-[168px]" />
     <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
       <SearchFilter @close="handleFilterClose" />
     </div>
+
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
       <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
