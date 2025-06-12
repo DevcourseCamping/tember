@@ -38,17 +38,17 @@ import 'swiper/css/free-mode'
               />
               <div class="flex flex-col justify-between p-2 flex-1">
                 <div>
-                  <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[10px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
+                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
+                  <p class="text-[13px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[#--primary] my-1"></div>
-                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
+                <div class="w-full h-[1px] bg-[#--primary] mt-[12px] mb-[4px]"></div>
+                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
-                    class="w-[16px] h-[16px]"
+                    class="w-[20px] h-[20px]"
                   />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[16px] h-[16px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
+                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
+                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -61,17 +61,17 @@ import 'swiper/css/free-mode'
               />
               <div class="flex flex-col justify-between p-2 flex-1">
                 <div>
-                  <h3 class="text-[12px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[10px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
+                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
+                  <p class="text-[13px] text-[#--grey] mt-[8px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[#--primary] my-1"></div>
-                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[14px]">
+                <div class="w-full h-[1px] bg-[#--primary] mt-[12px] mb-[4px]"></div>
+                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
-                    class="w-[16px] h-[16px]"
+                    class="w-[20px] h-[20px]"
                   />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[16px] h-[16px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[16px] h-[16px]" />
+                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
+                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -152,17 +152,17 @@ import 'swiper/css/free-mode'
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-2 flex-1">
+              <div class="flex flex-col justify-between p-[15px] flex-1">
                 <p class="text-[14px] text-[#--grey] mt-[10px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[#--primary] mt-[10px]"></div>
-                <div class="flex justify-end items-center gap-[10px] mb-[10px]">
+                <div class="w-full h-[1px] bg-[#--primary] mt-[10px] mb-[5px]"></div>
+                <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
                     class="w-[20px] h-[20px]"
                   />
-                  <p class="text-[14px]">8</p>
+                  <p class="text-[14px] mr-[10px]">8</p>
                   <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
@@ -175,17 +175,17 @@ import 'swiper/css/free-mode'
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-2 flex-1">
+              <div class="flex flex-col justify-between p-[15px] flex-1">
                 <p class="text-[14px] text-[#--grey] mt-[10px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[#--primary] mt-[10px]"></div>
-                <div class="flex justify-end items-center gap-[10px] mb-[10px]">
+                <div class="w-full h-[1px] bg-[#--primary] mt-[10px] mb-[5px]"></div>
+                <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
                     class="w-[20px] h-[20px]"
                   />
-                  <p class="text-[14px]">8</p>
+                  <p class="text-[14px] mr-[10px]">8</p>
                   <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
@@ -197,7 +197,6 @@ import 'swiper/css/free-mode'
 
       <section class="bg-[#FFFFFF] pt-[72px] pb-[160px]">
         <h2 class="text-center font-bold text-[17px] text-[#4A4A4A] mb-8">Review</h2>
-
         <div class="max-w-[500px] mx-auto px-4 flex justify-center">
           <div class="w-[300px] bg-white rounded-[5px] shadow p-4 text-center">
             <h3 class="font-bold text-[15px] text-[#222222] mb-2">가평 블루래빗 캠핑장</h3>
