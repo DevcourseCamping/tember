@@ -44,10 +44,10 @@ const handleSelect = (key) => {
       @menuClick="clickSetting"
     />
 
-    <BottomSheet v-if="isBottomOpen" type="my" @close="clickSetting" @select="handleSelect" />
-
     <MyProfile />
     <MyActivity />
+
+    <BottomSheet v-if="isBottomOpen" type="my" @close="clickSetting" @select="handleSelect" />
     <!-- footer -->
     <button
       v-if="!isBottomOpen"

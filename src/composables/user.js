@@ -31,7 +31,7 @@ export function useUserApi() {
     }
   }
 
-  const updateUser = async ({ userId, username, image }) => {
+  const updateUser = async (formData) => {
     const {
       data: { session },
       error,
@@ -41,15 +41,8 @@ export function useUserApi() {
 
     const token = session.access_token
 
-    const formData = new FormData()
-
-    formData.append('userId', userId)
-    formData.append('username', username)
-    formData.append('image', image)
-
     const res = await userApi.patch(`/update-profile`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
     })
