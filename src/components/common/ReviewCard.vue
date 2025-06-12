@@ -13,24 +13,33 @@ const isLoading = ref(true)
 onMounted(async () => {
   isLoading.value = true
   const user = await profile.fetchUser()
-  if (!user || !user.id) return
-  isLoading.value = false
+  if (!user || !user.id) {
+    isLoading.value = false
+    return
+  }
 
-  const { data, error } = await supabase
-    .from('camp_reviews')
-    .select('*, profiles(*)')
-    .eq('user_id', user.id)
-  if (error) {
+  try {
+    const { data, error } = await supabase
+      .from('camp_reviews')
+      .select('*, profiles(*)')
+      .eq('user_id', user.id)
+    if (error) {
+      console.error(error)
+    } else {
+      reviews.value = data
+    }
+  } catch (error) {
     console.error(error)
-  } else {
-    reviews.value = data
-    // console.log(reviews.value)
+  } finally {
+    isLoading.value = false
   }
 })
 </script>
 <template>
   <div class="p-[30px] flex flex-col">
-    <ReviewSkeleton v-if="isLoading" />
+    <div v-if="isLoading">
+      <ReviewSkeleton v-for="n in 3" :key="n" class="mb-[30px]" />
+    </div>
     <div
       v-else-if="reviews.length === 0"
       class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-450px)]"
