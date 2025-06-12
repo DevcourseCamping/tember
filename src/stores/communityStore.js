@@ -98,7 +98,7 @@ export const useCommunityStore = defineStore('community', () => {
   }
 
   // like toggle
-  const toggleLike = async (post /* ref 아님: plain object */) => {
+  const toggleLike = async (post) => {
     try {
       const {
         data: { session },
@@ -122,6 +122,34 @@ export const useCommunityStore = defineStore('community', () => {
     }
   }
 
+  const toggleLikeById = async (postId) => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const userId = session?.user?.id
+      if (!userId) throw new Error('로그인이 필요합니다.')
+
+      const { data: existingLike } = await supabase
+        .from('likes')
+        .select('id')
+        .eq('post_id', postId)
+        .eq('user_id', userId)
+        .maybeSingle()
+
+      if (existingLike) {
+        await supabase.from('likes').delete().eq('id', existingLike.id)
+        return { liked: false }
+      } else {
+        await supabase.from('likes').insert([{ post_id: postId, user_id: userId }])
+        return { liked: true }
+      }
+    } catch (err) {
+      console.error(err)
+      return null
+    }
+  }
+
   // add comment
   const addComment = async (postId, content) => {
     try {
@@ -140,8 +168,6 @@ export const useCommunityStore = defineStore('community', () => {
       ])
 
       if (error) throw error
-
-      console.log('🧸 Comment added!')
     } catch (e) {
       console.error(e)
     }
@@ -156,7 +182,6 @@ export const useCommunityStore = defineStore('community', () => {
         .eq('id', commentId)
 
       if (error) throw error
-      console.log('🧸 Comment updated!')
     } catch (e) {
       console.error(e)
     }
@@ -167,9 +192,111 @@ export const useCommunityStore = defineStore('community', () => {
     try {
       const { error } = await supabase.from('comments').delete().eq('id', commentId)
       if (error) throw error
-      console.log('🧸 Comment deleted!')
     } catch (e) {
       console.error(e)
+    }
+  }
+
+  // create post
+  const createPost = async ({ content, category, images }) => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const userId = session?.user?.id
+      const token = session?.access_token
+
+      if (!userId || !token) throw new Error('로그인이 필요합니다.')
+
+      const formData = new FormData()
+      images.forEach((img) => {
+        formData.append('image', img.file)
+      })
+
+      formData.append('title', '테스트 제목')
+      formData.append('content', content)
+      formData.append('category', category)
+      formData.append('userId', userId)
+
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/post-create`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (!res.ok) throw new Error('게시글 등록 실패')
+      return true
+    } catch (err) {
+      console.error(err)
+      return false
+    }
+  }
+
+  // update post
+  const updatePost = async ({ postId, content, category, images }) => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const userId = session?.user?.id
+      const token = session?.access_token
+
+      if (!userId || !token) throw new Error('로그인이 필요합니다.')
+      if (!userId || !token) {
+        throw new Error('로그인이 필요합니다.')
+      }
+
+      const formData = new FormData()
+
+      const keepImages = images.filter((img) => !img.file).map((img) => img.preview)
+
+      images
+        .filter((img) => img.file)
+        .forEach((img) => {
+          formData.append('image', img.file)
+        })
+
+      formData.append('title', '수정된 제목')
+      formData.append('content', content)
+      formData.append('category', category)
+      formData.append('userId', userId)
+      formData.append('postId', postId)
+      formData.append('keepImages', JSON.stringify(keepImages))
+
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/post-update`, {
+        method: 'PATCH',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      if (!res.ok) throw new Error('게시글 수정 실패')
+
+      console.log('게시글 수정 완료')
+      return true
+    } catch (e) {
+      console.error(e)
+      return false
+    }
+  }
+
+  const deletePost = async (postId) => {
+    try {
+      // delete likes
+      await supabase.from('likes').delete().eq('post_id', postId)
+      // delete comments
+      await supabase.from('comments').delete().eq('post_id', postId)
+      // delete post
+      await supabase.from('posts').delete().eq('id', postId)
+
+      console.log('게시글 삭제 완료')
+      return true
+    } catch (e) {
+      console.error(e)
+      return false
     }
   }
 
@@ -183,8 +310,12 @@ export const useCommunityStore = defineStore('community', () => {
     getCommunityPosts,
     getCommunityPostById,
     toggleLike,
+    toggleLikeById,
     addComment,
     updateComment,
     deleteComment,
+    createPost,
+    updatePost,
+    deletePost,
   }
 })
