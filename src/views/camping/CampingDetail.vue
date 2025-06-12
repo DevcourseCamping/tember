@@ -18,7 +18,7 @@
         />
       </div>
       <div
-        class="absolute bottom-0 right-0 z-10 bg-[#4B3C2F] w-[100px] h-[40px] flex items-center justify-center gap-2 rounded-br-[20px] rounded-tl-[20px]"
+        class="absolute bottom-0 right-0 z-10 bg-[#--primary] w-[100px] h-[40px] flex items-center justify-center gap-2 rounded-br-[20px] rounded-tl-[20px]"
       >
         <span class="text-white text-sm font-bold">4.8</span>
         <img src="../../assets/icons/star-filled.svg" alt="" class="w-[20px] h-[20px]" />
@@ -48,41 +48,41 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center justify-around gap-4 border-b border-b-[#4B3C2F50] p-[20px]">
+    <div class="flex items-center justify-around gap-4 border-b border-b-[#--primary-50] p-[20px]">
       <a href="#basic-info" class="text-md text-[#222222]">기본 정보</a>
-      <a href="#camping-intro" class="text-md text-[#22222230]">캠핑장 소개</a>
-      <a href="#location-info" class="text-md text-[#22222230]">위치 정보</a>
-      <a href="#review" class="text-md text-[#22222230]">리뷰</a>
+      <a href="#camping-intro" class="text-md text-[#--black-30]">캠핑장 소개</a>
+      <a href="#location-info" class="text-md text-[#--black-30]">위치 정보</a>
+      <a href="#review" class="text-md text-[#--black-30]">리뷰</a>
     </div>
     <div id="basic-info" class="w-full relative">
       <div class="m-[10px] p-[20px] flex flex-col gap-2">
         <div class="flex items-center justify-start gap-12">
-          <span class="text-[#A8AEB2] w-[65px]">환경</span>
+          <span class="text-[#--grey] w-[65px]">환경</span>
           <span class="text-[#222222]">숲</span>
         </div>
         <div class="flex items-center justify-start gap-12">
-          <span class="text-[#A8AEB2] w-[65px]">사업주체</span>
+          <span class="text-[#--grey] w-[65px]">사업주체</span>
           <span class="text-[#222222]">민간</span>
         </div>
         <div class="flex items-center justify-start gap-12">
-          <span class="text-[#A8AEB2] w-[65px]">운영기간</span>
+          <span class="text-[#--grey] w-[65px]">운영기간</span>
           <span class="text-[#222222]">봄,여름,가을,겨울</span>
         </div>
         <div class="flex items-center justify-start gap-12">
-          <span class="text-[#A8AEB2] w-[65px]">운영일</span>
+          <span class="text-[#--grey] w-[65px]">운영일</span>
           <span class="text-[#222222]">평일+주말</span>
         </div>
         <div class="flex items-center justify-start gap-12">
-          <span class="text-[#A8AEB2] w-[65px]">예약 방법</span>
+          <span class="text-[#--grey] w-[65px]">예약 방법</span>
           <span class="text-[#222222]">온라인실시간예약</span>
         </div>
         <div class="flex items-center justify-start gap-12">
-          <span class="text-[#A8AEB2] w-[65px]">화로대</span>
+          <span class="text-[#--grey] w-[65px]">화로대</span>
           <span class="text-[#222222]">개별</span>
         </div>
       </div>
     </div>
-    <hr class="mx-5 border-b border-b-[#4B3C2F50]" />
+    <hr class="mx-5 border-b border-b-[#--primary-50]" />
     <div class="w-full relative">
       <div class="m-[10px] p-[20px]">
         <span class="text-[#222222] text-md font-bold">부대시설</span>
@@ -110,7 +110,7 @@
         </div>
       </div>
     </div>
-    <hr class="mx-5 border-b border-b-[#4B3C2F50]" />
+    <hr class="mx-5 border-b border-b-[#--primary-50]" />
     <div id="camping-intro">
       <div class="m-[10px] p-[20px]">
         <span class="text-[#222222] text-md font-bold">캠핑장 소개</span>
@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-    <hr class="mx-5 border-b border-b-[#4B3C2F50]" />
+    <hr class="mx-5 border-b border-b-[#--primary-50]" />
     <div id="location-info">
       <div class="m-[10px] p-[20px]">
         <span class="text-[#222222] text-md font-bold">위치 정보</span>
@@ -134,13 +134,13 @@
         </div>
       </div>
     </div>
-    <hr class="mx-5 border-b border-b-[#4B3C2F50]" />
+    <hr class="mx-5 border-b border-b-[#--primary-50]" />
     <div id="review">
       <div class="m-[10px] p-[20px] mb-0 pb-0">
         <div class="text-[#222222] font-bold flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span>리뷰</span>
-            <span class="text-[#A8AEB2]">6</span>
+            <span class="text-[#--grey]">6</span>
           </div>
           <div class="flex items-center gap-2 cursor-pointer justify-center">
             <img src="../../assets/icons/light/light-post.svg" alt="" class="w-[20px] h-[20px]" />

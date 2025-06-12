@@ -25,7 +25,7 @@ import FilterTag from './FilterTag.vue'
           <div class="flex rounded-md overflow-hidden h-[230px]">
             <div class="w-[90px] overflow-y-auto flex flex-col gap-[10px] pt-[17px]">
               <div
-                class="h-[30px] text-[14px] text-center cursor-pointer bg-[#4B3C2F] text-white rounded-[5px]"
+                class="h-[30px] text-[14px] text-center cursor-pointer bg-[#--primary] text-white rounded-[5px]"
               >
                 강원도
               </div>
@@ -81,7 +81,7 @@ import FilterTag from './FilterTag.vue'
 
             <div class="flex-1 min-w-0 flex flex-col gap-[15px] p-[15px]">
               <button
-                class="w-[245px] h-[30px] text-[14px] border border-[#4B3C2F] rounded-[5px] text-[#4B3C2F] mx-auto mr-[20px]"
+                class="w-[245px] h-[30px] text-[14px] border border-[#--primary] rounded-[5px] text-[#--primary] mx-auto mr-[20px]"
               >
                 전체 선택
               </button>
@@ -112,7 +112,7 @@ import FilterTag from './FilterTag.vue'
         </section>
 
         <section class="flex justify-center mt-[20px]">
-          <button class="w-[380px] h-[45px] rounded-[5px] bg-[#4B3C2F] text-[13px] text-white">
+          <button class="w-[380px] h-[45px] rounded-[5px] bg-[#--primary] text-[13px] text-white">
             선택하기
           </button>
         </section>
@@ -133,12 +133,12 @@ import FilterTag from './FilterTag.vue'
 
         <div class="flex items-center gap-2 mb-[30px]">
           <span class="text-[15px] text-[#222222]">필터</span>
-          <button class="text-[13px] text-[#A8AEB2]">초기화</button>
+          <button class="text-[13px] text-[#--grey]">초기화</button>
         </div>
 
         <section class="overflow-y-auto h-full pr-[4px] pb-[80px] flex flex-col gap-[25px]">
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">숙소 유형</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">숙소 유형</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="일반 야영장" />
               <FilterTag label="자동차야영장" />
@@ -149,7 +149,7 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">운영 기간</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">운영 기간</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="봄" />
               <FilterTag label="여름" />
@@ -159,7 +159,7 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">운영일</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">운영일</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="평일" />
               <FilterTag label="평일+주말" />
@@ -167,7 +167,7 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">입지 구분</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">입지 구분</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="산" />
               <FilterTag label="강" />
@@ -181,7 +181,7 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">부대시설</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">부대시설</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="전기" />
               <FilterTag label="무선인터넷" />
@@ -199,7 +199,7 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">주변시설</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">주변시설</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="계곡 물놀이" />
               <FilterTag label="강/물놀이" />
@@ -216,7 +216,7 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">테마환경</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">테마환경</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="낚시" />
               <FilterTag label="여름 물놀이" />
@@ -234,21 +234,21 @@ import FilterTag from './FilterTag.vue'
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">트레일러 가능</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">트레일러 가능</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="개인 트레일러 가능" />
             </div>
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">카라반 가능</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">카라반 가능</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="개인 카라반 가능" />
             </div>
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">반려동물</h3>
+            <h3 class="text-[15px] text-[#--grey] font-bold mb-[10px]">반려동물</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag label="반려동물 가능" />
               <FilterTag label="소형견 가능" />
