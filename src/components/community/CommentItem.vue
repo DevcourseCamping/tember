@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
-// import more from '@/assets/icons/light/light-more.svg'
+import { ref, watch } from 'vue'
+import more from '@/assets/icons/light/light-more.svg'
+import formDate from '@/utils/formDate.js'
 
 const props = defineProps({
   comment: Object,
@@ -12,14 +13,15 @@ const props = defineProps({
 const isEditing = ref(false)
 const editedContent = ref(props.comment.content)
 
-// const openCommentMenu = (comment) => {
-//   console.log('Open Bottom Sheet', comment)
-// }
-
-const startEdit = () => {
-  isEditing.value = true
-  editedContent.value = props.comment.content
-}
+watch(
+  () => props.comment.editing,
+  (val) => {
+    if (val) {
+      isEditing.value = true
+      editedContent.value = props.comment.content
+    }
+  },
+)
 
 const saveEdit = () => {
   if (editedContent.value.trim()) {
@@ -41,27 +43,20 @@ const cancelEdit = () => {
         <img :src="comment.userProfile" class="w-10 h-10 rounded-full mr-[15px]" />
         <div>
           <p class="font-bold text-[14px] mb-[5px]">{{ comment.userName }}</p>
-          <p class="text-[var(--grey)] text-[13px]">{{ comment.commentTime }}</p>
+          <p class="text-[var(--grey)] text-[13px]">{{ formDate(comment.commentTime) }}</p>
         </div>
       </div>
       <template v-if="comment.userId === loginUserId">
         <div class="flex gap-2">
-          <!-- bottom sheet 완성되면 마무리 -->
-          <!-- <div class="w-[20px] h-[20px] cursor-pointer" @click="openCommentMenu(comment)">
+          <div
+            v-if="!isEditing"
+            class="w-[20px] h-[20px] cursor-pointer"
+            @click="$emit('openMenu', comment)"
+          >
             <img :src="more" />
-          </div> -->
-
-          <!-- 임시 -->
-          <button v-if="!isEditing" @click="startEdit">
-            <img src="../../assets/icons/light/light-setting.svg" alt="수정" />
-          </button>
-          <button v-if="!isEditing" @click="onDelete(comment)">
-            <img src="../../assets/icons/light/light-delete.svg" alt="삭제" />
-          </button>
-          <!-- 여기까지 -->
-
+          </div>
           <template v-if="isEditing">
-            <button @click="saveEdit" class="text-sm text-[var(--blue)]">저장</button>
+            <button @click="saveEdit" class="text-sm text-[var(--primary)]">저장</button>
             <button @click="cancelEdit" class="text-sm text-[var(--black-70)]">취소</button>
           </template>
         </div>

@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import HeaderSearch from '@/components/common/HeaderSearch.vue'
+import HeaderSearch from '@/components/community/CommunityHeader.vue'
 import BookmarkCard from '@/components/common/BookmarkCard.vue'
 import NavBar from '@/components/common/NavBar.vue'
 </script>
