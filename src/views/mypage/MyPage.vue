@@ -12,7 +12,6 @@ import { useUserPage } from '@/composables/useUserPage'
 
 const router = useRouter()
 const isBottomOpen = ref(false)
-
 const { isMyPage } = useUserPage()
 
 const handleLogout = async () => {
@@ -21,7 +20,7 @@ const handleLogout = async () => {
     console.error('로그아웃 중 에러:', error.message)
   } else {
     console.log('로그아웃 성공')
-    router.push({ name: 'login' })
+    router.push({ name: 'home' })
   }
 }
 
