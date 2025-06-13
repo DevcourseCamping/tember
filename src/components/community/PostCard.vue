@@ -1,16 +1,24 @@
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCommunityStore } from '@/stores/communityStore'
-
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper/modules'
+import { useRouter } from 'vue-router'
+import 'swiper/css'
+import 'swiper/css/pagination'
 import commentIcon from '../../assets/icons/light/light-comment.svg'
 import like from '../../assets/icons/light/light-like-filled.svg'
 import unlike from '../../assets/icons/light/light-like-outline.svg'
-import { useRouter } from 'vue-router'
 import SkeletonPostCard from './SkeletonPostCard.vue'
+import formDate from '@/utils/formDate'
 
 const communityStore = useCommunityStore()
 const { posts, loading } = storeToRefs(communityStore)
+
+const props = defineProps({
+  inputValue: String,
+})
 
 const router = useRouter()
 const goToDetail = (postId) => {
@@ -20,6 +28,22 @@ const toggleLike = async (event, post) => {
   event.stopPropagation()
   await communityStore.toggleLike(post)
 }
+
+const parseImage = (imageField) => {
+  try {
+    const parsed = JSON.parse(imageField)
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
+const filteredPosts = computed(() => {
+  if (!props.inputValue?.trim()) return posts.value
+  return posts.value.filter((post) =>
+    post.content.toLowerCase().includes(props.inputValue.trim().toLowerCase()),
+  )
+})
 
 onMounted(() => {
   communityStore.getCommunityPosts()
@@ -33,8 +57,7 @@ const goToUserProfile = (userId) => {
   <div class="p-[30px] flex flex-col gap-[30px]">
     <SkeletonPostCard v-if="loading" />
     <div
-      v-else
-      v-for="post in posts"
+      v-for="post in filteredPosts"
       :key="post.id"
       class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
     >
@@ -48,13 +71,34 @@ const goToUserProfile = (userId) => {
           <div class="flex flex-col justify-center">
             <p class="text-[14px] font-semibold">{{ post.profiles?.username || '익명' }}</p>
             <p class="text-[13px] text-[var(--grey)]">
-              {{ post.created_at }}
+              {{ formDate(post.created_at) }}
             </p>
           </div>
         </div>
       </div>
-      <div v-if="post.image">
-        <img :src="post.image" alt="게시글 이미지" class="w-[440px] h-[400px] pt-[15px]" />
+      <div v-if="parseImage(post.image).length" @click="goToDetail(post.id)">
+        <section v-if="parseImage(post.image).length === 1">
+          <img
+            :src="parseImage(post.image)[0]"
+            alt="게시글 이미지"
+            class="w-full h-[400px] pt-[15px] object-cover"
+          />
+        </section>
+        <section v-else class="pt-[15px]">
+          <Swiper
+            :modules="[Pagination]"
+            :pagination="{ clickable: true }"
+            class="w-full h-[400px]"
+          >
+            <SwiperSlide
+              v-for="(img, idx) in parseImage(post.image)"
+              :key="idx"
+              class="w-full h-full"
+            >
+              <img :src="img" class="w-full h-full object-cover" />
+            </SwiperSlide>
+          </Swiper>
+        </section>
       </div>
       <div class="pt-5 pl-5 pr-5 text-[15px]" @click="goToDetail(post.id)">
         <p class="break-words">
@@ -64,6 +108,7 @@ const goToUserProfile = (userId) => {
       <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[15px]">
         <div
           class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
+          @click="goToDetail(post.id)"
         >
           {{ post.category === 'pet' ? '반려동물' : '일반' }}
         </div>
@@ -81,3 +126,23 @@ const goToUserProfile = (userId) => {
     </div>
   </div>
 </template>
+<style scoped>
+:deep(.swiper-pagination) {
+  bottom: 10px !important;
+  text-align: center;
+}
+
+:deep(.swiper-pagination-bullet) {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-30);
+  opacity: 1;
+  margin: 0 4px;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: var(--primary);
+}
+</style>
