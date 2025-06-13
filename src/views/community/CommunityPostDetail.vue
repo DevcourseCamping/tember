@@ -2,7 +2,7 @@
 import HeaderOther from '@/components/common/HeaderOther.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { onMounted, ref } from 'vue'
-import { useRoute,useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import comment from '@/assets/icons/dark/dark-comment.svg'
 import unlike from '@/assets/icons/dark/dark-like-outline.svg'
 import like from '@/assets/icons/dark/dark-like-filled.svg'
@@ -13,7 +13,7 @@ import more from '@/assets/icons/light/light-more.svg'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 
 const route = useRoute()
-const router=useRouter()
+const router = useRouter()
 const postId = route.params.postId
 const communityStore = useCommunityStore()
 
@@ -127,27 +127,29 @@ onMounted(async () => {
     class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2"
   >
     <!-- header -->
-    <HeaderOther nav-type="back"
+    <HeaderOther
+      nav-type="back"
       menu-type="setting"
       @navClick="() => router.back()"
-      @menuClick="clickMore" />
+      @menuClick="clickMore"
+    />
     <!-- 바텀시트 -->
-      <BottomSheetWrapper :show="isBottomOpen" @close="isBottomOpen = false"
-        class="fixed bottom-0 left-1/2 transform -translate-x-1/2
-               w-full max-w-[500px] z-50"
-      >
-        <BottomSheet
-          type="post"
-          @close="clickClose"
-          @select="handleSelect"
-        />
-      </BottomSheetWrapper>
+    <BottomSheetWrapper
+      :show="isBottomOpen"
+      @close="isBottomOpen = false"
+      class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[500px] z-50"
+    >
+      <BottomSheet type="post" @close="clickClose" @select="handleSelect" />
+    </BottomSheetWrapper>
     <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 80px - 60px)">
       <!-- post header -->
       <section class="my-[30px] px-5 flex items-center justify-between">
         <div class="flex items-center">
-          <img :src="post.profiles.avatar_url" class="w-[45px] h-[45px] rounded-full mr-[15px]" />
+          <img
+            :src="post.profiles.image || post.profiles.avatar_url"
+            class="w-[45px] h-[45px] rounded-full mr-[15px]"
+          />
           <p class="font-bold text-[15px]">{{ post.profiles.username }}</p>
         </div>
         <p class="text-[var(--grey)] text-sm">{{ post.created_at }}</p>
@@ -190,38 +192,36 @@ onMounted(async () => {
             :onDelete="deleteComment"
           /> -->
           <li
-        v-for="c in post.comments"
-        :key="c.id"
-        class="rounded-[5px] w-full border p-4 border-[var(--primary-30)]"
-      >
-        <div class="flex items-center mb-5 justify-between">
-          <div class="flex items-center">
-            <img :src="c.userProfile" class="w-10 h-10 rounded-full mr-[15px]" />
-            <div>
-              <p class="font-bold text-[14px] mb-[5px]">{{ c.userName }}</p>
-              <p class="text-[var(--grey)] text-[13px]">{{ c.commentTime }}</p>
+            v-for="c in post.comments"
+            :key="c.id"
+            class="rounded-[5px] w-full border p-4 border-[var(--primary-30)]"
+          >
+            <div class="flex items-center mb-5 justify-between">
+              <div class="flex items-center">
+                <img :src="c.userProfile" class="w-10 h-10 rounded-full mr-[15px]" />
+                <div>
+                  <p class="font-bold text-[14px] mb-[5px]">{{ c.userName }}</p>
+                  <p class="text-[var(--grey)] text-[13px]">{{ c.commentTime }}</p>
+                </div>
+              </div>
+
+              <template v-if="c.userId === loginUserId">
+                <div class="w-5 h-5 cursor-pointer" @click="isCommentSheetOpen = true">
+                  <img :src="more" alt="메뉴" />
+                </div>
+              </template>
             </div>
-          </div>
 
-          <template v-if="c.userId === loginUserId">
-           <div class="w-5 h-5 cursor-pointer" @click="isCommentSheetOpen = true">
-             <img :src="more" alt="메뉴" />
-           </div>
-          </template>
-        </div>
-
-        <div>
-          <p v-if="!isEditing" class="text-[15px]">{{ c.content }}</p>
-          <textarea
-            v-else
-            v-model="editedContent"
-            class="w-full h-[70px] border border-[var(--primary-30)]
-                   px-2 py-1 text-sm rounded scrollbar-hide
-                   focus:outline-none resize-none text-[15px]"
-            :placeholder="c.content"
-          />
-        </div>
-      </li>
+            <div>
+              <p v-if="!isEditing" class="text-[15px]">{{ c.content }}</p>
+              <textarea
+                v-else
+                v-model="editedContent"
+                class="w-full h-[70px] border border-[var(--primary-30)] px-2 py-1 text-sm rounded scrollbar-hide focus:outline-none resize-none text-[15px]"
+                :placeholder="c.content"
+              />
+            </div>
+          </li>
         </ul>
       </section>
     </main>
@@ -244,20 +244,19 @@ onMounted(async () => {
         </button>
       </div>
     </section>
-    <BottomSheetWrapper
-    :show="isCommentSheetOpen"
-    @close="isCommentSheetOpen = false"
-  >
-    <BottomSheet
-      type="comment"
-      @close="isCommentSheetOpen = false"
-      @select="key => {
-        isCommentSheetOpen = false
-        if (key === 'edit') startEdit()
-        if (key === 'delete') props.onDelete(c)
-      }"
-    />
-  </BottomSheetWrapper>
+    <BottomSheetWrapper :show="isCommentSheetOpen" @close="isCommentSheetOpen = false">
+      <BottomSheet
+        type="comment"
+        @close="isCommentSheetOpen = false"
+        @select="
+          (key) => {
+            isCommentSheetOpen = false
+            if (key === 'edit') startEdit()
+            if (key === 'delete') props.onDelete(c)
+          }
+        "
+      />
+    </BottomSheetWrapper>
   </div>
 </template>
 <style scoped></style>
