@@ -51,7 +51,7 @@ const deleteImage = (index) => {
     </div>
     <!-- image list -->
     <div class="w-full max-w-[325px] flex relative overflow-hidden">
-      <Swiper :slides-per-view="'auto'" :space-between="5">
+      <Swiper :slides-per-view="'auto'" :space-between="5" class="flex flex-grow">
         <swiper-slide
           v-for="(img, i) in modelValue"
           :key="i"
