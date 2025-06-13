@@ -37,6 +37,10 @@ const parseImage = (imageField) => {
 onMounted(() => {
   communityStore.getCommunityPosts()
 })
+
+const goToUserProfile = (userId) => {
+  router.push({ name: 'user-profile', params: { id: userId } })
+}
 </script>
 <template>
   <div class="p-[30px] flex flex-col gap-[30px]">
@@ -45,10 +49,9 @@ onMounted(() => {
       v-for="post in posts"
       :key="post.id"
       class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
-      @click="goToDetail(post.id)"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
-        <div class="flex items-center">
+        <div class="flex items-center" @click="goToUserProfile(post.user_id)">
           <img
             :src="post.profiles?.image || post.profiles?.avatar_url"
             alt="사용자 이미지"
@@ -86,7 +89,7 @@ onMounted(() => {
           </Swiper>
         </section>
       </div>
-      <div class="pt-5 pl-5 pr-5 text-[15px]">
+      <div class="pt-5 pl-5 pr-5 text-[15px]" @click="goToDetail(post.id)">
         <p class="break-words">
           {{ post.content }}
         </p>

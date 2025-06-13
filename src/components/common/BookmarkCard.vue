@@ -11,7 +11,7 @@ import offTrailerIcon from '../../assets/icons/light/light-trailer-off.svg'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, ref } from 'vue'
-import { useUserApi } from '@/composables/user'
+import { useUserApi } from '@/composables/useUserApi'
 import BookmarkSkeleton from '../mypage/BookmarkSkeleton.vue'
 
 const profile = useUserStore()

@@ -3,11 +3,13 @@ import { ref } from 'vue'
 import ReviewCard from '../common/ReviewCard.vue'
 import CommunityCard from '../common/CommunityCard.vue'
 import BookmarkCard from '../common/BookmarkCard.vue'
+import { useUserPage } from '@/composables/useUserPage'
 
+const { isMyPage } = useUserPage()
 const clickTab = ref('review')
 </script>
 <template>
-  <div class="flex justify-between pl-[35px] pr-[35px] pt-[35px] text-[15px] font-bold">
+  <div class="flex justify-around pl-[35px] pr-[35px] pt-[35px] text-[15px] font-bold">
     <button
       @click="clickTab = 'review'"
       :class="clickTab === 'review' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
@@ -21,6 +23,7 @@ const clickTab = ref('review')
       커뮤니티
     </button>
     <button
+      v-if="isMyPage"
       @click="clickTab = 'bookmark'"
       :class="clickTab === 'bookmark' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
     >

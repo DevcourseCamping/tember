@@ -12,7 +12,7 @@ const props = defineProps({
   },
   menuType: {
     type: String, // more, setting
-    default: 'more',
+    default: null,
   },
   isMyPost: {
     type: Boolean,
@@ -24,12 +24,15 @@ const emit = defineEmits(['navClick', 'menuClick'])
 
 <template>
   <header>
-    <div class="w-full max-w-[500px] h-[80px] flex items-center px-[30px] justify-between">
+    <div class="w-full max-w-[500px] h-[80px] flex items-center px-[30px] justify-between relative">
       <button @click="emit('navClick')">
         <img v-if="props.navType === 'close'" :src="close" class="w-5 h-5" />
         <img v-else :src="back" class="w-7 h-7" />
       </button>
-      <img :src="logo" class="w-[84px] h-[43px]" />
+      <img
+        :src="logo"
+        class="w-[84px] h-[43px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
       <button
         :style="{ visibility: props.isMyPost ? 'visible' : 'hidden' }"
         @click="emit('menuClick')"

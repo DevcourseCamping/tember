@@ -3,26 +3,35 @@ import supabase from '@/utils/supabase'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
 import outlineStarIcon from '../../assets/icons/star-outline.svg'
 import { onMounted, ref } from 'vue'
-import { useUserStore } from '@/stores/userStore'
 import ReviewSkeleton from '../mypage/ReviewSkeleton.vue'
+import { useUserPage } from '@/composables/useUserPage'
+import { useUserStore } from '@/stores/userStore'
 
 const reviews = ref([])
-const profile = useUserStore()
 const isLoading = ref(true)
+const profile = useUserStore()
+const { targetUserId } = useUserPage()
+
+const formDate = (newDate) => {
+  const date = new Date(newDate)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}.${month}.${day}`
+}
 
 onMounted(async () => {
   isLoading.value = true
-  const user = await profile.fetchUser()
-  if (!user || !user.id) {
-    isLoading.value = false
-    return
-  }
 
+  if (!profile.user?.id) {
+    await profile.fetchUser()
+    isLoading.value = false
+  }
   try {
     const { data, error } = await supabase
       .from('camp_reviews')
       .select('*, profiles(*)')
-      .eq('user_id', user.id)
+      .eq('user_id', targetUserId.value)
     if (error) {
       console.error(error)
     } else {
@@ -63,8 +72,8 @@ onMounted(async () => {
               class="w-[52px] h-[52px] rounded-full mr-[15px]"
             />
             <div class="flex flex-col justify-center">
-              <p class="text-[15px] font-semibold">{{ review.profiles.username }}</p>
-              <p class="text-[13px] text-[var(--grey)]">{{ review.created_at }}</p>
+              <p class="text-[14px] font-semibold">{{ review.profiles.username }}</p>
+              <p class="text-[13px] text-[var(--grey)]">{{ formDate(review.created_at) }}</p>
             </div>
           </div>
         </div>
