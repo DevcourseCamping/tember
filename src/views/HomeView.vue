@@ -48,10 +48,10 @@ const handleCategoryClick = (category) => {
           :slides-per-view="'auto'"
           :space-between="30"
           :centered-slides="true"
-          :initial-slide="1"
+          :loop="true"
+          :initial-slide="2"
           grab-cursor
-          free-mode
-          class="px-[35px]"
+          class="px-[30px]"
         >
           <SwiperSlide
             v-for="item in [1, 2, 3]"
@@ -66,13 +66,13 @@ const handleCategoryClick = (category) => {
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-2 flex-1">
+              <div class="flex flex-col justify-between p-[10px] flex-1">
                 <div>
-                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[13px] text-[--grey] mt-[8px]">강원 평창군 용평면</p>
+                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[10px]">휘게포레스트</h3>
+                  <p class="text-[13px] text-[--grey] mt-[10px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[--primary] mt-[12px] mb-[4px]"></div>
-                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
+                <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
+                <div class="flex justify-end items-center gap-[10px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
                     class="w-[20px] h-[20px]"
@@ -89,13 +89,13 @@ const handleCategoryClick = (category) => {
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-2 flex-1">
+              <div class="flex flex-col justify-between p-[10px] flex-1">
                 <div>
-                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[16px]">휘게포레스트</h3>
-                  <p class="text-[13px] text-[--grey] mt-[8px]">강원 평창군 용평면</p>
+                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[10px]">휘게포레스트</h3>
+                  <p class="text-[13px] text-[--grey] mt-[10px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[--primary] mt-[12px] mb-[4px]"></div>
-                <div class="flex justify-end items-center gap-[10px] mt-[10px] mb-[6px]">
+                <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
+                <div class="flex justify-end items-center gap-[10px]">
                   <img
                     src="../assets/icons/light/light-caravan-off.svg"
                     class="w-[20px] h-[20px]"
@@ -119,7 +119,7 @@ const handleCategoryClick = (category) => {
             />
             <div>
               <p class="text-[18px] font-bold text-[#222222]">개인 카라반 동반</p>
-              <p class="text-[15px] text-[#--grey] mt-[10px]">
+              <p class="text-[15px] text-[--grey] mt-[10px]">
                 내 집처럼 편안하게 캠핑을 즐겨보세요
               </p>
             </div>
@@ -164,10 +164,10 @@ const handleCategoryClick = (category) => {
           :slides-per-view="'auto'"
           :space-between="30"
           :centered-slides="true"
-          :initial-slide="1"
+          :loop="true"
+          :initial-slide="2"
           grab-cursor
-          free-mode
-          class="px-[35px]"
+          class="px-[30px]"
         >
           <SwiperSlide
             v-for="item in [1, 2, 3]"
@@ -183,10 +183,10 @@ const handleCategoryClick = (category) => {
                 class="w-[100px] h-full object-cover"
               />
               <div class="flex flex-col justify-between p-[15px] flex-1">
-                <p class="text-[14px] text-[--grey] mt-[10px]">
+                <p class="text-[14px] text-[--grey] mt-[5px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[5px]"></div>
+                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[10px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
@@ -206,10 +206,10 @@ const handleCategoryClick = (category) => {
                 class="w-[100px] h-full object-cover"
               />
               <div class="flex flex-col justify-between p-[15px] flex-1">
-                <p class="text-[14px] text-[--grey] mt-[10px]">
+                <p class="text-[14px] text-[--grey] mt-[5px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[5px]"></div>
+                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[10px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
                   <img
                     src="../assets/icons/light/light-like-outline.svg"
@@ -234,7 +234,13 @@ const handleCategoryClick = (category) => {
               캠핑장 다녀왔는데 시설도 깨끗하고 사장님도 친절하고 좋았고 추천합니다!
             </p>
             <p class="text-[13px] text-[--grey] mb-2">작성자 1</p>
-            <div class="text-[#FFD700] text-[18px]">★★★★★</div>
+            <div class="flex justify-center gap-[4px]">
+              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
+              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
+              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
+              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
+              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
+            </div>
           </div>
           <NavBar />
         </div>
