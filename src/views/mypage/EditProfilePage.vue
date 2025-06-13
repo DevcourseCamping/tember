@@ -4,7 +4,7 @@ import editProfileIcon from '../../assets/icons/light/light-edit-profile.svg'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, ref } from 'vue'
-import { useUserApi } from '@/composables/user'
+import { useUserApi } from '@/composables/useUserApi'
 
 const router = useRouter()
 const profile = useUserStore()

@@ -1,4 +1,4 @@
-import { useUserApi } from '@/composables/user'
+import { useUserApi } from '@/composables/useUserApi'
 import supabase from '@/utils/supabase'
 import { defineStore } from 'pinia'
 

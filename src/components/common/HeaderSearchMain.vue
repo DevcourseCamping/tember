@@ -29,7 +29,7 @@ const emit = defineEmits(['filterClick', 'categoryClick'])
         </button>
       </div>
     </section>
-    <section class="flex w-full px-[30px] mt-5 justify-between">
+    <section class="flex w-full px-[30px] pt-[25px] justify-between">
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'autoCamping')">
         <img :src="auto" class="w-[45px] h-[45px]" />
         <span class="text-sm mt-[5px] text-[var(--white)]">오토캠핑</span>
