@@ -207,16 +207,22 @@ export const useCommunityStore = defineStore('community', () => {
       const token = session?.access_token
 
       if (!userId || !token) throw new Error('로그인이 필요합니다.')
+      console.log('userId 확인!', userId)
+      console.log('token 확인!', token)
 
       const formData = new FormData()
       images.forEach((img) => {
         formData.append('image', img.file)
       })
 
-      formData.append('title', '테스트 제목')
       formData.append('content', content)
       formData.append('category', category)
       formData.append('userId', userId)
+
+      console.log('formData 확인!')
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`)
+      }
 
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/post-create`, {
         method: 'POST',
@@ -226,7 +232,12 @@ export const useCommunityStore = defineStore('community', () => {
         },
       })
 
-      if (!res.ok) throw new Error('게시글 등록 실패')
+      if (!res.ok) {
+        const errorText = await res.text()
+        console.error('⚠️ 서버 응답 ⚠️', errorText)
+        throw new Error('게시글 등록 실패')
+      }
+
       return true
     } catch (err) {
       console.error(err)
@@ -258,7 +269,6 @@ export const useCommunityStore = defineStore('community', () => {
           formData.append('image', img.file)
         })
 
-      formData.append('title', '수정된 제목')
       formData.append('content', content)
       formData.append('category', category)
       formData.append('userId', userId)
