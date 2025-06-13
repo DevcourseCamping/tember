@@ -20,12 +20,12 @@ const router = createRouter({
       component: () => import('../views/community/CommunityPostList.vue'),
     },
     {
-      path: '/community/post/create',
+      path: '/community/post-create',
       name: 'communityPostCreate',
       component: () => import('../views/community/CommunityPostCreate.vue'),
     },
     {
-      path: '/community/post/:postId',
+      path: '/community/:postId',
       name: 'communityPostDetail',
       component: () => import('../views/community/CommunityPostDetail.vue'),
     },

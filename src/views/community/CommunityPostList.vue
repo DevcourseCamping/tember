@@ -33,7 +33,7 @@ const closeSheet = () => {
 }
 const router = useRouter()
 const goToCreatePost = () => {
-  router.push('/community/post/create')
+  router.push({ name: 'communityPostCreate' })
 }
 </script>
 <template>
