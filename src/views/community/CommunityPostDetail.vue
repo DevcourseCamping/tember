@@ -14,6 +14,8 @@ import CommentItem from '@/components/community/CommentItem.vue'
 import router from '@/router'
 import PostContent from '@/components/community/PostContent.vue'
 import PostEditor from '@/components/community/PostEditor.vue'
+import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
+import BottomSheet from '@/components/common/BottomSheet.vue'
 
 const route = useRoute()
 const postId = route.params.postId
@@ -112,6 +114,26 @@ const submitComment = async () => {
 
   isSubmitting = false
 }
+const editComment = async (editedComment) => {
+  if (editedComment.editTrigger) {
+    const target = post.value.comments.find((c) => c.id === editedComment.id)
+    if (target) {
+      target.editing = true
+    }
+    return
+  }
+
+  if (!editedComment.content.trim()) return
+
+  await communityStore.updateComment(editedComment.id, editedComment.content)
+  post.value = await communityStore.getCommunityPostById(postId)
+}
+
+const deleteComment = async (comment) => {
+  if (!confirm('댓글을 삭제하시겠어요?')) return
+  await communityStore.deleteComment(comment.id)
+  post.value = await communityStore.getCommunityPostById(postId)
+}
 
 const clickLike = async () => {
   if (!post.value) return
@@ -139,31 +161,62 @@ onMounted(async () => {
     isLiked.value = !!like
   }
 })
+const isBottomOpen = ref(false)
+const clickBack = () => {
+  router.back()
+}
+const clickSetting = () => {
+  isBottomOpen.value = !isBottomOpen.value
+}
+
+const handleSelect = async (key) => {
+  isBottomOpen.value = false
+  if (key === 'edit') {
+    startEdit()
+  } else if (key === 'delete') {
+    deletePost()
+  }
+}
+const isCommentSheetOpen = ref(false)
+const selectedComment = ref(null)
+
+const openCommentMenu = (comment) => {
+  selectedComment.value = comment
+  isCommentSheetOpen.value = true
+}
+
+const closeCommentMenu = () => {
+  isCommentSheetOpen.value = false
+  selectedComment.value = null
+}
+
+const handleCommentSelect = (key) => {
+  if (!selectedComment.value) return
+
+  if (key === 'edit') {
+    editComment({ ...selectedComment.value, editTrigger: true })
+  } else if (key === 'delete') {
+    deleteComment(selectedComment.value)
+  }
+
+  closeCommentMenu()
+}
 </script>
 <template>
   <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
     <!-- header -->
     <HeaderOther
-      nav-type="back"
-      menu-type="setting"
-      @navClick="() => router.back()"
-      @menuClick="clickMore"
+      @navClick="clickBack"
+      @menuClick="clickSetting"
+      v-if="post"
+      :is-my-post="isMyPost"
     />
-    <!-- 바텀시트 -->
-    <BottomSheetWrapper
-      :show="isBottomOpen"
-      @close="isBottomOpen = false"
-      class="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[500px] z-50"
-    >
-      <BottomSheet type="post" @close="clickClose" @select="handleSelect" />
+    <!-- header bottom sheet -->
+    <BottomSheetWrapper v-show="isBottomOpen" :show="isBottomOpen" @close="!isBottomOpen">
+      <BottomSheet type="post" @close="clickSetting" @select="handleSelect" />
     </BottomSheetWrapper>
 
     <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
-      <div class="flex justify-end gap-3 px-5" v-if="isMyPost && !isEditing">
-        <div @click="startEdit" class="cursor-pointer">게시글 수정</div>
-        <div @click="deletePost" class="cursor-pointer">게시글 삭제</div>
-      </div>
-
       <section class="my-6 px-5 flex items-center justify-between">
         <div class="flex items-center">
           <img :src="post.profiles.avatar_url" class="w-10 h-10 rounded-full mr-3" />
@@ -171,7 +224,6 @@ onMounted(async () => {
         </div>
         <p class="text-sm text-[var(--grey)]">{{ post.created_at }}</p>
       </section>
-
       <PostEditor
         v-if="isEditing"
         :model-value-content="editedContent"
@@ -183,8 +235,8 @@ onMounted(async () => {
         @cancel="isEditing = false"
         @save="saveEdit"
       />
-
       <PostContent v-else :post="post" :image-list="imageList" />
+
       <!-- like / comment -->
       <template v-if="!isEditing">
         <!-- summary -->
@@ -214,9 +266,18 @@ onMounted(async () => {
               :loginUserId="loginUserId"
               :onEdit="editComment"
               :onDelete="deleteComment"
+              @openMenu="openCommentMenu"
             />
             <div ref="bottomRef" />
           </ul>
+          <!-- comment bottom sheet -->
+          <BottomSheetWrapper
+            v-if="selectedComment"
+            :show="isCommentSheetOpen"
+            @close="closeCommentMenu"
+          >
+            <BottomSheet type="comment" @close="closeCommentMenu" @select="handleCommentSelect" />
+          </BottomSheetWrapper>
         </section>
         <!-- comment input -->
         <section
@@ -237,22 +298,6 @@ onMounted(async () => {
         </section>
       </template>
     </main>
-
-    <!--   
-<BottomSheetWrapper
-    :show="isCommentSheetOpen"
-    @close="isCommentSheetOpen = false"
-  >
-    <BottomSheet
-      type="comment"
-      @close="isCommentSheetOpen = false"
-      @select="key => {
-        isCommentSheetOpen = false
-        if (key === 'edit') startEdit()
-        if (key === 'delete') props.onDelete(c)
-      }"
-    />
-  </BottomSheetWrapper> -->
   </div>
 </template>
 <style scoped>

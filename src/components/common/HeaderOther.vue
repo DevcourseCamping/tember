@@ -14,6 +14,10 @@ const props = defineProps({
     type: String, // more, setting
     default: 'more',
   },
+  isMyPost: {
+    type: Boolean,
+    default: false,
+  },
 })
 const emit = defineEmits(['navClick', 'menuClick'])
 </script>
@@ -26,7 +30,10 @@ const emit = defineEmits(['navClick', 'menuClick'])
         <img v-else :src="back" class="w-7 h-7" />
       </button>
       <img :src="logo" class="w-[84px] h-[43px]" />
-      <button @click="emit('menuClick')">
+      <button
+        :style="{ visibility: props.isMyPost ? 'visible' : 'hidden' }"
+        @click="emit('menuClick')"
+      >
         <img v-if="props.menuType === 'more'" :src="more" class="w-5 h-5" />
         <img v-else :src="setting" class="w-7 h-7" />
       </button>
