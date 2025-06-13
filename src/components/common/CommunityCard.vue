@@ -4,12 +4,14 @@ import commentIcon from '../../assets/icons/light/light-comment.svg'
 import filledLikeIcon from '../../assets/icons/light/light-like-filled.svg'
 import outlineLikeIcon from '../../assets/icons/light/light-like-outline.svg'
 import { useUserStore } from '@/stores/userStore'
-import { useUserApi } from '@/composables/user'
+import { useUserApi } from '@/composables/useUserApi'
 import CommunitySkeleton from '../mypage/CommunitySkeleton.vue'
+import { useUserPage } from '@/composables/useUserPage'
 
 const profile = useUserStore()
 const posts = ref([])
 const isLoading = ref(true)
+const { targetUserId } = useUserPage()
 
 const formDate = (value) => {
   const now = new Date()
@@ -26,21 +28,21 @@ const formDate = (value) => {
 
 onMounted(async () => {
   isLoading.value = true
-  const user = await profile.fetchUser()
-  if (!user || !user.id) {
-    isLoading.value = false
-    return
-  }
 
-  try {
-    const { getPost } = useUserApi()
-    const postData = await getPost(user.id)
-
-    posts.value = postData.data
-  } catch (error) {
-    console.error(error)
-  } finally {
+  if (!profile.user?.id) {
+    await profile.fetchUser()
     isLoading.value = false
+  } else {
+    try {
+      const { getPost } = useUserApi()
+      const postData = await getPost(targetUserId.value)
+
+      posts.value = postData.data
+    } catch (error) {
+      console.error(error)
+    } finally {
+      isLoading.value = false
+    }
   }
 })
 </script>
