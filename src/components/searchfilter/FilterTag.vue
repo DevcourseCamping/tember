@@ -13,11 +13,11 @@ const toggle = () => {
 <template>
   <button
     @click="toggle"
-    class="h-[30px] text-[12px] text-center rounded-[5px] px-[10px] border"
+    class="h-[30px] text-[12px] text-center rounded-[5px] px-[8px] border"
     :class="
       modelValue
-        ? 'bg-[#4B3C2F] text-[#FFFFFF] border-[#4B3C2F]'
-        : 'bg-[#FFFFFF] text-[#222222] border-[#E0E0E0]'
+        ? 'bg-[--primary] text-[--white] border-[--primary]'
+        : 'bg-[--white] text-[--black] border-[#E0E0E0]'
     "
   >
     {{ label }}
