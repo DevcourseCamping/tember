@@ -39,21 +39,14 @@ const goToCreatePost = () => {
     <NavBar />
     <!-- create post button -->
     <div
-      class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px] cursor-pointer"
+      class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px] cursor-pointer z-50"
       @click="goToCreatePost"
     >
       <img :src="post" />
     </div>
   </div>
-    <BottomSheetWrapper
-    :show="isBottomOpen"
-    @close="closeSheet"
-  >
-    <BottomSheet
-      type="sort"
-      @select="handleSelect"
-      @close="closeSheet"
-    />
+  <BottomSheetWrapper :show="isBottomOpen" @close="closeSheet">
+    <BottomSheet type="sort" @select="handleSelect" @close="closeSheet" />
   </BottomSheetWrapper>
 </template>
 <style scoped></style>

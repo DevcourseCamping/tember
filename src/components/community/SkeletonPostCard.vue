@@ -3,7 +3,7 @@
     <div
       v-for="n in 3"
       :key="n"
-      class="border border-[var(--grey)] rounded-[5px] p-[15px] animate-pulse"
+      class="border border-[var(--grey)] opacity-30 rounded-[5px] p-[15px] animate-pulse"
     >
       <div class="flex items-center gap-4 mb-3">
         <div class="w-[52px] h-[52px] bg-[var(--grey)] rounded-full"></div>
