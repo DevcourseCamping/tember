@@ -40,18 +40,18 @@ const deleteImage = (index) => {
 </script>
 
 <template>
-  <div class="flex gap-3 items-start scrollbar-hide overflow-visible">
+  <div class="w-full max-w-[500px] flex gap-3 items-start scrollbar-hide overflow-visible">
     <!-- image upload button -->
     <div
-      class="w-[100px] h-[100px] my-[5px] border border-[var(--primary-30)] rounded flex flex-col justify-center items-center cursor-pointer mr-1"
+      class="w-[100px] h-[100px] my-[5px] border border-[var(--primary-30)] rounded flex flex-col justify-center items-center cursor-pointer mr-1 shrink-0"
       @click="fileInput?.click()"
     >
       <img :src="image" class="w-6 h-6 mb-1" />
       <p class="text-sm text-[var(--primary)]">{{ modelValue.length }} / {{ max }}</p>
     </div>
     <!-- image list -->
-    <div class="w-[325px] flex relative overflow-hidden">
-      <Swiper :slides-per-view="'auto'" :space-between="5" class="w-full">
+    <div class="w-full max-w-[325px] flex relative overflow-hidden">
+      <Swiper :slides-per-view="'auto'" :space-between="5">
         <swiper-slide
           v-for="(img, i) in modelValue"
           :key="i"

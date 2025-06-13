@@ -72,7 +72,7 @@ const submitPost = async () => {
         <textarea
           v-model="content"
           name="content"
-          class="w-[440px] h-[400px] border border-[var(--primary-30)] rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] text-base focus:outline-none"
+          class="w-full h-[400px] mx-[30px] border border-[var(--primary-30)] rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] text-base focus:outline-none"
           placeholder="이곳에 글을 작성해주세요"
         ></textarea>
       </section>
