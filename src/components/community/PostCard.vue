@@ -11,6 +11,7 @@ import commentIcon from '../../assets/icons/light/light-comment.svg'
 import like from '../../assets/icons/light/light-like-filled.svg'
 import unlike from '../../assets/icons/light/light-like-outline.svg'
 import SkeletonPostCard from './SkeletonPostCard.vue'
+import formDate from '@/utils/formDate'
 
 const communityStore = useCommunityStore()
 const { posts, loading } = storeToRefs(communityStore)
@@ -56,7 +57,7 @@ onMounted(() => {
           <div class="flex flex-col justify-center">
             <p class="text-[14px] font-semibold">{{ post.profiles?.username || '익명' }}</p>
             <p class="text-[13px] text-[var(--grey)]">
-              {{ post.created_at }}
+              {{ formDate(post.created_at) }}
             </p>
           </div>
         </div>

@@ -16,6 +16,7 @@ import PostContent from '@/components/community/PostContent.vue'
 import PostEditor from '@/components/community/PostEditor.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
+import formDate from '@/utils/formDate'
 
 const route = useRoute()
 const postId = route.params.postId
@@ -225,7 +226,7 @@ const handleCommentSelect = (key) => {
           />
           <p class="font-bold">{{ post.profiles.username }}</p>
         </div>
-        <p class="text-sm text-[var(--grey)]">{{ post.created_at }}</p>
+        <p class="text-sm text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
       </section>
       <PostEditor
         v-if="isEditing"

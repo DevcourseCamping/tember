@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import more from '@/assets/icons/light/light-more.svg'
+import formDate from '@/utils/formDate.js'
 
 const props = defineProps({
   comment: Object,
@@ -42,7 +43,7 @@ const cancelEdit = () => {
         <img :src="comment.userProfile" class="w-10 h-10 rounded-full mr-[15px]" />
         <div>
           <p class="font-bold text-[14px] mb-[5px]">{{ comment.userName }}</p>
-          <p class="text-[var(--grey)] text-[13px]">{{ comment.commentTime }}</p>
+          <p class="text-[var(--grey)] text-[13px]">{{ formDate(comment.commentTime) }}</p>
         </div>
       </div>
       <template v-if="comment.userId === loginUserId">
