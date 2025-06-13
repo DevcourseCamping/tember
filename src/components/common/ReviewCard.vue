@@ -26,22 +26,21 @@ onMounted(async () => {
   if (!profile.user?.id) {
     await profile.fetchUser()
     isLoading.value = false
-  } else {
-    try {
-      const { data, error } = await supabase
-        .from('camp_reviews')
-        .select('*, profiles(*)')
-        .eq('user_id', targetUserId.value)
-      if (error) {
-        console.error(error)
-      } else {
-        reviews.value = data
-      }
-    } catch (error) {
+  }
+  try {
+    const { data, error } = await supabase
+      .from('camp_reviews')
+      .select('*, profiles(*)')
+      .eq('user_id', targetUserId.value)
+    if (error) {
       console.error(error)
-    } finally {
-      isLoading.value = false
+    } else {
+      reviews.value = data
     }
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoading.value = false
   }
 })
 </script>
