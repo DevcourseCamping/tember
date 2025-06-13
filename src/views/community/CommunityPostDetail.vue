@@ -219,7 +219,10 @@ const handleCommentSelect = (key) => {
     <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
       <section class="my-6 px-5 flex items-center justify-between">
         <div class="flex items-center">
-          <img :src="post.profiles.avatar_url" class="w-10 h-10 rounded-full mr-3" />
+          <img
+            :src="post.profiles.image || post.profiles.avatar_url"
+            class="w-10 h-10 rounded-full mr-3"
+          />
           <p class="font-bold">{{ post.profiles.username }}</p>
         </div>
         <p class="text-sm text-[var(--grey)]">{{ post.created_at }}</p>
@@ -257,7 +260,7 @@ const handleCommentSelect = (key) => {
         </section>
 
         <!-- comments -->
-        <section class="mx-[30px] mb-[30px]">
+        <section class="mx-5 mb-[30px]">
           <ul class="flex flex-col gap-4">
             <CommentItem
               v-for="comment in post.comments"

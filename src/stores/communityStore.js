@@ -82,7 +82,7 @@ export const useCommunityStore = defineStore('community', () => {
         content: comment.content,
         commentTime: comment.created_at,
         userName: comment.profiles.username,
-        userProfile: comment.profiles.avatar_url,
+        userProfile: comment.profiles.image || comment.profiles.avatar_url,
         userId: comment.user_id,
       }))
 
