@@ -55,8 +55,6 @@ onMounted(async () => {
     >
       작성하신 리뷰가 없습니다.
     </div>
-    <ReviewSkeleton v-else-if="isLoading" />
-
     <div v-else>
       <div
         v-for="review in reviews"
