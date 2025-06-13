@@ -64,6 +64,11 @@ const router = createRouter({
       name: 'Chatbot',
       component: () => import('../views/ChatBot.vue'),
     },
+    {
+      path: '/review/create',
+      name: 'reviewCreate',
+      component: () => import('../views/review/ReviewPage.vue'),
+    },
   ],
 })
 
