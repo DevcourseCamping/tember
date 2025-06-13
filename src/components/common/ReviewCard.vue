@@ -3,12 +3,14 @@ import supabase from '@/utils/supabase'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
 import outlineStarIcon from '../../assets/icons/star-outline.svg'
 import { onMounted, ref } from 'vue'
-import { useUserStore } from '@/stores/userStore'
 import ReviewSkeleton from '../mypage/ReviewSkeleton.vue'
+import { useUserPage } from '@/composables/useUserPage'
+import { useUserStore } from '@/stores/userStore'
 
 const reviews = ref([])
-const profile = useUserStore()
 const isLoading = ref(true)
+const profile = useUserStore()
+const { targetUserId } = useUserPage()
 
 const formDate = (newDate) => {
   const date = new Date(newDate)
@@ -20,26 +22,26 @@ const formDate = (newDate) => {
 
 onMounted(async () => {
   isLoading.value = true
-  const user = await profile.fetchUser()
-  if (!user || !user.id) {
-    isLoading.value = false
-    return
-  }
 
-  try {
-    const { data, error } = await supabase
-      .from('camp_reviews')
-      .select('*, profiles(*)')
-      .eq('user_id', user.id)
-    if (error) {
-      console.error(error)
-    } else {
-      reviews.value = data
-    }
-  } catch (error) {
-    console.error(error)
-  } finally {
+  if (!profile.user?.id) {
+    await profile.fetchUser()
     isLoading.value = false
+  } else {
+    try {
+      const { data, error } = await supabase
+        .from('camp_reviews')
+        .select('*, profiles(*)')
+        .eq('user_id', targetUserId.value)
+      if (error) {
+        console.error(error)
+      } else {
+        reviews.value = data
+      }
+    } catch (error) {
+      console.error(error)
+    } finally {
+      isLoading.value = false
+    }
   }
 })
 </script>
