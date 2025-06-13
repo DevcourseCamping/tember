@@ -48,6 +48,10 @@ const filteredPosts = computed(() => {
 onMounted(() => {
   communityStore.getCommunityPosts()
 })
+
+const goToUserProfile = (userId) => {
+  router.push({ name: 'user-profile', params: { id: userId } })
+}
 </script>
 <template>
   <div class="p-[30px] flex flex-col gap-[30px]">
@@ -56,10 +60,9 @@ onMounted(() => {
       v-for="post in filteredPosts"
       :key="post.id"
       class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
-      @click="goToDetail(post.id)"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
-        <div class="flex items-center">
+        <div class="flex items-center" @click="goToUserProfile(post.user_id)">
           <img
             :src="post.profiles?.image || post.profiles?.avatar_url"
             alt="사용자 이미지"
@@ -73,7 +76,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div v-if="parseImage(post.image).length">
+      <div v-if="parseImage(post.image).length" @click="goToDetail(post.id)">
         <section v-if="parseImage(post.image).length === 1">
           <img
             :src="parseImage(post.image)[0]"
@@ -97,7 +100,7 @@ onMounted(() => {
           </Swiper>
         </section>
       </div>
-      <div class="pt-5 pl-5 pr-5 text-[15px]">
+      <div class="pt-5 pl-5 pr-5 text-[15px]" @click="goToDetail(post.id)">
         <p class="break-words">
           {{ post.content }}
         </p>
@@ -105,6 +108,7 @@ onMounted(() => {
       <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[15px]">
         <div
           class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
+          @click="goToDetail(post.id)"
         >
           {{ post.category === 'pet' ? '반려동물' : '일반' }}
         </div>
