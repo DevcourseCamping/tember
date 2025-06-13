@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCommunityStore } from '@/stores/communityStore'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -15,6 +15,10 @@ import formDate from '@/utils/formDate'
 
 const communityStore = useCommunityStore()
 const { posts, loading } = storeToRefs(communityStore)
+
+const props = defineProps({
+  inputValue: String,
+})
 
 const router = useRouter()
 const goToDetail = (postId) => {
@@ -34,6 +38,13 @@ const parseImage = (imageField) => {
   }
 }
 
+const filteredPosts = computed(() => {
+  if (!props.inputValue?.trim()) return posts.value
+  return posts.value.filter((post) =>
+    post.content.toLowerCase().includes(props.inputValue.trim().toLowerCase()),
+  )
+})
+
 onMounted(() => {
   communityStore.getCommunityPosts()
 })
@@ -42,7 +53,7 @@ onMounted(() => {
   <div class="p-[30px] flex flex-col gap-[30px]">
     <SkeletonPostCard v-if="loading" />
     <div
-      v-for="post in posts"
+      v-for="post in filteredPosts"
       :key="post.id"
       class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
       @click="goToDetail(post.id)"

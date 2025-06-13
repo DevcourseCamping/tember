@@ -3,17 +3,19 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCommunityStore } from '@/stores/communityStore'
 import PostCard from '@/components/community/PostCard.vue'
-import HeaderSearch from '@/components/common/HeaderSearch.vue'
+import HeaderSearch from '@/components/community/CommunityHeader.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 
 const isBottomOpen = ref(false)
+const inputValue = ref('')
+
+const communityStore = useCommunityStore()
 const openBottomSheet = () => {
   isBottomOpen.value = true
 }
-const communityStore = useCommunityStore()
 
 const handleSelect = async (key) => {
   console.log('정렬 선택:', key)
@@ -37,10 +39,15 @@ const goToCreatePost = () => {
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSearch iconType="arrow" @iconClick="openBottomSheet" />
+    <HeaderSearch
+      iconType="arrow"
+      :inputValue="inputValue"
+      @update:inputValue="inputValue = $event"
+      @iconClick="openBottomSheet"
+    />
     <!-- post list -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <PostCard />
+      <PostCard :inputValue="inputValue" />
     </main>
     <!-- nav -->
     <NavBar />
