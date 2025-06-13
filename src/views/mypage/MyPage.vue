@@ -8,10 +8,12 @@ import { useRouter } from 'vue-router'
 import supabase from '@/utils/supabase'
 import NavBar from '@/components/common/NavBar.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
-
-const isBottomOpen = ref(false)
+import { useUserPage } from '@/composables/useUserPage'
 
 const router = useRouter()
+const isBottomOpen = ref(false)
+
+const { isMyPage } = useUserPage()
 
 const handleLogout = async () => {
   const { error } = await supabase.auth.signOut()
@@ -26,6 +28,7 @@ const handleLogout = async () => {
 const clickBack = () => {
   router.push({ name: 'home' })
 }
+
 const clickSetting = () => {
   isBottomOpen.value = !isBottomOpen.value
 }
@@ -44,7 +47,7 @@ const handleSelect = async (key) => {
   <div class="fixed w-full max-w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
     <HeaderOther
       nav-type="back"
-      menu-type="setting"
+      :menu-type="isMyPage ? 'setting' : null"
       @navClick="clickBack"
       @menuClick="clickSetting"
     />
@@ -52,9 +55,11 @@ const handleSelect = async (key) => {
     <MyProfile />
     <MyActivity />
 
-    <BottomSheetWrapper v-show="isBottomOpen" :show="isBottomOpen" @close="!isBottomOpen">
-      <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
-    </BottomSheetWrapper>
+    <div v-show="isBottomOpen">
+      <BottomSheetWrapper :show="isBottomOpen" @close="!isBottomOpen">
+        <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
+      </BottomSheetWrapper>
+    </div>
 
     <NavBar v-if="!isBottomOpen" class="absolute bottom-0 w-full h-[60px]" />
   </div>
