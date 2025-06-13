@@ -55,9 +55,9 @@ const handleSelect = async (key) => {
     <MyProfile />
     <MyActivity />
 
-      <BottomSheetWrapper :show="isBottomOpen" @close="isBottomOpen=false">
-        <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
-      </BottomSheetWrapper>
+    <BottomSheetWrapper :show="isBottomOpen" @close="isBottomOpen = false">
+      <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
+    </BottomSheetWrapper>
 
     <NavBar v-if="!isBottomOpen" class="absolute bottom-0 w-full h-[60px]" />
   </div>

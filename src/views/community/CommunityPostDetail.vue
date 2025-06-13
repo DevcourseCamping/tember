@@ -1,5 +1,5 @@
 <script setup>
-import HeaderOther from '@/components/common/HeaderOther.vue'
+import CommunityHeaderOther from '@/components/community/CommunityHeaderOther.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 
 import { computed, nextTick, onMounted, ref } from 'vue'
@@ -206,11 +206,11 @@ const handleCommentSelect = (key) => {
 <template>
   <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
     <!-- header -->
-    <HeaderOther
-      @navClick="clickBack"
-      @menuClick="clickSetting"
+    <CommunityHeaderOther
       v-if="post"
       :is-my-post="isMyPost"
+      @navClick="clickBack"
+      @menuClick="clickSetting"
     />
     <!-- header bottom sheet -->
     <BottomSheetWrapper v-show="isBottomOpen" :show="isBottomOpen" @close="!isBottomOpen">
