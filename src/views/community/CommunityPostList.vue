@@ -1,21 +1,28 @@
 <script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCommunityStore } from '@/stores/communityStore'
 import PostCard from '@/components/community/PostCard.vue'
 import HeaderSearch from '@/components/common/HeaderSearch.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-// bottom sheet 완성되면 마무리
 const isBottomOpen = ref(false)
 const openBottomSheet = () => {
   isBottomOpen.value = true
-  console.log('🧸 Open Bottom Sheet')
 }
-const handleSelect = (key) => {
+const communityStore = useCommunityStore()
+
+const handleSelect = async (key) => {
   console.log('정렬 선택:', key)
+
+  let sortOption = 'created'
+  if (key === 'latest') sortOption = 'created'
+  else if (key === 'popular') sortOption = 'popular'
+
+  await communityStore.getCommunityPosts({ sorted: sortOption })
   isBottomOpen.value = false
 }
 
