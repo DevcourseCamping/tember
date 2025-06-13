@@ -1,8 +1,10 @@
 <script setup>
 import HeaderOther from '@/components/common/HeaderOther.vue'
 import { useCommunityStore } from '@/stores/communityStore'
+
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+
 import comment from '@/assets/icons/dark/dark-comment.svg'
 import unlike from '@/assets/icons/dark/dark-like-outline.svg'
 import like from '@/assets/icons/dark/dark-like-filled.svg'
