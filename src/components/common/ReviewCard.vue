@@ -43,6 +43,8 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
+
+const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
 </script>
 <template>
   <div class="p-[30px] flex flex-col">
@@ -86,7 +88,7 @@ onMounted(async () => {
             <img
               v-for="n in 5"
               :key="n"
-              :src="n <= review.rating ? filledStarIcon : outlineStarIcon"
+              :src="n <= review.star_rating ? filledStarIcon : outlineStarIcon"
               alt="별"
               class="w-4 h-4"
             />
@@ -94,7 +96,9 @@ onMounted(async () => {
         </div>
         <div class="pt-[13px] pl-5 pr-5 pb-5 flex gap-[27px]">
           <p class="font-bold text-[14px]">청결도</p>
-          <p class="text-[14px]">{{ review.cleanlines }}</p>
+          <p class="text-[14px]">
+            {{ cleanlinessLabels[Number(review.cleanliness) - 1] || '평가 없음' }}
+          </p>
         </div>
       </div>
     </div>

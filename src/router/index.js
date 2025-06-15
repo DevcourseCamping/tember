@@ -70,8 +70,8 @@ const router = createRouter({
       component: () => import('../views/ChatBot.vue'),
     },
     {
-      path: '/review/create',
-      name: 'reviewCreate',
+      path: '/camping/:id/review/create',
+      name: 'campReviewCreate',
       component: () => import('../views/review/ReviewPage.vue'),
     },
   ],
