@@ -17,12 +17,10 @@ import PostEditor from '@/components/community/PostEditor.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import formDate from '@/utils/formDate'
-import SkeletonPostDetail from '@/components/community/SkeletonPostDetail.vue'
 
 const route = useRoute()
 const postId = route.params.postId
 const communityStore = useCommunityStore()
-const loading = ref(true)
 
 const post = ref(null)
 const isLiked = ref(false)
@@ -95,21 +93,28 @@ const deletePost = async () => {
   const success = await communityStore.deletePost(post.value.id)
   if (success) {
     alert('게시글 삭제 완료')
-    router.push({ name: 'community' })
+    router.push('/community')
   } else {
     alert('게시글 삭제 실패')
   }
 }
 
-const handleSubmitComment = async () => {
-  const updated = await communityStore.submitComment(postId, commentInput.value, commentInput)
-  if (updated) {
-    post.value = updated
-    await nextTick()
-    bottomRef.value?.scrollIntoView({ behavior: 'smooth' })
-  }
-}
+let isSubmitting = false
+const submitComment = async () => {
+  if (isSubmitting) return
+  if (!commentInput.value.trim()) return
 
+  isSubmitting = true
+
+  await communityStore.addComment(post.value.id, commentInput.value.trim())
+  commentInput.value = ''
+  post.value = await communityStore.getCommunityPostById(postId)
+
+  await nextTick()
+  bottomRef.value?.scrollIntoView({ behavior: 'smooth' })
+
+  isSubmitting = false
+}
 const editComment = async (editedComment) => {
   if (editedComment.editTrigger) {
     const target = post.value.comments.find((c) => c.id === editedComment.id)
@@ -141,13 +146,10 @@ const clickLike = async () => {
 }
 
 onMounted(async () => {
-  loading.value = true
-
   const {
     data: { session },
   } = await supabase.auth.getSession()
   loginUserId.value = session?.user?.id
-
   post.value = await communityStore.getCommunityPostById(postId)
 
   if (loginUserId.value) {
@@ -156,11 +158,9 @@ onMounted(async () => {
       .select('id')
       .eq('post_id', postId)
       .eq('user_id', loginUserId.value)
-      .maybeSingle()
+      .single()
     isLiked.value = !!like
   }
-
-  loading.value = false
 })
 const isBottomOpen = ref(false)
 const clickBack = () => {
@@ -208,98 +208,124 @@ const goToUserProfile = (userId) => {
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
     <!-- header -->
-    <CommunityHeaderOther :is-my-post="isMyPost" @navClick="clickBack" @menuClick="clickSetting" />
-    <!-- main -->
-    <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
-      <SkeletonPostDetail v-if="loading" />
-      <template v-else>
-        <section class="my-6 px-5 flex items-center justify-between">
-          <div class="flex items-center">
-            <img
-              :src="post.profiles.image || post.profiles.avatar_url"
-              class="w-10 h-10 rounded-full mr-3"
-            />
-            <p class="font-bold">{{ post.profiles.username }}</p>
-          </div>
-          <p class="text-sm text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
-        </section>
-        <PostEditor
-          v-if="isEditing"
-          :model-value-content="editedContent"
-          :model-value-images="editableImages"
-          :model-value-category="editedCategory"
-          @update:modelValueContent="updateContent"
-          @update:modelValueImages="updateImages"
-          @update:modelValueCategory="modelValueCategory"
-          @cancel="isEditing = false"
-          @save="saveEdit"
-        />
-        <PostContent v-else :post="post" :image-list="imageList" />
-
-        <!-- like / comment -->
-        <template v-if="!isEditing">
-          <!-- summary -->
-          <section class="mx-[30px] mt-[30px] mb-[20px]">
-            <div class="flex gap-3 justify-end mb-3">
-              <div
-                class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded-[5px] cursor-pointer"
-                @click="clickLike"
-              >
-                <img :src="isLiked ? like : unlike" class="w-5 h-5" />
-                <span class="text-[var(--white)] text-sm">{{ post.likeCount }}</span>
-              </div>
-              <div class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded-[5px]">
-                <img :src="comment" class="w-5 h-5" />
-                <span class="text-[var(--white)] text-sm">{{ post.comments.length }}</span>
-              </div>
-            </div>
-          </section>
-
-          <!-- comments -->
-          <section class="mx-5 mb-[50px]">
-            <ul class="flex flex-col gap-4">
-              <CommentItem
-                v-for="comment in post.comments"
-                :key="comment.id"
-                :comment="comment"
-                :loginUserId="loginUserId"
-                :onEdit="editComment"
-                :onDelete="deleteComment"
-                @openMenu="openCommentMenu"
-              />
-              <div ref="bottomRef" />
-            </ul>
-          </section>
-        </template>
-      </template>
-    </main>
-    <!-- comment input -->
-    <section
-      class="fixed bottom-0 flex items-center w-full max-w-[500px] h-[60px] bg-[var(--primary)] px-5"
-    >
-      <input
-        v-model="commentInput"
-        class="bg-[var(--white)] px-4 py-2 w-full rounded text-sm focus:outline-none"
-        placeholder="댓글을 입력해주세요"
-        @keyup.enter="handleSubmitComment"
-      />
-      <button
-        class="w-[60px] h-10 ml-2 text-[var(--primary)] bg-[var(--white)] px-3 py-2 rounded text-[15px]"
-        @click="handleSubmitComment"
-      >
-        등록
-      </button>
-    </section>
+    <CommunityHeaderOther
+      v-if="post"
+      :is-my-post="isMyPost"
+      :menu-type="'more'"
+      @navClick="clickBack"
+      @menuClick="clickSetting"
+    />
     <!-- header bottom sheet -->
     <BottomSheetWrapper v-show="isBottomOpen" :show="isBottomOpen" @close="!isBottomOpen">
       <BottomSheet type="post" @close="clickSetting" @select="handleSelect" />
     </BottomSheetWrapper>
-    <!-- comment bottom sheet -->
-    <BottomSheetWrapper v-if="selectedComment" :show="isCommentSheetOpen" @close="closeCommentMenu">
-      <BottomSheet type="comment" @close="closeCommentMenu" @select="handleCommentSelect" />
-    </BottomSheetWrapper>
+
+    <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
+      <section class="my-6 px-5 flex items-center justify-between">
+        <div class="flex items-center cursor-pointer" @click="goToUserProfile(post.user_id)">
+          <img
+            :src="post.profiles.image || post.profiles.avatar_url"
+            class="w-10 h-10 rounded-full mr-3"
+          />
+          <p class="font-bold">{{ post.profiles.username }}</p>
+        </div>
+        <p class="text-sm text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
+      </section>
+      <PostEditor
+        v-if="isEditing"
+        :model-value-content="editedContent"
+        :model-value-images="editableImages"
+        :model-value-category="editedCategory"
+        @update:modelValueContent="updateContent"
+        @update:modelValueImages="updateImages"
+        @update:modelValueCategory="modelValueCategory"
+        @cancel="isEditing = false"
+        @save="saveEdit"
+      />
+      <PostContent v-else :post="post" :image-list="imageList" />
+
+      <!-- like / comment -->
+      <template v-if="!isEditing">
+        <!-- summary -->
+        <section class="mx-[30px] mt-[30px] mb-[20px]">
+          <div class="flex gap-3 justify-end mb-3">
+            <div
+              class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded cursor-pointer"
+              @click="clickLike"
+            >
+              <img :src="isLiked ? like : unlike" class="w-5 h-5" />
+              <span class="text-[var(--white)] text-sm">{{ post.likeCount }}</span>
+            </div>
+            <div class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded">
+              <img :src="comment" class="w-5 h-5" />
+              <span class="text-[var(--white)] text-sm">{{ post.comments.length }}</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- comments -->
+        <section class="mx-5 mb-[30px]">
+          <ul class="flex flex-col gap-4">
+            <CommentItem
+              v-for="comment in post.comments"
+              :key="comment.id"
+              :comment="comment"
+              :loginUserId="loginUserId"
+              :onEdit="editComment"
+              :onDelete="deleteComment"
+              @openMenu="openCommentMenu"
+            />
+            <div ref="bottomRef" />
+          </ul>
+          <!-- comment bottom sheet -->
+          <BottomSheetWrapper
+            v-if="selectedComment"
+            :show="isCommentSheetOpen"
+            @close="closeCommentMenu"
+          >
+            <BottomSheet type="comment" @close="closeCommentMenu" @select="handleCommentSelect" />
+          </BottomSheetWrapper>
+        </section>
+        <!-- comment input -->
+        <section
+          class="fixed bottom-0 flex items-center w-full max-w-[500px] h-[60px] bg-[var(--primary)] px-5"
+        >
+          <input
+            v-model="commentInput"
+            class="bg-[var(--white)] px-4 py-2 w-full rounded text-sm focus:outline-none"
+            placeholder="댓글을 입력해주세요"
+            @keyup.enter="submitComment"
+          />
+          <button
+            class="w-[60px] h-10 ml-2 text-[var(--primary)] bg-[var(--white)] px-3 py-2 rounded text-[15px]"
+            @click="submitComment"
+          >
+            등록
+          </button>
+        </section>
+      </template>
+    </main>
   </div>
 </template>
-<style scoped></style>
+<style scoped>
+:deep(.swiper-pagination) {
+  bottom: 10px !important;
+  text-align: center;
+}
+
+:deep(.swiper-pagination-bullet) {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-30);
+  opacity: 1;
+  margin: 0 4px;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+  background: var(--primary);
+}
+</style>
