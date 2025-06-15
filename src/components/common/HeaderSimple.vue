@@ -20,11 +20,11 @@ const emit = defineEmits(['navClick'])
 <template>
   <header class="relative w-full max-w-[500px] h-20 bg-[var(--white)] flex items-center">
     <button @click="emit('navClick')" class="absolute left-[30px]">
-      <img v-if="props.navType === 'close'" :src="close" class="w-5 h-5" />
+      <img v-if="props.navType === 'close'" :src="close" class="w-[18px] h-[18px]" />
       <img v-else :src="back" class="w-7 h-7" />
     </button>
     <div class="absolute left-1/2 transform -translate-x-1/2">
-      <span v-if="props.centerContent === 'title'" class="text-xl">{{ props.title }}</span>
+      <span v-if="props.centerContent === 'title'" class="text-lg">{{ props.title }}</span>
       <img v-if="props.centerContent === 'logo'" :src="logo" class="w-[85px] h-[43px]" />
     </div>
   </header>
