@@ -48,11 +48,11 @@ const goToUserProfile = (userId) => {
     </div>
     <div
       v-if="clickTab === 'follower'"
-      class="absolute left-[0px] bottom-0 w-[250px] border-t-[2px] border-[var(--primary)]"
+      class="absolute left-[0px] bottom-0 w-1/2 border-t-[2px] border-[var(--primary)]"
     ></div>
     <div
       v-if="clickTab === 'following'"
-      class="absolute right-[0px] bottom-0 w-[250px] border-t-[2px] border-[var(--primary)]"
+      class="absolute right-[0px] bottom-0 w-1/2 border-t-[2px] border-[var(--primary)]"
     ></div>
 
     <hr class="mt-[10px] border border-[var(--primary-20)]" />
