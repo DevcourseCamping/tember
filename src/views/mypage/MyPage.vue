@@ -9,10 +9,11 @@ import supabase from '@/utils/supabase'
 import NavBar from '@/components/common/NavBar.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import { useUserPage } from '@/composables/useUserPage'
+import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
 const isBottomOpen = ref(false)
-
+const profile = useUserStore()
 const { isMyPage } = useUserPage()
 
 const handleLogout = async () => {
@@ -20,13 +21,13 @@ const handleLogout = async () => {
   if (error) {
     console.error('로그아웃 중 에러:', error.message)
   } else {
-    console.log('로그아웃 성공')
-    router.push({ name: 'login' })
+    profile.user = null
+    router.push({ name: 'home' })
   }
 }
 
 const clickBack = () => {
-  router.push({ name: 'home' })
+  router.back()
 }
 
 const clickSetting = () => {
