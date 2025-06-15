@@ -220,10 +220,10 @@ const handleCategoryClick = (category) => {
       </section>
 
       <section class="bg-[--white] pt-[72px] pb-[160px]">
-        <h2 class="text-center font-bold text-[17px] text-[#--home-text] mb-8">Review</h2>
+        <h2 class="text-center font-bold text-[17px] text-[--home-text] mb-8">Review</h2>
         <div class="max-w-[500px] mx-auto px-4 flex justify-center">
-          <div class="w-[300px] bg-white rounded-[5px] shadow p-4 text-center">
-            <h3 class="font-bold text-[15px] text-[--black] mb-2">가평 블루래빗 캠핑장</h3>
+          <div class="w-[300px] rounded-[5px] shadow p-4 text-center">
+            <h3 class="font-bold text-[15px] text-[--home-text] mb-2">가평 블루래빗 캠핑장</h3>
             <p class="text-[14px] text-[#--home-text] mb-2 line-clamp-2">
               캠핑장 다녀왔는데 시설도 깨끗하고 사장님도 친절하고 좋았고 추천합니다!
             </p>
