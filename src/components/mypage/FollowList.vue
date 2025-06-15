@@ -1,117 +1,136 @@
 <script setup>
-import { ref } from 'vue'
+import { useFollowStore } from '@/stores/followStore'
+import { useUserStore } from '@/stores/userStore'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-const clickTab = ref('follower')
+const route = useRoute()
+const profile = useUserStore()
+const follow = useFollowStore()
+const myId = computed(() => profile.user?.id)
 
-const followList = {
-  userName: '캠핑 초보',
-  followers: [
-    {
-      userName: '브라운',
-      userProfile: 'https://i.pinimg.com/736x/29/94/93/299493fdceb2a8caa17d374811a86fb4.jpg',
-      following: false,
-    },
-    {
-      userName: '베어리스타',
-      userProfile:
-        'https://before-images-item.croketglobal.net/item/thumbnail/9bfc330b78f8a531b0719e4f852ed956.webp',
-      following: true,
-    },
+const clickTab = ref(route.query.tab === 'following' ? 'following' : 'follower')
 
-    {
-      userName: '눙눙',
-      userProfile: 'https://cdn.thescoop.co.kr/news/photo/201909/36463_47941_5146.jpg',
-      following: false,
-    },
-    {
-      userName: '반곰흐',
-      userProfile:
-        'https://contents.sixshop.com/uploadedFiles/160014/default/image_1639124408718.jpg',
-      following: true,
-    },
-  ],
-  followingUsers: [
-    {
-      userName: '베어리스타',
-      userProfile:
-        'https://before-images-item.croketglobal.net/item/thumbnail/9bfc330b78f8a531b0719e4f852ed956.webp',
-      following: true,
-    },
-    {
-      userName: '반곰흐',
-      userProfile:
-        'https://contents.sixshop.com/uploadedFiles/160014/default/image_1639124408718.jpg',
-      following: true,
-    },
-  ],
-}
+const props = defineProps({
+  followers: {
+    type: Array,
+    default: () => [],
+  },
+  followings: {
+    type: Array,
+    default: () => [],
+  },
+})
 </script>
 <template>
-  <div class="flex justify-between px-[95px] pt-4 text-[15px] font-bold">
-    <button
-      @click="clickTab = 'follower'"
-      :class="clickTab === 'follower' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
-    >
-      <span>10</span>
-      <span>팔로워</span>
-    </button>
-    <button
-      @click="clickTab = 'following'"
-      :class="clickTab === 'following' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
-    >
-      <span>10</span>
-      <span>팔로잉</span>
-    </button>
+  <div class="relative">
+    <div class="flex justify-between px-[95px] pt-4 text-[15px]">
+      <button
+        @click="clickTab = 'follower'"
+        :class="clickTab === 'follower' ? 'text-[var(--primary)] ' : 'text-[var(--primary-30)]'"
+      >
+        <span class="mr-3 font-semibold">팔로워</span>
+        <span class="font-bold">{{ followers.length }}</span>
+      </button>
+      <button
+        @click="clickTab = 'following'"
+        :class="clickTab === 'following' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
+      >
+        <span class="mr-3 font-semibold">팔로잉</span>
+        <span class="font-bold">{{ followings.length }}</span>
+      </button>
+    </div>
+    <div
+      v-if="clickTab === 'follower'"
+      class="absolute left-[0px] bottom-0 w-[250px] border-t-[2px] border-[var(--primary)]"
+    ></div>
+    <div
+      v-if="clickTab === 'following'"
+      class="absolute right-[0px] bottom-0 w-[250px] border-t-[2px] border-[var(--primary)]"
+    ></div>
+
+    <hr class="mt-[10px] border border-[var(--primary-20)]" />
   </div>
-  <hr class="mt-[10px] border border-[var(--primary-20)]" />
 
   <div class="h-[calc(100vh-80px)] overflow-y-auto px-[50px] py-[30px]">
     <section v-if="clickTab === 'follower'">
-      <ul>
-        <li v-for="follower in followList.followers" :key="follower.userName">
-          <div class="flex items-center justify-between pb-5">
-            <div class="flex items-center">
-              <img
-                :src="follower.userProfile"
-                alt=""
-                class="w-[50px] h-[50px] rounded-full mr-[15px]"
-              />
-              <p v-text="follower.userName" class="text-[15px] font-bold"></p>
+      <div
+        v-if="clickTab === 'follower' && followers.length === 0"
+        class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)]"
+      >
+        아직 나를 팔로우한 캠퍼가 없습니다.
+      </div>
+      <div v-else>
+        <ul>
+          <li v-for="follower in followers" :key="follower.follower_id">
+            <div class="flex items-center justify-between pb-5">
+              <div class="flex items-center">
+                <img
+                  :src="follower.profiles.image || follower.profiles.avatar_url"
+                  alt=""
+                  class="w-[50px] h-[50px] rounded-full mr-[15px]"
+                />
+                <p v-text="follower.profiles.username" class="text-[15px] font-bold"></p>
+              </div>
+              <button
+                v-if="!follower.isFollow && follower.follower_id !== myId"
+                class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)]"
+                @click="
+                  async () => {
+                    await follow.followUser(myId, follower.follower_id, 'followers')
+                    follower.isFollow = true
+                  }
+                "
+              >
+                맞팔로우
+              </button>
+              <button
+                v-else-if="follower.isFollow && follower.follower_id !== myId"
+                class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] flex items-center justify-center"
+                @click="
+                  async () => {
+                    await follow.unfollowUser(myId, follower.follower_id, 'followers')
+                    follower.isFollow = false
+                  }
+                "
+              >
+                팔로우 취소
+              </button>
             </div>
-            <button
-              v-if="follower.following === true"
-              class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px]"
-            >
-              언팔로우
-            </button>
-            <button
-              v-else
-              class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)]"
-            >
-              맞팔로우
-            </button>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </section>
     <section v-if="clickTab === 'following'">
-      <ul>
-        <li v-for="followingUser in followList.followingUsers" :key="followingUser.userName">
-          <div class="flex items-center justify-between pb-5">
-            <div class="flex items-center">
-              <img
-                :src="followingUser.userProfile"
-                alt=""
-                class="w-[50px] h-[50px] rounded-full mr-[15px]"
-              />
-              <p v-text="followingUser.userName" class="text-[15px] font-bold"></p>
+      <div
+        v-if="clickTab === 'following' && followings.length === 0"
+        class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)]"
+      >
+        마음에 드는 캠퍼를 팔로우해보세요.
+      </div>
+      <div v-else>
+        <ul>
+          <li v-for="following in followings" :key="following.following_id">
+            <div class="flex items-center justify-between pb-5">
+              <div class="flex items-center">
+                <img
+                  :src="following.profiles.image || following.profiles.avatar_url"
+                  alt=""
+                  class="w-[50px] h-[50px] rounded-full mr-[15px]"
+                />
+                <p v-text="following.profiles.username" class="text-[15px] font-bold"></p>
+              </div>
+              <button
+                v-if="following.following_id !== myId"
+                class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px]"
+                @click="follow.unfollowUser(myId, following.following_id, 'followings')"
+              >
+                팔로우 취소
+              </button>
             </div>
-            <button class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px]">
-              언팔로우
-            </button>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </section>
   </div>
 </template>
