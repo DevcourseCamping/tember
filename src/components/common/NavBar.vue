@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 
 import homeon from '@/assets/icons/nav/nav-home-on.svg'
 import homeoff from '@/assets/icons/nav/nav-home-off.svg'
@@ -10,9 +10,11 @@ import communityon from '@/assets/icons/nav/nav-community-on.svg'
 import communityoff from '@/assets/icons/nav/nav-community-off.svg'
 import myoff from '@/assets/icons/nav/nav-mypage-off.svg'
 import myon from '@/assets/icons/nav/nav-mypage-on.svg'
+import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
 const route = useRoute()
+const profile = useUserStore()
 
 const tabs = [
   { name: 'home', label: '홈', path: '/', on: homeon, off: homeoff },
@@ -26,9 +28,19 @@ const currentTab = computed(() => {
   return matched?.name || ''
 })
 
-const changeTab = (tab) => {
+const changeTab = async (tab) => {
+  if (tab.name === 'mypage') {
+    if (!profile.user?.id) {
+      router.push({ name: 'login' })
+      return
+    }
+  }
   router.push(tab.path)
 }
+
+onMounted(() => {
+  profile.fetchUser()
+})
 </script>
 <template>
   <footer class="fixed bottom-0 w-full max-w-[500px] h-[60px] bg-[--primary] flex">
