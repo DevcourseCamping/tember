@@ -6,7 +6,9 @@ import { useUserApi } from '@/composables/useUserApi'
 import { useUserPage } from '@/composables/useUserPage'
 import { useFollowStore } from '@/stores/followStore'
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const profile = useUserStore()
 const isLoading = ref(true)
 const { isMyPage, targetUserId } = useUserPage()
@@ -63,6 +65,14 @@ const toggleFollow = async () => {
     profile.user.followingCount += 1
   }
 }
+
+const clickFollow = (tab) => {
+  router.push({
+    name: 'user-follow',
+    params: { id: targetUserId.value },
+    query: { tab },
+  })
+}
 </script>
 <template>
   <ProfileSkeleton v-if="isLoading" />
@@ -79,10 +89,10 @@ const toggleFollow = async () => {
       </div>
       <div class="flex flex-col gap-[10px] text-4 pt-[5px]">
         <div class="flex gap-[56px]">
-          <button>
+          <button @click="clickFollow('follower')">
             팔로워 <span class="font-semibold pl-[10px]">{{ targetUser?.followerCount }}</span>
           </button>
-          <button>
+          <button @click="clickFollow('following')">
             팔로잉 <span class="font-semibold pl-[10px]">{{ targetUser?.followingCount }}</span>
           </button>
         </div>
