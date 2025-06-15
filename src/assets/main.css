@@ -21,6 +21,11 @@
   --blue: #2563eb;
 }
 
+.dark {
+  --primary:#181818;
+  --white:#121212;
+}
+
 @font-face {
   font-family: 'PostNoBillsJaffna';
   src: url('./fonts/PostNoBillsJaffna-Regular.woff2') format('woff2');

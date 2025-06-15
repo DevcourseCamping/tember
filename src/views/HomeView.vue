@@ -41,7 +41,7 @@ const handleCategoryClick = (category) => {
     </div>
 
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
+      <section class="bg-[--white] pt-[39px] pb-[39px]"></section>
       <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
         <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">Popular</h2>
         <Swiper

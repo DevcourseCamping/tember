@@ -7,6 +7,10 @@ import router from './router'
 
 import supabase from '@/utils/supabase.js'
 
+const html = document.documentElement
+const saved = localStorage.getItem('theme') || 'light'
+html.classList.add(saved)
+
 supabase.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_IN') {
     const currentPath = router.currentRoute.value.path
@@ -23,3 +27,10 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+export function toggleDarkMode() {
+  const isDark = html.classList.contains('dark')
+  html.classList.toggle('dark', !isDark)
+  html.classList.toggle('light', isDark)
+  localStorage.setItem('theme', isDark ? 'light' : 'dark')
+}

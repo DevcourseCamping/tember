@@ -22,7 +22,7 @@ const emit = defineEmits(['filterClick', 'categoryClick'])
         <input
           type="text"
           placeholder="검색하기"
-          class="w-[330px] h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px]"
+          class="w-[330px] h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px] dark:text-gray-200 dark:placeholder-gray-500"
         />
         <button @click="emit('filterClick')">
           <img :src="filter" class="w-5 h-5" />
