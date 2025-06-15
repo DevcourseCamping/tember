@@ -18,6 +18,9 @@ import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import formDate from '@/utils/formDate'
 
+import 'swiper/css'
+import 'swiper/css/pagination'
+
 const route = useRoute()
 const postId = route.params.postId
 const communityStore = useCommunityStore()
@@ -309,23 +312,4 @@ const goToUserProfile = (userId) => {
     </main>
   </div>
 </template>
-<style scoped>
-:deep(.swiper-pagination) {
-  bottom: 10px !important;
-  text-align: center;
-}
-
-:deep(.swiper-pagination-bullet) {
-  width: 6px;
-  height: 6px;
-  background: var(--primary-30);
-  opacity: 1;
-  margin: 0 4px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-:deep(.swiper-pagination-bullet-active) {
-  background: var(--primary);
-}
-</style>
+<style scoped></style>
