@@ -5,12 +5,9 @@
   --white: #ffffff;
   --white-20: #ffffff20;
   --white-30: #ffffff30;
-  --white-50: #ffffff50;
   --bg-color: #d4cbc2;
   --black: #222222;
-  --black-20: #22222220;
   --black-30: #22222230;
-  --black-50: #22222250;
   --black-70: #22222270;
   --grey: #a8aeb2;
   --primary: #4b3c2f;
@@ -18,12 +15,29 @@
   --primary-30: #4b3c2f30;
   --primary-50: #4b3c2f50;
   --red: #ff2b41;
-  --blue: #2563eb;
+  --home-text:#4A4A4A;
+  --home-bg:#f2f2f2;
+  --icon-text:#ffffff;
+  --popular:#ffffff;
+  --search:#ffffff;
+  --line:#4b3c2f50;
 }
 
 .dark {
-  --primary:#181818;
-  --white:#121212;
+  --white: #121212;
+  --white-20: #2a2a2a33;
+  --white-30: #ffffff30;
+  --bg-color: #1E1E1E;
+  --black: #ffffff;
+  --black-30: #dbdbdb90;
+  --grey: #ffffff50;
+  --primary: #181818;
+  --primary-50: #dbdbdb50;
+  --home-text:#ede8e4;
+  --home-bg:#1c1c1c;
+  --icon-text:#ffffff;
+  --popular:#2a2a2a;
+  --line:#ffffff30;
 }
 
 @font-face {

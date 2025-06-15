@@ -35,55 +35,55 @@
       </div>
     </div>
   </div>
-  <div class="flex items-center justify-around gap-4 border-b border-b-[#4B3C2F50] p-[20px]">
-    <button @click="scrollTo('#basic-info')" class="text-md text-[#222222]">기본 정보</button>
-    <button @click="scrollTo('#camping-intro')" class="text-md text-[#22222230]">
+  <div class="flex items-center justify-around gap-4 border-b border-b-[--primary-50] p-[20px]">
+    <button @click="scrollTo('#basic-info')" class="text-md text-[--black]">기본 정보</button>
+    <button @click="scrollTo('#camping-intro')" class="text-md text-[--black-30]">
       캠핑장 소개
     </button>
-    <button @click="scrollTo('#location-info')" class="text-md text-[#22222230]">위치 정보</button>
-    <button @click="scrollTo('#review')" class="text-md text-[#22222230]">리뷰</button>
+    <button @click="scrollTo('#location-info')" class="text-md text-[--black-30]">위치 정보</button>
+    <button @click="scrollTo('#review')" class="text-md text-[--black-30]">리뷰</button>
   </div>
   <div id="basic-info" class="w-full relative">
     <div class="m-[10px] p-[20px] flex flex-col gap-2">
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">환경</span>
-        <span class="text-[#222222]">
+        <span class="text-[--grey] w-[65px]">환경</span>
+        <span class="text-[--black]">
           <div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div>
         </span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">사업주체</span>
-        <span class="text-[#222222]"
+        <span class="text-[--grey] w-[65px]">사업주체</span>
+        <span class="text-[--black]"
           ><div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">운영기간</span>
-        <span class="text-[#222222]"
+        <span class="text-[--grey] w-[65px]">운영기간</span>
+        <span class="text-[--black]"
           ><div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">운영일</span>
-        <span class="text-[#222222]"
+        <span class="text-[--grey] w-[65px]">운영일</span>
+        <span class="text-[--black]"
           ><div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">예약 방법</span>
-        <span class="text-[#222222]"
+        <span class="text-[--grey] w-[65px]">예약 방법</span>
+        <span class="text-[--black]"
           ><div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">화로대</span>
-        <span class="text-[#222222]"
+        <span class="text-[--grey] w-[65px]">화로대</span>
+        <span class="text-[--black]"
           ><div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div
         ></span>
       </div>
     </div>
   </div>
-  <hr class="mx-5 border-b border-b-[#4B3C2F50]" />
+  <hr class="mx-5 border-b border-b-[--primary-50]" />
 </template>
 
 <script setup></script>

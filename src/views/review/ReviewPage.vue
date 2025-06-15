@@ -74,7 +74,7 @@ const setRating = (index) => {
         <p
           v-for="(label, index) in labels"
           class="text-[15px] font-semibold transition-colors"
-          :class="selected === index ? 'text-[#222222]' : 'text-[#--grey]'"
+          :class="selected === index ? 'text-[--black]' : 'text-[#--grey]'"
         >
           {{ label }}
         </p>
@@ -99,7 +99,7 @@ const setRating = (index) => {
 
     <!-- footer -->
     <button
-      class="absolute bottom-0 w-full h-[60px] bg-[#--primary] flex justify-center items-center text-[18px] text-[#FFFFFF]"
+      class="absolute bottom-0 w-full h-[60px] bg-[#--primary] flex justify-center items-center text-[18px] text-[--white]"
     >
       등록하기
     </button>

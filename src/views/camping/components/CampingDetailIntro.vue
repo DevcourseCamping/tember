@@ -2,35 +2,35 @@
   <div id="basic-info" class="w-full relative">
     <div class="m-[10px] p-[20px] flex flex-col gap-2">
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">환경</span>
-        <span class="text-[#222222] dark:text-white">{{ campingDetail.lct_cl || '-' }}</span>
+        <span class="text-[--grey] w-[65px]">환경</span>
+        <span class="text-[--black] dark:text-white">{{ campingDetail.lct_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">사업주체</span>
-        <span class="text-[#222222] dark:text-white">{{ campingDetail.faclt_div_nm || '-' }}</span>
+        <span class="text-[--grey] w-[65px]">사업주체</span>
+        <span class="text-[--black] dark:text-white">{{ campingDetail.faclt_div_nm || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">운영기간</span>
-        <span class="text-[#222222] dark:text-white">{{ campingDetail.oper_pd_cl || '-' }}</span>
+        <span class="text-[--grey] w-[65px]">운영기간</span>
+        <span class="text-[--black] dark:text-white">{{ campingDetail.oper_pd_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">운영일</span>
-        <span class="text-[#222222] dark:text-white">{{ campingDetail.oper_de_cl || '-' }}</span>
+        <span class="text-[--grey] w-[65px]">운영일</span>
+        <span class="text-[--black] dark:text-white">{{ campingDetail.oper_de_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">예약 방법</span>
-        <span class="text-[#222222] dark:text-white">{{ campingDetail.resve_cl || '-' }}</span>
+        <span class="text-[--grey] w-[65px]">예약 방법</span>
+        <span class="text-[--black] dark:text-white">{{ campingDetail.resve_cl || '-' }}</span>
       </div>
       <div class="flex items-center justify-start gap-12">
-        <span class="text-[#A8AEB2] w-[65px]">화로대</span>
-        <span class="text-[#222222] dark:text-white">{{ campingDetail.brazier_cl || '-' }}</span>
+        <span class="text-[--grey] w-[65px]">화로대</span>
+        <span class="text-[--black] dark:text-white">{{ campingDetail.brazier_cl || '-' }}</span>
       </div>
     </div>
   </div>
-  <hr class="mx-5 border-b border-b-[#4B3C2F50]" />
+  <hr class="mx-5 border-b border-b-[--primary-50]" />
   <div class="w-full relative">
     <div class="m-[10px] p-[20px]">
-      <span class="text-[#222222] dark:text-white text-md font-bold">부대시설</span>
+      <span class="text-[--black] dark:text-white text-md font-bold">부대시설</span>
       <div
         class="flex items-center no-scrollbar gap-2 mt-[30px] w-full overflow-x-auto flex-nowrap"
       >
@@ -40,7 +40,7 @@
           :key="item.name"
         >
           <img :src="item.image" alt="" />
-          <span class="text-[#222222] dark:text-white">{{ item.name }}</span>
+          <span class="text-[--black] dark:text-white">{{ item.name }}</span>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router'
 
 import supabase from '@/utils/supabase.js'
+import ThemeIcon from '@/components/common/ThemeIcon.vue'
 
 const html = document.documentElement
 const saved = localStorage.getItem('theme') || 'light'
@@ -27,7 +28,7 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-
+app.component('ThemeIcon', ThemeIcon)
 app.mount('#app')
 
 export function toggleDarkMode() {

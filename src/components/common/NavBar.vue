@@ -54,7 +54,7 @@ onMounted(() => {
         <img :src="currentTab === tab.name ? tab.on : tab.off" class="w-[20px] h-[20px]" />
         <span
           class="text-sm mt-1"
-          :class="currentTab === tab.name ? 'text-[--white]' : 'text-[--white-30]'"
+          :class="currentTab === tab.name ? 'text-white' : 'text-[--white-30]'"
         >
           {{ tab.label }}
         </span>

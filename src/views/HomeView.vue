@@ -7,6 +7,7 @@ import 'swiper/css'
 import 'swiper/css/free-mode'
 import { ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
+import ThemeIcon from '@/components/common/ThemeIcon.vue'
 
 const router = useRouter()
 
@@ -42,8 +43,8 @@ const handleCategoryClick = (category) => {
 
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <section class="bg-[--white] pt-[39px] pb-[39px]"></section>
-      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
-        <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">Popular</h2>
+      <section class="bg-[--home-bg] overflow-hidden relative pt-[72px] pb-[72px] z-0">
+        <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[--home-text]">Popular</h2>
         <Swiper
           :slides-per-view="'auto'"
           :space-between="30"
@@ -66,19 +67,18 @@ const handleCategoryClick = (category) => {
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-[10px] flex-1">
+              <div class="flex flex-col justify-between p-[10px] flex-1 bg-[--popular]">
                 <div>
-                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[10px]">휘게포레스트</h3>
+                  <h3 class="text-[15px] font-semibold text-[--black] mt-[10px]">휘게포레스트</h3>
                   <p class="text-[13px] text-[--grey] mt-[10px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
+                <div class="w-full h-[1px] bg-[--line] mt-[15px]"></div>
                 <div class="flex justify-end items-center gap-[10px]">
-                  <img
-                    src="../assets/icons/light/light-caravan-off.svg"
+                  <ThemeIcon name="caravan-off"
                     class="w-[20px] h-[20px]"
                   />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="trailer-on" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="pet-on" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -89,19 +89,18 @@ const handleCategoryClick = (category) => {
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-[10px] flex-1">
+              <div class="flex flex-col justify-between p-[10px] flex-1 bg-[--popular]">
                 <div>
-                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[10px]">휘게포레스트</h3>
+                  <h3 class="text-[15px] font-semibold text-[--black] mt-[10px]">휘게포레스트</h3>
                   <p class="text-[13px] text-[--grey] mt-[10px]">강원 평창군 용평면</p>
                 </div>
-                <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
+                <div class="w-full h-[1px] bg-[--line] mt-[15px]"></div>
                 <div class="flex justify-end items-center gap-[10px]">
-                  <img
-                    src="../assets/icons/light/light-caravan-off.svg"
+                  <ThemeIcon name="caravan-off"
                     class="w-[20px] h-[20px]"
                   />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="trailer-on" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="pet-on" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -109,16 +108,15 @@ const handleCategoryClick = (category) => {
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[72px]">
+      <section class="bg-[--white] pt-[72px] pb-[72px]">
         <ul class="flex flex-col gap-[40px]">
           <li class="flex items-start">
-            <img
-              src="../assets/icons/light/light-caravan-on.svg"
+            <ThemeIcon name="caravan-on"
               alt="개인 카라반"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222]">개인 카라반 동반</p>
+              <p class="text-[18px] font-bold text-[--black]">개인 카라반 동반</p>
               <p class="text-[15px] text-[--grey] mt-[10px]">
                 내 집처럼 편안하게 캠핑을 즐겨보세요
               </p>
@@ -126,13 +124,12 @@ const handleCategoryClick = (category) => {
           </li>
 
           <li class="flex items-start">
-            <img
-              src="../assets/icons/light/light-trailer-on.svg"
+            <ThemeIcon name="trailer-on"
               alt="트레일러"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222]">개인 트레일러 동반</p>
+              <p class="text-[18px] font-bold text-[--black]">개인 트레일러 동반</p>
               <p class="text-[15px] text-[--grey] mt-[10px]">
                 트레일러와 함께 어디든 자유롭게 떠나요
               </p>
@@ -140,13 +137,12 @@ const handleCategoryClick = (category) => {
           </li>
 
           <li class="flex items-start">
-            <img
-              src="../assets/icons/light/light-pet-on.svg"
+            <ThemeIcon name="pet-on"
               alt="반려동물"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222]">반려 동물 동반</p>
+              <p class="text-[18px] font-bold text-[--black]">반려 동물 동반</p>
               <p class="text-[15px] text-[--grey] mt-[10px]">
                 사랑하는 반려동물과 함께하는 특별한 추억을 만들어보세요
               </p>
@@ -155,8 +151,8 @@ const handleCategoryClick = (category) => {
         </ul>
       </section>
 
-      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
-        <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">
+      <section class="bg-[--home-bg] overflow-hidden relative pt-[72px] pb-[72px] z-0">
+        <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[--home-text]">
           Community
         </h2>
 
@@ -167,7 +163,7 @@ const handleCategoryClick = (category) => {
           :loop="true"
           :initial-slide="2"
           grab-cursor
-          class="px-[30px]"
+          class="px-[30px] !h-[350px]"
         >
           <SwiperSlide
             v-for="item in [1, 2, 3]"
@@ -175,31 +171,30 @@ const handleCategoryClick = (category) => {
             class="!w-[300px] flex flex-col gap-6 flex-shrink-0"
           >
             <div
-              class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden mb-[30px]"
+              class="w-[300px] h-[142px] bg-[--white] rounded-[5px] shadow flex overflow-hidden mb-[30px]"
             >
               <img
                 src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
                 alt="캠핑장 사진"
                 class="w-[100px] h-full object-cover"
               />
-              <div class="flex flex-col justify-between p-[15px] flex-1">
+              <div class="flex flex-col justify-between p-[15px] flex-1 bg-[--popular]">
                 <p class="text-[14px] text-[--grey] mt-[5px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[10px]"></div>
+                <div class="w-full h-[1px] bg-[--line] mt-[10px] mb-[10px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
-                  <img
-                    src="../assets/icons/light/light-like-outline.svg"
+                  <ThemeIcon name="like-outline"
                     class="w-[20px] h-[20px]"
                   />
                   <p class="text-[14px] mr-[5px]">8</p>
-                  <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="comment" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
               </div>
             </div>
 
-            <div class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden">
+            <div class="w-[300px] h-[142px] rounded-[5px] shadow flex overflow-hidden bg-[--popular]">
               <img
                 src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
                 alt="캠핑장 사진"
@@ -209,14 +204,13 @@ const handleCategoryClick = (category) => {
                 <p class="text-[14px] text-[--grey] mt-[5px]">
                   서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
                 </p>
-                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[10px]"></div>
+                <div class="w-full h-[1px] bg-[--line] mt-[10px] mb-[10px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
-                  <img
-                    src="../assets/icons/light/light-like-outline.svg"
+                  <ThemeIcon name="like-outline"
                     class="w-[20px] h-[20px]"
                   />
                   <p class="text-[14px] mr-[5px]">8</p>
-                  <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="comment" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
               </div>
@@ -225,12 +219,12 @@ const handleCategoryClick = (category) => {
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[160px]">
-        <h2 class="text-center font-bold text-[17px] text-[#4A4A4A] mb-8">Review</h2>
+      <section class="bg-[--white] pt-[72px] pb-[160px]">
+        <h2 class="text-center font-bold text-[17px] text-[#--home-text] mb-8">Review</h2>
         <div class="max-w-[500px] mx-auto px-4 flex justify-center">
           <div class="w-[300px] bg-white rounded-[5px] shadow p-4 text-center">
-            <h3 class="font-bold text-[15px] text-[#222222] mb-2">가평 블루래빗 캠핑장</h3>
-            <p class="text-[14px] text-[#4A4A4A] mb-2 line-clamp-2">
+            <h3 class="font-bold text-[15px] text-[--black] mb-2">가평 블루래빗 캠핑장</h3>
+            <p class="text-[14px] text-[#--home-text] mb-2 line-clamp-2">
               캠핑장 다녀왔는데 시설도 깨끗하고 사장님도 친절하고 좋았고 추천합니다!
             </p>
             <p class="text-[13px] text-[--grey] mb-2">작성자 1</p>

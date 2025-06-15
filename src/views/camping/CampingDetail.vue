@@ -20,9 +20,9 @@
       />
       <CampingDetailBtnGroup />
       <CampingDetailIntro :camping-detail="campingDetail.campInfo" />
-      <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
+      <hr class="mx-5 border-b border-b-[--primary-50] dark:border-b-[#dbdbdb50]" />
       <CampingDetailInfo :camping-intro="campingDetail.campInfo.intro" />
-      <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
+      <hr class="mx-5 border-b border-b-[--primary-50] dark:border-b-[#dbdbdb50]" />
       <CampingDetailLocation
         :camping-location="{
           x: campingDetail.campInfo.map_x,
@@ -31,7 +31,7 @@
           add2: campingDetail.campInfo.addr2,
         }"
       />
-      <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
+      <hr class="mx-5 border-b border-b-[--primary-50] dark:border-b-[#dbdbdb50]" />
       <CampingDetailReview :camping-review="campingDetail.campReview" />
     </template>
   </div>

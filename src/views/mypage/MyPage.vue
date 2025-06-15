@@ -10,6 +10,9 @@ import NavBar from '@/components/common/NavBar.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import { useUserPage } from '@/composables/useUserPage'
 import { useUserStore } from '@/stores/userStore'
+import { useThemeStore  } from '@/stores/theme'
+
+const theme=useThemeStore()
 
 const router = useRouter()
 const isBottomOpen = ref(false)

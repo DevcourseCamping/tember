@@ -1,21 +1,21 @@
 <template>
-  <div class="flex items-center justify-around gap-4 border-b border-b-[#4B3C2F50] p-[20px]">
-    <button @click="scrollTo('#basic-info')" class="text-md text-[#222222] dark:text-white">
+  <div class="flex items-center justify-around gap-4 border-b border-b-[--primary-50] p-[20px]">
+    <button @click="scrollTo('#basic-info')" class="text-md text-[--black] dark:text-white">
       기본 정보
     </button>
     <button
       @click="scrollTo('#camping-intro')"
-      class="text-md text-[#22222230] dark:text-[#dbdbdb90]"
+      class="text-md text-[--black-30] dark:text-[#dbdbdb90]"
     >
       캠핑장 소개
     </button>
     <button
       @click="scrollTo('#location-info')"
-      class="text-md text-[#22222230] dark:text-[#dbdbdb90]"
+      class="text-md text-[--black-30] dark:text-[#dbdbdb90]"
     >
       위치 정보
     </button>
-    <button @click="scrollTo('#review')" class="text-md text-[#22222230] dark:text-[#dbdbdb90]">
+    <button @click="scrollTo('#review')" class="text-md text-[--black-30] dark:text-[#dbdbdb90]">
       리뷰
     </button>
   </div>
