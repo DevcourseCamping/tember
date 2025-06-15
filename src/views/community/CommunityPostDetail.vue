@@ -95,28 +95,21 @@ const deletePost = async () => {
   const success = await communityStore.deletePost(post.value.id)
   if (success) {
     alert('게시글 삭제 완료')
-    router.push('/community')
+    router.push({ name: 'community' })
   } else {
     alert('게시글 삭제 실패')
   }
 }
 
-let isSubmitting = false
-const submitComment = async () => {
-  if (isSubmitting) return
-  if (!commentInput.value.trim()) return
-
-  isSubmitting = true
-
-  await communityStore.addComment(post.value.id, commentInput.value.trim())
-  commentInput.value = ''
-  post.value = await communityStore.getCommunityPostById(postId)
-
-  await nextTick()
-  bottomRef.value?.scrollIntoView({ behavior: 'smooth' })
-
-  isSubmitting = false
+const handleSubmitComment = async () => {
+  const updated = await communityStore.submitComment(postId, commentInput.value, commentInput)
+  if (updated) {
+    post.value = updated
+    await nextTick()
+    bottomRef.value?.scrollIntoView({ behavior: 'smooth' })
+  }
 }
+
 const editComment = async (editedComment) => {
   if (editedComment.editTrigger) {
     const target = post.value.comments.find((c) => c.id === editedComment.id)
@@ -214,6 +207,7 @@ const handleCommentSelect = (key) => {
   <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
     <CommunityHeaderOther :is-my-post="isMyPost" @navClick="clickBack" @menuClick="clickSetting" />
+    <!-- main -->
     <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
       <SkeletonPostDetail v-if="loading" />
       <template v-else>
@@ -285,11 +279,11 @@ const handleCommentSelect = (key) => {
         v-model="commentInput"
         class="bg-[var(--white)] px-4 py-2 w-full rounded text-sm focus:outline-none"
         placeholder="댓글을 입력해주세요"
-        @keyup.enter="submitComment"
+        @keyup.enter="handleSubmitComment"
       />
       <button
         class="w-[60px] h-10 ml-2 text-[var(--primary)] bg-[var(--white)] px-3 py-2 rounded text-[15px]"
-        @click="submitComment"
+        @click="handleSubmitComment"
       >
         등록
       </button>
@@ -304,23 +298,4 @@ const handleCommentSelect = (key) => {
     </BottomSheetWrapper>
   </div>
 </template>
-<style scoped>
-:deep(.swiper-pagination) {
-  bottom: 10px !important;
-  text-align: center;
-}
-
-:deep(.swiper-pagination-bullet) {
-  width: 6px;
-  height: 6px;
-  background: var(--primary-30);
-  opacity: 1;
-  margin: 0 4px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-:deep(.swiper-pagination-bullet-active) {
-  background: var(--primary);
-}
-</style>
+<style scoped></style>

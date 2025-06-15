@@ -127,23 +127,4 @@ const goToUserProfile = (userId) => {
     </div>
   </div>
 </template>
-<style scoped>
-:deep(.swiper-pagination) {
-  bottom: 10px !important;
-  text-align: center;
-}
-
-:deep(.swiper-pagination-bullet) {
-  width: 6px;
-  height: 6px;
-  background: var(--primary-30);
-  opacity: 1;
-  margin: 0 4px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-:deep(.swiper-pagination-bullet-active) {
-  background: var(--primary);
-}
-</style>
+<style scoped></style>

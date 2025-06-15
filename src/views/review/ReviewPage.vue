@@ -73,6 +73,7 @@ const setRating = (index) => {
       <div class="flex justify-center gap-[55px] pt-[25px]">
         <p
           v-for="(label, index) in labels"
+          :key="index"
           class="text-[15px] font-semibold transition-colors"
           :class="selected === index ? 'text-[#222222]' : 'text-[#--grey]'"
         >

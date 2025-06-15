@@ -25,7 +25,7 @@ const submitPost = async () => {
 
   if (success) {
     alert('게시글 등록 완료')
-    router.push('/community')
+    router.push({ name: 'community' })
   } else {
     alert('게시글 등록 실패')
   }
