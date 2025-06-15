@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full min-h-screen bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
+    class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2 z-20 transition-colors duration-300"
   >
     <HeaderSearch />
     <div class="pb-10">
