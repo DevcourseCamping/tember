@@ -2,9 +2,11 @@
 import { useFollowStore } from '@/stores/followStore'
 import { useUserStore } from '@/stores/userStore'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const profile = useUserStore()
 const follow = useFollowStore()
 const myId = computed(() => profile.user?.id)
@@ -21,6 +23,10 @@ const props = defineProps({
     default: () => [],
   },
 })
+
+const goToUserProfile = (userId) => {
+  router.push({ name: 'user-profile', params: { id: userId } })
+}
 </script>
 <template>
   <div class="relative">
@@ -64,7 +70,10 @@ const props = defineProps({
         <ul>
           <li v-for="follower in followers" :key="follower.follower_id">
             <div class="flex items-center justify-between pb-5">
-              <div class="flex items-center">
+              <div
+                class="flex items-center cursor-pointer"
+                @click="goToUserProfile(follower.follower_id)"
+              >
                 <img
                   :src="follower.profiles.image || follower.profiles.avatar_url"
                   alt=""
@@ -112,7 +121,10 @@ const props = defineProps({
         <ul>
           <li v-for="following in followings" :key="following.following_id">
             <div class="flex items-center justify-between pb-5">
-              <div class="flex items-center">
+              <div
+                class="flex items-center cursor-pointer"
+                @click="goToUserProfile(following.following_id)"
+              >
                 <img
                   :src="following.profiles.image || following.profiles.avatar_url"
                   alt=""
