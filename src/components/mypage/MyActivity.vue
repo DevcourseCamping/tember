@@ -1,12 +1,48 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import ReviewCard from '../common/ReviewCard.vue'
 import CommunityCard from '../common/CommunityCard.vue'
 import BookmarkCard from '../common/BookmarkCard.vue'
 import { useUserPage } from '@/composables/useUserPage'
+import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
+import BottomSheet from '@/components/common/BottomSheet.vue'
+import supabase from '@/utils/supabase'
 
 const { isMyPage } = useUserPage()
 const clickTab = ref('review')
+
+const isBottomOpen = ref(false)
+const selectedReview = ref(null)
+const router = useRouter()
+
+const handleOpenBottomSheet = (review) => {
+  selectedReview.value = review
+  isBottomOpen.value = true
+}
+
+const handleSelect = async (key) => {
+  isBottomOpen.value = false
+
+  if (key === 'edit') {
+    router.push({
+      name: 'campReviewEdit',
+      params: {
+        id: selectedReview.value.camp_id,
+        reviewId: selectedReview.value.id,
+      },
+    })
+  } else if (key === 'delete') {
+    const { error } = await supabase.from('camp_reviews').delete().eq('id', selectedReview.value.id)
+
+    if (error) {
+      alert(error.message)
+    } else {
+      alert('리뷰가 삭제되었습니다.')
+      window.location.reload()
+    }
+  }
+}
 </script>
 <template>
   <div class="flex justify-around pl-[35px] pr-[35px] pt-[35px] text-[15px] font-bold">
@@ -33,8 +69,12 @@ const clickTab = ref('review')
   <hr class="mt-[10px] border border-[var(--primary-20)]" />
 
   <div class="h-[calc(100vh-333px)] overflow-y-auto scrollbar-hide">
-    <ReviewCard v-if="clickTab === 'review'" />
+    <ReviewCard v-if="clickTab === 'review'" @openBottomSheet="handleOpenBottomSheet" />
     <CommunityCard v-if="clickTab === 'community'" />
     <BookmarkCard v-if="clickTab === 'bookmark'" />
   </div>
+
+  <BottomSheetWrapper :show="isBottomOpen" @close="isBottomOpen = false">
+    <BottomSheet type="review" @close="isBottomOpen = false" @select="handleSelect" />
+  </BottomSheetWrapper>
 </template>
