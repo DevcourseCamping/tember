@@ -62,13 +62,16 @@ const setFilterCampingList = (filterCampingList, requestBody, totalNumber) => {
 }
 
 const getCampingList = async () => {
-  const user = await profile.fetchUser()
+  let user = null
+  if (!profile.user) {
+    user = await profile.fetchUser()
+  }
 
   const requestBody = {
     ...filterRequestBody.value,
     page: page.value,
     pageSize: size.value,
-    userId: user.id,
+    userId: user !== null ? user.id : profile.user.id,
   }
   if (keyword.value) {
     requestBody.keyword = keyword.value
