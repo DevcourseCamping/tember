@@ -108,9 +108,9 @@ const applyFilter = async () => {
 
       <button
         @click="$emit('close')"
-        class="absolute top-[24px] left-[30px] w-[20px] h-[20px] flex items-center justify-center"
+        class="absolute top-[24px] left-[18px] w-[20px] h-[20px] flex items-center justify-center"
       >
-        <img :src="close" alt="닫기" class="w-[20px] h-[20px]" />
+        <img :src="close" alt="닫기" class="w-[18px] h-[18px]" />
       </button>
     </div>
 
