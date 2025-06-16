@@ -9,6 +9,7 @@ import { computed, onMounted, ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { storeToRefs } from 'pinia'
+import { useCampingStore } from '@/stores/campingStore'
 
 const router = useRouter()
 
@@ -30,11 +31,28 @@ const handleCategoryClick = (category) => {
   }
 }
 
+const campingStore = useCampingStore()
+const popularList = computed(() =>
+  campingStore.campingList.map((item) => item.camp_sites).slice(0, 10),
+)
+
 const communityStore = useCommunityStore()
 const { posts } = storeToRefs(communityStore)
 
 onMounted(() => {
   communityStore.getCommunityPosts({ page: 1, maxLength: 6 })
+
+  if (campingStore.campingList.length === 0) {
+    campingStore.fetchCampingList()
+  }
+})
+
+const groupedPopular = computed(() => {
+  const result = []
+  for (let i = 0; i < popularList.value.length; i += 2) {
+    result.push(popularList.value.slice(i, i + 2))
+  }
+  return result
 })
 
 const groupedPosts = computed(() => {
@@ -48,10 +66,14 @@ const groupedPosts = computed(() => {
 const goToDetail = (postId) => {
   router.push(`/community/post/${postId}`)
 }
+
+const goToCampingDetail = (id) => {
+  router.push(`/camping/${id}`)
+}
 </script>
 
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white]">
     <HeaderSearchMain
       @filterClick="handleFilterClick"
       @categoryClick="handleCategoryClick"
@@ -78,54 +100,74 @@ const goToDetail = (postId) => {
           class="px-[30px]"
         >
           <SwiperSlide
-            v-for="item in [1, 2, 3]"
-            :key="`popular-${item}`"
-            class="!w-[300px] flex flex-col gap-6 flex-shrink-0"
+            v-for="(group, idx) in groupedPopular"
+            :key="`popular-${idx}`"
+            @click="goToCampingDetail(camp.content_id)"
+            class="!w-[300px] h-[136px] flex-shrink-0 cursor-pointer"
           >
-            <div
-              class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden mb-[30px]"
-            >
-              <img
-                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                alt="캠핑장 사진"
-                class="w-[100px] h-full object-cover"
-              />
-              <div class="flex flex-col justify-between p-[10px] flex-1">
-                <div>
-                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[10px]">휘게포레스트</h3>
-                  <p class="text-[13px] text-[--grey] mt-[10px]">강원 평창군 용평면</p>
-                </div>
-                <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
-                <div class="flex justify-end items-center gap-[10px]">
-                  <img
-                    src="../assets/icons/light/light-caravan-off.svg"
-                    class="w-[20px] h-[20px]"
-                  />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
-                </div>
-              </div>
-            </div>
+            <div class="flex flex-col gap-[30px]">
+              <div
+                v-for="camp in group"
+                :key="camp.content_id"
+                @click="goToCampingDetail(camp.content_id)"
+                class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden"
+              >
+                <img
+                  :src="
+                    camp.first_image_url ||
+                    'https://images.unsplash.com/photo-1576176539998-0237d1ac6a85?w=900&auto=format&fit=crop'
+                  "
+                  alt="캠핑장 이미지"
+                  class="w-[110px] h-full object-cover rounded-[5px]"
+                />
 
-            <div class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden">
-              <img
-                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                alt="캠핑장 사진"
-                class="w-[100px] h-full object-cover"
-              />
-              <div class="flex flex-col justify-between p-[10px] flex-1">
-                <div>
-                  <h3 class="text-[15px] font-semibold text-[#222222] mt-[10px]">휘게포레스트</h3>
-                  <p class="text-[13px] text-[--grey] mt-[10px]">강원 평창군 용평면</p>
-                </div>
-                <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
-                <div class="flex justify-end items-center gap-[10px]">
-                  <img
-                    src="../assets/icons/light/light-caravan-off.svg"
-                    class="w-[20px] h-[20px]"
-                  />
-                  <img src="../assets/icons/light/light-trailer-on.svg" class="w-[20px] h-[20px]" />
-                  <img src="../assets/icons/light/light-pet-on.svg" class="w-[20px] h-[20px]" />
+                <div class="flex flex-col justify-between p-[10px] flex-1">
+                  <div>
+                    <p
+                      class="text-[15px] font-bold text-[--black] leading-tight line-clamp-1 mt-[10px]"
+                    >
+                      {{ camp.faclt_nm }}
+                    </p>
+                    <p class="text-[13px] text-[--grey] mt-[10px]">
+                      {{ camp.do_nm }} {{ camp.sigungu_nm }}
+                    </p>
+                  </div>
+
+                  <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
+                  <div class="flex justify-end items-center gap-[10px]">
+                    <img
+                      v-if="camp.carav_acmpny_at === 'Y'"
+                      src="@/assets/icons/light/light-caravan-on.svg"
+                      class="w-[20px] h-[20px]"
+                    />
+                    <img
+                      v-else
+                      src="@/assets/icons/light/light-caravan-off.svg"
+                      class="w-[20px] h-[20px]"
+                    />
+
+                    <img
+                      v-if="camp.trler_acmpny_at === 'Y'"
+                      src="@/assets/icons/light/light-trailer-on.svg"
+                      class="w-[20px] h-[20px]"
+                    />
+                    <img
+                      v-else
+                      src="@/assets/icons/light/light-trailer-off.svg"
+                      class="w-[20px] h-[20px]"
+                    />
+
+                    <img
+                      v-if="camp.animal_cmg_cl.includes('가능')"
+                      src="@/assets/icons/light/light-pet-on.svg"
+                      class="w-[20px] h-[20px]"
+                    />
+                    <img
+                      v-else
+                      src="@/assets/icons/light/light-pet-off.svg"
+                      class="w-[20px] h-[20px]"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -206,9 +248,14 @@ const goToDetail = (postId) => {
                 class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden"
               >
                 <img
-                  :src="JSON.parse(post.image || '[]')[0] || ''"
+                  v-if="
+                    post.image &&
+                    JSON.parse(post.image).length > 0 &&
+                    JSON.parse(post.image)[0] !== ''
+                  "
+                  :src="JSON.parse(post.image)[0]"
                   alt="커뮤니티 이미지"
-                  class="w-[110px] h-full object-cover"
+                  class="w-[110px] h-full object-cover rounded-[5px]"
                 />
                 <div class="flex flex-col justify-between p-[15px] flex-1">
                   <p class="text-[14px] text-[--black] leading-[1.4] line-clamp-3 min-h-[60px]">
