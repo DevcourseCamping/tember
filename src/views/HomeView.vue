@@ -10,6 +10,9 @@ import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { storeToRefs } from 'pinia'
 import { useCampingStore } from '@/stores/campingStore'
+import supabase from '@/utils/supabase'
+import fillstar from '@/assets/icons/star-filled.svg'
+import emptystar from '@/assets/icons/star-outline.svg'
 
 const router = useRouter()
 
@@ -18,7 +21,6 @@ const isFilterModalOpen = ref(false)
 const handleFilterClick = () => {
   isFilterModalOpen.value = true
 }
-
 const handleFilterClose = () => {
   isFilterModalOpen.value = false
 }
@@ -45,6 +47,8 @@ onMounted(() => {
   if (campingStore.campingList.length === 0) {
     campingStore.fetchCampingList()
   }
+
+  fetchLatestReviews()
 })
 
 const groupedPopular = computed(() => {
@@ -69,6 +73,31 @@ const goToDetail = (postId) => {
 
 const goToCampingDetail = (id) => {
   router.push(`/camping/${id}`)
+}
+
+const latestReviews = ref([])
+const fetchLatestReviews = async () => {
+  const { data, error } = await supabase
+    .from('camp_reviews')
+    .select(
+      `
+      id,
+      content,
+      star_rating,
+      created_at,
+      profiles(username),
+      camps:camp_id(id, content_id, faclt_nm)
+    `,
+    )
+    .order('star_rating', { ascending: false })
+    .limit(8)
+
+  if (error) {
+    console.error('리뷰 가져오기 실패:', error)
+    return
+  }
+
+  latestReviews.value = data
 }
 </script>
 
@@ -280,25 +309,50 @@ const goToCampingDetail = (id) => {
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[160px]">
-        <h2 class="text-center font-bold text-[17px] text-[#4A4A4A] mb-8">Review</h2>
-        <div class="max-w-[500px] mx-auto px-4 flex justify-center">
-          <div class="w-[300px] bg-white rounded-[5px] shadow p-4 text-center">
-            <h3 class="font-bold text-[15px] text-[#222222] mb-2">가평 블루래빗 캠핑장</h3>
-            <p class="text-[14px] text-[#4A4A4A] mb-2 line-clamp-2">
-              캠핑장 다녀왔는데 시설도 깨끗하고 사장님도 친절하고 좋았고 추천합니다!
-            </p>
-            <p class="text-[13px] text-[--grey] mb-2">작성자 1</p>
-            <div class="flex justify-center gap-[4px]">
-              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
-              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
-              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
-              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
-              <img src="../assets/icons/star-filled.svg" class="w-[18px] h-[18px]" />
-            </div>
+      <section class="bg-[#FFFFFF] pt-[72px] pb-[160px] z-0">
+        <h2 class="text-center font-bold text-[20px] text-[#4A4A4A] mb-[50px]">Review</h2>
+        <div class="flex justify-center">
+          <div class="w-full max-w-[500px]">
+            <Swiper
+              :slides-per-view="'auto'"
+              :space-between="30"
+              :centered-slides="true"
+              :loop="true"
+              :initial-slide="2"
+              grab-cursor
+              class="px-[30px]"
+            >
+              <SwiperSlide
+                v-for="review in latestReviews"
+                :key="review.id"
+                class="!w-[257px] cursor-pointer"
+                @click="goToCampingDetail(review.camps.content_id)"
+              >
+                <div class="bg-white p-4 text-center">
+                  <h3 class="font-bold text-[15px] text-[#222222] mb-[10px]">
+                    {{ review.camps.faclt_nm }}
+                  </h3>
+                  <p class="text-[15px] text-[#4A4A4A] mb-[10px] line-clamp-2">
+                    {{ review.content }}
+                  </p>
+                  <p class="text-[13px] text-[--grey] mb-2">
+                    {{ review.profiles.username }}
+                  </p>
+                  <div class="flex justify-center gap-[4px]">
+                    <img
+                      v-for="n in 5"
+                      :key="n"
+                      :src="n <= review.star_rating ? fillstar : emptystar"
+                      alt="별점"
+                      class="w-[18px] h-[18px]"
+                    />
+                  </div>
+                </div>
+              </SwiperSlide>
+            </Swiper>
           </div>
-          <NavBar />
         </div>
+        <NavBar class="z-10" />
       </section>
     </main>
   </div>
