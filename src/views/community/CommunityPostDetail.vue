@@ -83,11 +83,11 @@ const saveEdit = async () => {
     images: editableImages.value,
   })
   if (success) {
-    alert('게시글 수정 완료')
+    alert('게시글이 수정되었습니다.')
     isEditing.value = false
     post.value = await communityStore.getCommunityPostById(post.value.id)
   } else {
-    alert('게시글 수정 실패')
+    alert('게시글 수정에 실패했습니다.')
   }
 }
 
@@ -95,10 +95,10 @@ const deletePost = async () => {
   if (!confirm('게시글을 삭제하시겠어요?')) return
   const success = await communityStore.deletePost(post.value.id)
   if (success) {
-    alert('게시글 삭제 완료')
-    router.push('/community')
+    alert('게시글이 삭제되었습니다.')
+    router.push({ name: 'communityList' })
   } else {
-    alert('게시글 삭제 실패')
+    alert('게시글 삭제에 실패했습니다.')
   }
 }
 

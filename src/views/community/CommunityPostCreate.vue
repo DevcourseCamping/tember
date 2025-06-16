@@ -24,10 +24,10 @@ const submitPost = async () => {
   })
 
   if (success) {
-    alert('게시글 등록 완료')
-    router.push({ name: 'community' })
+    alert('게시글이 등록되었습니다.')
+    router.push({ name: 'communityList' })
   } else {
-    alert('게시글 등록 실패')
+    alert('게시글 등록에 실패했습니다.')
   }
 }
 </script>

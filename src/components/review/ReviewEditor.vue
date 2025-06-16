@@ -64,7 +64,8 @@ const submitEdit = async () => {
   isSubmitting.value = false
 
   if (error) {
-    alert(error.message)
+    console.error(error)
+    alert('리뷰 수정에 실패했습니다.')
   } else {
     alert('리뷰가 수정되었습니다.')
     emit('done')

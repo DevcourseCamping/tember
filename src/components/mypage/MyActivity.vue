@@ -33,10 +33,14 @@ const handleSelect = async (key) => {
       },
     })
   } else if (key === 'delete') {
+    const confirmDelete = confirm('리뷰를 삭제하시겠어요?')
+    if (!confirmDelete) return
+
     const { error } = await supabase.from('camp_reviews').delete().eq('id', selectedReview.value.id)
 
     if (error) {
-      alert(error.message)
+      console.error(error)
+      alert('리뷰 삭제에 실패했습니다.')
     } else {
       alert('리뷰가 삭제되었습니다.')
       window.location.reload()
