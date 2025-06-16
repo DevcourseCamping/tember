@@ -2,6 +2,9 @@
 import { ref, watch } from 'vue'
 import more from '@/assets/icons/light/light-more.svg'
 import formDate from '@/utils/formDate.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps({
   comment: Object,
@@ -34,12 +37,16 @@ const cancelEdit = () => {
   isEditing.value = false
   editedContent.value = props.comment.content
 }
+
+const goToUserProfile = (userId) => {
+  router.push({ name: 'user-profile', params: { id: userId } })
+}
 </script>
 
 <template>
   <li class="rounded-[5px] w-full border p-4 border-[var(--primary-30)]">
     <div class="flex items-center mb-5 justify-between">
-      <div class="flex items-center">
+      <div class="flex items-center cursor-pointer" @click="goToUserProfile(comment.userId)">
         <img :src="comment.userProfile" class="w-10 h-10 rounded-full mr-[15px]" />
         <div>
           <p class="font-bold text-[14px] mb-[5px]">{{ comment.userName }}</p>
