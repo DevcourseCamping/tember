@@ -12,20 +12,20 @@ const clickTab = ref('review')
   <div class="flex justify-around pl-[35px] pr-[35px] pt-[35px] text-[15px] font-bold">
     <button
       @click="clickTab = 'review'"
-      class="text-[var(--icon-text)]"
+      class="text-[var(--black)]"
     >
       리뷰
     </button>
     <button
       @click="clickTab = 'community'"
-      class="text-[var(--icon-text)]"
+      class="text-[var(--black)]"
     >
       커뮤니티
     </button>
     <button
       v-if="isMyPage"
       @click="clickTab = 'bookmark'"
-      class="text-[var(--icon-text)]"
+      class="text-[var(--black)]"
     >
       북마크
     </button>

@@ -63,7 +63,7 @@ onMounted(async () => {
       <div
         v-for="item in bookmarks"
         :key="item.camp_id"
-        class="mb-[30px] relative bg-[var(--color-surface)] rounded-[5px] cursor-pointer"
+        class="mb-[30px] relative bg-[var(--color-surface)] rounded-[5px] cursor-pointer border border-[var(--primary-30)]"
       >
         <img
           :src="item.camp_sites.first_image_url ? item.camp_sites.first_image_url : defaultImage"
@@ -107,7 +107,7 @@ onMounted(async () => {
           <div
             class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
           >
-            <p class="text-[var(--color-text-on-primary)]">4.8</p>
+            <p class="text-[var(--icon-text)]">4.8</p>
             <img :src="filledStarIcon" alt="별점" class="w-[20px] h-[20px]" />
           </div>
         </div>
