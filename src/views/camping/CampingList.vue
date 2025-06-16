@@ -3,7 +3,7 @@
     class="w-full min-h-screen bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
   >
     <div class="sticky top-0 z-30 bg-white">
-      <HeaderSearch @handleFilterClick="handleFilterClick" />
+      <HeaderSearch @handleFilterClick="handleFilterClick" @update:inputValue="handleInput" />
       <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
         <SearchFilter @close="handleFilterClose" @setFilterCampingList="setFilterCampingList" />
       </div>
@@ -32,6 +32,8 @@ const campingList = ref([])
 const filterCampingList = ref(false)
 const filterRequestBody = ref(null)
 const total = ref(0)
+const keyword = ref('')
+const profile = useUserStore()
 
 const handleFilterClick = () => {
   isFilterModalOpen.value = true
@@ -41,7 +43,15 @@ const handleFilterClose = () => {
   isFilterModalOpen.value = false
 }
 
-const setFilterCampingList = (filterCampingList, requestBody) => {
+const handleInput = async (value) => {
+  keyword.value = value
+  page.value = 1
+  console.log(value)
+
+  await getCampingList()
+}
+
+const setFilterCampingList = (filterCampingList, requestBody, totalNumber) => {
   filterCampingList.value = true
   filterRequestBody.value = requestBody
   const newCampingList = filterCampingList.map((item) => {
@@ -50,34 +60,43 @@ const setFilterCampingList = (filterCampingList, requestBody) => {
     }
   })
   campingList.value = newCampingList
-  total.value = newCampingList.length
+  total.value = totalNumber
 }
 
 const getCampingList = async () => {
-  const profile = useUserStore()
   const user = await profile.fetchUser()
 
-  const response = await axios.post(
-    'https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/camping',
-    {
-      ...filterRequestBody.value,
-      page: page.value,
-      pageSize: size.value,
-      userId: user.id,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
+  const requestBody = {
+    ...filterRequestBody.value,
+    page: page.value,
+    pageSize: size.value,
+    userId: user.id,
+  }
+  if (keyword.value) {
+    requestBody.keyword = keyword.value
+  }
+  try {
+    const response = await axios.post(
+      'https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/camping',
+      requestBody,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    },
-  )
-  total.value = response.data.total
-  const newCampingList = response.data.data.map((item) => {
-    return {
+    )
+    total.value = response.data.total
+    const newCampingList = response.data.data.map((item) => ({
       camp_sites: item,
+    }))
+    if (keyword.value === '' || page.value === 1) {
+      campingList.value = newCampingList
+    } else {
+      campingList.value = [...campingList.value, ...newCampingList]
     }
-  })
-  campingList.value = [...campingList.value, ...newCampingList]
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const isLoading = ref(false)

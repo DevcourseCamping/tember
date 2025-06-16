@@ -52,13 +52,13 @@ const props = defineProps({
 
 const reviewStar = computed(() => {
   if (props.review.length === 0) {
-    return '미평가  '
+    return '미평가'
   }
 
-  const totalStar = props.review.reduce((acc, cur) => acc + (cur.start_rating ?? 0), 0)
+  const totalStar = props.review.reduce((acc, cur) => acc + (cur.star_rating ?? 0), 0)
   const averageStar = props.review.length > 0 ? totalStar / props.review.length : 0
 
-  return averageStar === 0 ? '미평가' : averageStar
+  return averageStar === 0 ? '미평가' : averageStar.toFixed(1)
 })
 </script>
 
