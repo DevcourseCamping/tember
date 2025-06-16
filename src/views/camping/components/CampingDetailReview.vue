@@ -10,12 +10,16 @@
         </div>
         <div class="flex items-center gap-2 cursor-pointer justify-center">
           <img :src="light_post" alt="" class="w-[20px] h-[20px]" />
-          <span class="text-[#222222] dark:text-white text-[15px] font-medium">리뷰 등록하기</span>
+          <router-link :to="`/camping/${campingId}/review/create`">
+            <span class="text-[#222222] dark:text-white text-[15px] font-medium"
+              >리뷰 등록하기</span
+            >
+          </router-link>
         </div>
       </div>
     </div>
     <template v-if="campingReview.length > 0">
-      <ReviewCard :reviews="campingReview" />
+      <ReviewCard :camping-reviews="campingReview" mode="detail" />
     </template>
     <template v-else>
       <div class="flex items-center justify-center h-[200px]">
@@ -31,9 +35,13 @@ import { computed } from 'vue'
 import light_post from '../../../assets/icons/light/light-post.svg'
 import ReviewCard from '../../../components/common/ReviewCard.vue'
 
-const { campingReview } = defineProps({
+const { campingReview, campingId } = defineProps({
   campingReview: {
     type: Object,
+    required: true,
+  },
+  campingId: {
+    type: String,
     required: true,
   },
 })

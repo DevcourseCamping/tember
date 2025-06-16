@@ -32,7 +32,7 @@
         }"
       />
       <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailReview :camping-review="campingDetail.campReview" />
+      <CampingDetailReview :camping-review="campingDetail.campReview" :camping-id="campingId" />
     </template>
   </div>
 </template>
