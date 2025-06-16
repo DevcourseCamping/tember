@@ -3,36 +3,53 @@ import logo from '@/assets/icons/logo-brown.svg'
 import google from '@/assets/icons/light/light-google.png'
 import HeaderSimple from '@/components/common/HeaderSimple.vue'
 import supabase from '@/utils/supabase'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const handleGoogleLogin = async () => {
-  const { data,error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       redirectTo: window.location.origin,
       queryParams: {
-      prompt: 'select_account',
-      access_type: 'offline'
-    }
-    }
+        prompt: 'select_account',
+        access_type: 'offline',
+      },
+    },
   })
- if (error) {
-  console.error(error.message)
-} else if (data?.url) {
-  window.location.href = data.url
+  if (error) {
+    console.error(error.message)
+  } else if (data?.url) {
+    window.location.href = data.url
+  }
 }
+
+const clickClose = () => {
+  router.push({ name: 'home' })
 }
 </script>
 <template>
-  <div class="w-[500px] h-screen bg-[var(--white)] mx-auto relative">
-    <HeaderSimple title="로그인" />
-    <img :src="logo" class="w-[136px] h-[64px] absolute top-[250px] left-1/2 -translate-x-1/2" />
-    <button
-    @click="handleGoogleLogin"
-      class="w-[440px] h-[60px] bg-[var(--primary)] rounded-md absolute top-[380px] left-1/2 -translate-x-1/2 flex items-center justify-center gap-5"
-    >
-      <img :src="google" class="w-[20px] h-[20px]" />
-      <p class="text-sm text-white">Google</p>
-    </button>
+  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+    <HeaderSimple title="로그인 / 회원가입" type="close" @click="clickClose" />
+    <div class="flex flex-col items-center justify-center pt-[200px] gap-[100px]">
+      <img :src="logo" class="w-[136px] h-[64px]" />
+      <div class="flex flex-col items-center">
+        <div class="flex items-center justify-center mb-[20px]">
+          <hr class="w-[140px] border-t border-[var(--primary-20)]" />
+          <p class="text-[14px] pl-[10px] pr-[10px] text-[var(--grey)]">로그인 / 회원가입</p>
+          <hr class="w-[140px] border-t border-[var(--primary-20)]" />
+        </div>
+
+        <button
+          @click="handleGoogleLogin"
+          class="w-full max-w-[400px] h-[60px] bg-[var(--primary)] rounded-md flex items-center justify-center gap-5"
+        >
+          <img :src="google" class="w-[20px] h-[20px]" />
+          <p class="text-[15px] text-white">Google로 로그인</p>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped></style>

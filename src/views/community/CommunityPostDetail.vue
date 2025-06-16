@@ -202,6 +202,10 @@ const handleCommentSelect = (key) => {
 
   closeCommentMenu()
 }
+
+const goToUserProfile = (userId) => {
+  router.push({ name: 'user-profile', params: { id: userId } })
+}
 </script>
 <template>
   <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
@@ -219,7 +223,7 @@ const handleCommentSelect = (key) => {
 
     <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
       <section class="my-6 px-5 flex items-center justify-between">
-        <div class="flex items-center">
+        <div class="flex items-center cursor-pointer" @click="goToUserProfile(post.user_id)">
           <img
             :src="post.profiles.image || post.profiles.avatar_url"
             class="w-10 h-10 rounded-full mr-3"

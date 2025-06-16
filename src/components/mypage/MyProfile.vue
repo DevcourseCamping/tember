@@ -1,16 +1,20 @@
 <script setup>
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import ProfileSkeleton from './ProfileSkeleton.vue'
 import { useUserApi } from '@/composables/useUserApi'
 import { useUserPage } from '@/composables/useUserPage'
+import { useFollowStore } from '@/stores/followStore'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const profile = useUserStore()
 const isLoading = ref(true)
 const { isMyPage, targetUserId } = useUserPage()
-const targetUser = ref(null)
+const follow = useFollowStore()
+const { isFollowing } = storeToRefs(follow)
+const targetUser = ref({})
 
 onMounted(async () => {
   isLoading.value = true
@@ -21,12 +25,19 @@ onMounted(async () => {
     isLoading.value = false
   } else {
     try {
+      const my = await profile.fetchUser()
+      const myId = my?.id
       const { getUser } = useUserApi()
-      const { user, followerCount, followingCount } = await getUser(targetUserId.value)
+      const { user: user2, followerCount, followingCount } = await getUser(targetUserId.value)
       targetUser.value = {
-        ...user,
+        ...user2,
         followerCount,
         followingCount,
+      }
+
+      const userId = targetUser.value.id
+      if (myId && userId) {
+        await follow.fetchIsFollowing(myId, userId)
       }
     } catch (error) {
       console.error(error)
@@ -36,13 +47,36 @@ onMounted(async () => {
   }
 })
 
-const clickFollow = () => {
-  router.push({ name: 'follow' })
+const toggleFollow = async () => {
+  const myId = profile.user.id
+  const userId = targetUser.value.id
+
+  if (isFollowing.value) {
+    await follow.unfollowUser(myId, userId)
+    isFollowing.value = false
+
+    targetUser.value.followerCount -= 1
+    profile.user.followingCount -= 1
+  } else {
+    await follow.followUser(myId, userId)
+    isFollowing.value = true
+
+    targetUser.value.followerCount += 1
+    profile.user.followingCount += 1
+  }
+}
+
+const clickFollow = (tab) => {
+  router.push({
+    name: 'user-follow',
+    params: { id: targetUserId.value },
+    query: { tab },
+  })
 }
 </script>
 <template>
   <ProfileSkeleton v-if="isLoading" />
-  <div v-else class="flex items-center text-[var(--black)] pt-[35px] pl-[35px]">
+  <div v-else class="flex items-center text-[var(--black)] pt-[35px] pl-[35px] pr-[35px]">
     <img
       :src="targetUser?.image || targetUser?.avatar_url"
       alt="사용자 임시 이미지"
@@ -50,14 +84,27 @@ const clickFollow = () => {
     />
 
     <div class="pl-[45px]">
-      <p class="text-[18px] font-bold">{{ targetUser?.username }}</p>
-      <div class="flex gap-[60px] text-4 pt-[10px]" @click="clickFollow">
-        <button>
-          팔로워 <span class="font-semibold pl-[10px]">{{ targetUser?.followingCount }}</span>
-        </button>
-        <button>
-          팔로잉 <span class="font-semibold pl-[10px]">{{ targetUser?.followerCount }}</span>
-        </button>
+      <div class="flex items-center">
+        <p class="text-[18px] font-bold">{{ targetUser?.username }}</p>
+      </div>
+      <div class="flex flex-col gap-[10px] text-4 pt-[5px]">
+        <div class="flex gap-[56px]">
+          <button @click="clickFollow('follower')">
+            팔로워 <span class="font-semibold pl-[10px]">{{ targetUser?.followerCount }}</span>
+          </button>
+          <button @click="clickFollow('following')">
+            팔로잉 <span class="font-semibold pl-[10px]">{{ targetUser?.followingCount }}</span>
+          </button>
+        </div>
+
+        <div v-if="!isMyPage && targetUser">
+          <button
+            @click="toggleFollow"
+            class="w-[200px] h-[25px] bg-[var(--primary)] text-[var(--white)] rounded-[5px] text-[13px]"
+          >
+            {{ isFollowing ? '팔로우 취소' : '팔로우' }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
