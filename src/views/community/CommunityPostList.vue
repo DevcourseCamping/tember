@@ -35,6 +35,10 @@ const router = useRouter()
 const goToCreatePost = () => {
   router.push('/community/post/create')
 }
+
+const goToLogin = () => {
+  router.push({ name: 'login' })
+}
 </script>
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
@@ -47,7 +51,7 @@ const goToCreatePost = () => {
     />
     <!-- post list -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <PostCard :inputValue="inputValue" />
+      <PostCard :inputValue="inputValue" @click="goToLogin" />
     </main>
     <!-- nav -->
     <NavBar />
