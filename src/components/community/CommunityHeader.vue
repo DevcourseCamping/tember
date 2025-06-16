@@ -11,7 +11,9 @@ const props = defineProps({
     default: 'filter', // filter, arrow
   },
 })
-const emit = defineEmits(['iconClick', 'update:inputValue'])
+// 20250613 검색 페이지 사용을 위한 로직 추가
+const emit = defineEmits(['iconClick', 'update:inputValue', 'handleFilterClick'])
+// end
 
 const inputValue = ref('')
 
@@ -39,9 +41,14 @@ const handleInput = (e) => {
           class="w-[330px] h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px]"
           @input="handleInput"
         />
-        <button @click="emit('iconClick')">
-          <img :src="props.iconType === 'arrow' ? arrow : filter" class="w-5 h-5" />
+        <!-- 20250613 검색 페이지 사용을 위한 로직 추가 -->
+        <button @click="emit('iconClick')" v-if="props.iconType === 'arrow'">
+          <img :src="arrow" class="w-5 h-5" />
         </button>
+        <button @click="emit('handleFilterClick')" v-else>
+          <img :src="filter" class="w-5 h-5" />
+        </button>
+        <!-- end -->
       </div>
     </div>
   </header>

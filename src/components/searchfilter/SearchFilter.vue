@@ -5,7 +5,7 @@ import close from '@/assets/icons/close-brown.svg'
 import { computed, ref } from 'vue'
 import { doList, sigunguMap } from './locationData'
 
-const selectedDo = ref('강원도')
+const selectedDo = ref('')
 const sigunguList = computed(() => sigunguMap[selectedDo.value] || [])
 
 const selectedSigunguList = ref([])
@@ -72,11 +72,17 @@ const applyFilter = async () => {
 
   const requestBody = {
     filters,
-    doNm: selectedDo.value,
-    sigunguNm: selectedSigunguList.value,
     keyword: keyword.value,
     page: 1,
     pageSize: 10,
+  }
+
+  if (selectedDo.value) {
+    requestBody.doNm = selectedDo.value
+  }
+  const selectedSigungu = selectedSigunguList.value.filter((v) => v !== '')
+  if (selectedSigungu.length > 0) {
+    requestBody.sigunguNm = selectedSigungu.join(',')
   }
 
   try {
