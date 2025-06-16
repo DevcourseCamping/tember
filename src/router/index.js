@@ -79,6 +79,11 @@ const router = createRouter({
       name: 'campReviewEdit',
       component: () => import('../views/review/ReviewPage.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFound.vue'),
+    }
   ],
 })
 
