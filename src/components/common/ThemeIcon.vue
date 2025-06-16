@@ -21,7 +21,11 @@ const ICON_MAP = {
   filter:      'filter',
   chatbot:     'chatbot-button',
   'like-outline': 'like-outline',
-  'comment': 'comment'
+  'comment': 'comment',
+  'close': { light: 'close-brown.svg', dark: 'close-white.svg' },
+  'back-header': 'back-header',
+  'setting': 'setting',
+  'more': { light: 'light-more.svg', dark: 'dark-more.svg' },
 }
 
 const lightIcons = import.meta.glob('@/assets/icons/light/*.svg', { eager: true })

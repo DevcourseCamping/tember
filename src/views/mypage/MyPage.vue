@@ -52,7 +52,7 @@ const handleSelect = async (key) => {
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
+  <div class="fixed w-full max-w-[500px] h-screen bg-[--white] left-1/2 -translate-x-1/2">
     <HeaderOther
       nav-type="back"
       :menu-type="isMyPage ? 'setting' : null"
