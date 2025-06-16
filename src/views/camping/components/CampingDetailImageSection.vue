@@ -10,7 +10,7 @@
         class="w-full h-full object-cover rounded-b-[20px]"
       />
     </div>
-    <div class="fixed top-[20px] left-[20px] z-10">
+    <div class="absolute top-[20px] left-[20px] z-10">
       <img
         :src="light_back_button"
         alt=""
