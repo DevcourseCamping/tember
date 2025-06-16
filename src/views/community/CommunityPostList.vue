@@ -8,9 +8,12 @@ import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
+import { useUserPage } from '@/composables/useUserPage'
+import { useUserStore } from '@/stores/userStore'
 
 const isBottomOpen = ref(false)
 const inputValue = ref('')
+const profile = useUserStore()
 
 const communityStore = useCommunityStore()
 const openBottomSheet = () => {
@@ -37,7 +40,9 @@ const goToCreatePost = () => {
 }
 
 const goToLogin = () => {
-  router.push({ name: 'login' })
+  if (!profile.user?.id) {
+    router.push({ name: 'login' })
+  }
 }
 </script>
 <template>
