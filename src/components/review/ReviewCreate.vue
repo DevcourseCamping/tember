@@ -49,7 +49,10 @@ const submitReview = async () => {
 </script>
 
 <template>
-  <main class="overflow-y-auto scrollbar-hide" style="height: calc(80vh - 60px)">
+  <main
+    class="fixed w-full max-w-[500px] overflow-y-auto scrollbar-hide px-[30px]"
+    style="height: calc(80vh - 60px)"
+  >
     <!-- rating -->
     <div class="flex flex-col items-center justify-center pt-[30px]">
       <p class="font-bold text-[18px]">만족하셨나요?</p>

@@ -14,12 +14,16 @@ const reviewId = route.params.reviewId
 const goToDetail = () => {
   router.push({ name: 'campingDetail', params: { id: campId } })
 }
+
+const handleClose = () => {
+  router.back()
+}
 </script>
 
 <template>
-  <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
-    <HeaderSimple :title="isEditMode ? '리뷰 수정' : '리뷰 쓰기'" />
+    <HeaderSimple :title="isEditMode ? '리뷰 수정' : '리뷰 쓰기'" @navClick="handleClose" />
 
     <!-- create -->
     <ReviewCreate v-if="!isEditMode" :camp-id="campId" @done="goToDetail" />
