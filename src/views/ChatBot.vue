@@ -1,8 +1,8 @@
 <script setup>
 import { ref, nextTick } from 'vue'
 import close from '@/assets/icons/close-white.svg'
-import chatbotWhite from '@/assets/icons/chatbot-white.svg'
-import chatbotBrown from '@/assets/icons/chatbot-brown.svg'
+import chatbotWhite from '@/assets/icons/light/light-chatbot-button.svg'
+import chatbotBrown from '@/assets/icons/dark/dark-chatbot-button.svg'
 import send from '@/assets/icons/light/light-send.svg'
 import { useRouter } from 'vue-router'
 
