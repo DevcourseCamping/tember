@@ -10,7 +10,7 @@ const props = defineProps({
     default: 'filter', // filter, arrow
   },
 })
-const emit = defineEmits(['iconClick'])
+const emit = defineEmits(['iconClick', 'handleFilterClick'])
 </script>
 
 <template>
@@ -28,8 +28,11 @@ const emit = defineEmits(['iconClick'])
           placeholder="검색하기"
           class="w-[330px] h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px]"
         />
-        <button @click="emit('iconClick')">
-          <img :src="props.iconType === 'arrow' ? arrow : filter" class="w-5 h-5" />
+        <button @click="emit('iconClick')" v-if="props.iconType === 'arrow'">
+          <img :src="arrow" class="w-5 h-5" />
+        </button>
+        <button @click="emit('handleFilterClick')" v-else>
+          <img :src="filter" class="w-5 h-5" />
         </button>
       </div>
     </div>

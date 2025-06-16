@@ -8,9 +8,12 @@ import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
+import { useUserPage } from '@/composables/useUserPage'
+import { useUserStore } from '@/stores/userStore'
 
 const isBottomOpen = ref(false)
 const inputValue = ref('')
+const profile = useUserStore()
 
 const communityStore = useCommunityStore()
 const openBottomSheet = () => {
@@ -35,6 +38,12 @@ const router = useRouter()
 const goToCreatePost = () => {
   router.push({ name: 'communityPostCreate' })
 }
+
+const goToLogin = () => {
+  if (!profile.user?.id) {
+    router.push({ name: 'login' })
+  }
+}
 </script>
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
@@ -47,7 +56,7 @@ const goToCreatePost = () => {
     />
     <!-- post list -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <PostCard :inputValue="inputValue" />
+      <PostCard :inputValue="inputValue" @click="goToLogin" />
     </main>
     <!-- nav -->
     <NavBar />

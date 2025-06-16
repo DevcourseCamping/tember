@@ -5,8 +5,10 @@ import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
+import { useCommunityStore } from '@/stores/communityStore'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
 
@@ -26,6 +28,25 @@ const handleCategoryClick = (category) => {
     console.log('선택된 카테고리:', category)
     // 다른 카테고리에 대한 처리도 여기에.. 다른 카테고리는 무슨 페이지가 나오는지 모르겠음 ㅠㅠ
   }
+}
+
+const communityStore = useCommunityStore()
+const { posts } = storeToRefs(communityStore)
+
+onMounted(() => {
+  communityStore.getCommunityPosts({ page: 1, maxLength: 6 })
+})
+
+const groupedPosts = computed(() => {
+  const result = []
+  for (let i = 0; i < posts.value.length; i += 2) {
+    result.push(posts.value.slice(i, i + 2))
+  }
+  return result
+})
+
+const goToDetail = (postId) => {
+  router.push(`/community/post/${postId}`)
 }
 </script>
 
@@ -173,54 +194,38 @@ const handleCategoryClick = (category) => {
           class="px-[30px]"
         >
           <SwiperSlide
-            v-for="item in [1, 2, 3]"
-            :key="`popular-${item}`"
-            class="!w-[300px] flex flex-col gap-6 flex-shrink-0"
+            v-for="(group, idx) in groupedPosts"
+            :key="`group-${idx}`"
+            class="!w-[300px] flex flex-col gap-[30px] flex-shrink-0"
           >
-            <div
-              class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden mb-[30px]"
-            >
-              <img
-                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                alt="캠핑장 사진"
-                class="w-[100px] h-full object-cover"
-              />
-              <div class="flex flex-col justify-between p-[15px] flex-1">
-                <p class="text-[14px] text-[--grey] mt-[5px]">
-                  서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
-                </p>
-                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[10px]"></div>
-                <div class="flex justify-end items-center gap-[5px]">
-                  <img
-                    src="../assets/icons/light/light-like-outline.svg"
-                    class="w-[20px] h-[20px]"
-                  />
-                  <p class="text-[14px] mr-[5px]">8</p>
-                  <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
-                  <p class="text-[14px]">10</p>
-                </div>
-              </div>
-            </div>
+            <div class="flex flex-col gap-[30px]">
+              <div
+                v-for="post in group"
+                :key="post.id"
+                @click="goToDetail(post.id)"
+                class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden"
+              >
+                <img
+                  :src="JSON.parse(post.image || '[]')[0] || ''"
+                  alt="커뮤니티 이미지"
+                  class="w-[110px] h-full object-cover"
+                />
+                <div class="flex flex-col justify-between p-[15px] flex-1">
+                  <p class="text-[14px] text-[--black] leading-[1.4] line-clamp-3 min-h-[60px]">
+                    {{ post.content }}
+                  </p>
 
-            <div class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden">
-              <img
-                src="https://cdn.pixabay.com/photo/2021/12/20/08/07/camping-6882479_1280.jpg"
-                alt="캠핑장 사진"
-                class="w-[100px] h-full object-cover"
-              />
-              <div class="flex flex-col justify-between p-[15px] flex-1">
-                <p class="text-[14px] text-[--grey] mt-[5px]">
-                  서울 근교 캠핑장 가보신 곳 중에서 추천할만한 캠핑장 있나요?
-                </p>
-                <div class="w-full h-[1px] bg-[--primary] mt-[10px] mb-[10px]"></div>
-                <div class="flex justify-end items-center gap-[5px]">
-                  <img
-                    src="../assets/icons/light/light-like-outline.svg"
-                    class="w-[20px] h-[20px]"
-                  />
-                  <p class="text-[14px] mr-[5px]">8</p>
-                  <img src="../assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
-                  <p class="text-[14px]">10</p>
+                  <div class="pt-[10px] border-t border-[--primary] mt-auto">
+                    <div class="flex justify-end items-center gap-[5px] text-[14px]">
+                      <img
+                        src="@/assets/icons/light/light-like-outline.svg"
+                        class="w-[20px] h-[20px]"
+                      />
+                      <p class="mr-[5px]">{{ post.likeCount }}</p>
+                      <img src="@/assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
+                      <p>{{ post.commentCount }}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -27,7 +27,6 @@ export const useUserStore = defineStore('userStore', {
         followingCount: data.followingCount,
         followerCount: data.followerCount,
       }
-      // console.log(this.user)
       return this.user
     },
 
