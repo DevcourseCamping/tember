@@ -39,7 +39,7 @@ const clickClose = () => {
 }
 </script>
 <template>
-  <div class="fixed w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
     <!-- header -->
     <HeaderSimple
       :title="isMyPage ? profile.user?.username : otherUser?.username"
