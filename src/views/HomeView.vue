@@ -36,7 +36,10 @@ const handleCategoryClick = (category) => {
       @categoryClick="handleCategoryClick"
       class="min-h-[168px]"
     />
-    <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
+    <div
+      v-if="isFilterModalOpen"
+      class="fixed inset-0 z-50 bg-white overflow-y-auto scrollbar-hide"
+    >
       <SearchFilter @close="handleFilterClose" />
     </div>
 
