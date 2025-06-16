@@ -18,6 +18,9 @@ import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import formDate from '@/utils/formDate'
 
+import 'swiper/css'
+import 'swiper/css/pagination'
+
 const route = useRoute()
 const postId = route.params.postId
 const communityStore = useCommunityStore()
@@ -80,11 +83,11 @@ const saveEdit = async () => {
     images: editableImages.value,
   })
   if (success) {
-    alert('게시글 수정 완료')
+    alert('게시글이 수정되었습니다.')
     isEditing.value = false
     post.value = await communityStore.getCommunityPostById(post.value.id)
   } else {
-    alert('게시글 수정 실패')
+    alert('게시글 수정에 실패했습니다.')
   }
 }
 
@@ -92,10 +95,10 @@ const deletePost = async () => {
   if (!confirm('게시글을 삭제하시겠어요?')) return
   const success = await communityStore.deletePost(post.value.id)
   if (success) {
-    alert('게시글 삭제 완료')
-    router.push('/community')
+    alert('게시글이 삭제되었습니다.')
+    router.push({ name: 'communityList' })
   } else {
-    alert('게시글 삭제 실패')
+    alert('게시글 삭제에 실패했습니다.')
   }
 }
 
@@ -213,6 +216,7 @@ const goToUserProfile = (userId) => {
     <CommunityHeaderOther
       v-if="post"
       :is-my-post="isMyPost"
+      :menu-type="'more'"
       @navClick="clickBack"
       @menuClick="clickSetting"
     />
@@ -308,23 +312,4 @@ const goToUserProfile = (userId) => {
     </main>
   </div>
 </template>
-<style scoped>
-:deep(.swiper-pagination) {
-  bottom: 10px !important;
-  text-align: center;
-}
-
-:deep(.swiper-pagination-bullet) {
-  width: 6px;
-  height: 6px;
-  background: var(--primary-30);
-  opacity: 1;
-  margin: 0 4px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-:deep(.swiper-pagination-bullet-active) {
-  background: var(--primary);
-}
-</style>
+<style scoped></style>

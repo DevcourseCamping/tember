@@ -109,15 +109,15 @@ const applyFilter = async () => {
 }
 </script>
 <template>
-  <div class="max-w-[500px] h-[1700px] bg-[#f8f8f8] mx-auto flex flex-col">
+  <div class="max-w-[500px] h-[1700px] bg-[--white] mx-auto flex flex-col">
     <div class="relative w-full mb-4 flex justify-center">
       <h1 class="text-center text-[18px] pt-[20px] text-[#222222]">검색</h1>
 
       <button
         @click="$emit('close')"
-        class="absolute top-[24px] left-[30px] w-[20px] h-[20px] flex items-center justify-center"
+        class="absolute top-[24px] left-[18px] w-[20px] h-[20px] flex items-center justify-center"
       >
-        <img :src="close" alt="닫기" class="w-[20px] h-[20px]" />
+        <img :src="close" alt="닫기" class="w-[18px] h-[18px]" />
       </button>
     </div>
 
@@ -127,11 +127,11 @@ const applyFilter = async () => {
           <h2 class="text-[15px] text-[#222222]">지역</h2>
 
           <div class="flex rounded-md overflow-hidden h-[230px]">
-            <div class="w-[90px] overflow-y-auto flex flex-col gap-[10px] pt-[17px]">
+            <div class="w-[90px] overflow-y-auto scrollbar-hide flex flex-col gap-[10px] pt-[17px]">
               <div
                 v-for="doItem in doList"
                 :key="doItem"
-                class="h-[30px] text-[14px] text-center cursor-pointer rounded-[5px]"
+                class="h-[30px] py-[2px] text-[14px] text-center cursor-pointer rounded-[5px]"
                 :class="selectedDo === doItem ? 'bg-[#4B3C2F] text-white' : 'text-[#222222]'"
                 @click="selectedDo = doItem"
               >
@@ -152,7 +152,7 @@ const applyFilter = async () => {
                 전체 선택
               </button>
 
-              <div class="flex-1 overflow-y-auto pr-[5px]">
+              <div class="flex-1 overflow-y-auto scrollbar-hide pr-[5px]">
                 <div class="grid grid-cols-3 gap-[15px]">
                   <FilterTag
                     v-for="sigungu in sigunguList"
@@ -191,9 +191,11 @@ const applyFilter = async () => {
           <button class="text-[13px] text-[#A8AEB2]">초기화</button>
         </div>
 
-        <section class="overflow-y-auto h-full pr-[4px] pb-[80px] flex flex-col gap-[25px]">
+        <section
+          class="overflow-y-auto scrollbar-hide h-full pr-[4px] pb-[30px] flex flex-col gap-[25px]"
+        >
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">숙소 유형</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">숙소 유형</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['일반야영장', '자동차야영장', '글램핑', '카라반', '캠프닉']"
@@ -211,7 +213,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">운영 기간</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">운영 기간</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['봄', '여름', '가을', '겨울']"
@@ -229,7 +231,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">운영일</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">운영일</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['평일', '평일+주말']"
@@ -247,7 +249,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">입지 구분</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">입지 구분</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['산', '강', '계곡', '호수', '숲', '섬', '도심', '해변']"
@@ -265,7 +267,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">부대시설</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">부대시설</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in [
@@ -296,7 +298,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">주변시설</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">주변시설</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in [
@@ -326,7 +328,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">테마환경</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">테마환경</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in [
@@ -357,7 +359,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">트레일러 가능</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">트레일러 가능</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['개인 트레일러 가능']"
@@ -375,7 +377,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">카라반 가능</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">카라반 가능</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['개인 카라반 가능']"
@@ -393,7 +395,7 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[15px] text-[#A8AEB2] font-bold mb-[10px]">반려동물</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">반려동물</h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['반려동물 가능', '소형견 가능']"
@@ -411,7 +413,7 @@ const applyFilter = async () => {
           </div>
         </section>
 
-        <div class="mt-[16px] flex justify-center">
+        <div class="mt-[10px] flex justify-center">
           <button
             class="w-full h-[45px] rounded-[5px] text-[13px] text-white bg-[#3A2B1F]"
             @click="applyFilter"
