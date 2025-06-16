@@ -50,6 +50,7 @@ const setFilterCampingList = (filterCampingList, requestBody) => {
     }
   })
   campingList.value = newCampingList
+  total.value = newCampingList.length
 }
 
 const getCampingList = async () => {
@@ -87,13 +88,9 @@ const handleScroll = async () => {
   const documentHeight = document.documentElement.scrollHeight
 
   if (!isLoading.value && scrollPosition + windowHeight >= documentHeight - 100) {
+    if (total.value === campingList.value.length) return
     isLoading.value = true
     page.value++
-
-    if (total.value === campingList.value.length) {
-      isLoading.value = false
-      return
-    }
     await getCampingList()
     isLoading.value = false
   }
