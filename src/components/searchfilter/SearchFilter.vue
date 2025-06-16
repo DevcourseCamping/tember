@@ -10,6 +10,10 @@ const sigunguList = computed(() => sigunguMap[selectedDo.value] || [])
 
 const selectedSigunguList = ref([])
 
+// 20250613 검색 페이지 사용을 위한 로직 추가
+const emit = defineEmits(['close', 'setFilterCampingList'])
+// end
+
 const toggleSigungu = (sigungu) => {
   const idx = selectedSigunguList.value.indexOf(sigungu)
   if (idx > -1) {
@@ -76,7 +80,6 @@ const applyFilter = async () => {
   if (selectedDo.value) {
     requestBody.doNm = selectedDo.value
   }
-
   const selectedSigungu = selectedSigunguList.value.filter((v) => v !== '')
   if (selectedSigungu.length > 0) {
     requestBody.sigunguNm = selectedSigungu.join(',')
@@ -96,6 +99,10 @@ const applyFilter = async () => {
       console.log(`캠핑장 ${index + 1} 정보:`, camp)
     })
     console.log(`필터링 된 campList: ${campList.value.length}`, campList.value)
+    // 20250613 검색 페이지 사용을 위한 로직 추가
+    emit('setFilterCampingList', campList.value, requestBody)
+    emit('close')
+    // end
   } catch (error) {
     console.error('조회 실패:', error)
   }
