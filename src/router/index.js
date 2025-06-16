@@ -69,6 +69,11 @@ const router = createRouter({
       name: 'Chatbot',
       component: () => import('../views/ChatBot.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFound.vue'),
+    },
   ],
 })
 
