@@ -13,6 +13,7 @@ import formDate from '@/utils/formDate'
 import comment from '@/assets/icons/dark/dark-comment.svg'
 import like from '@/assets/icons/dark/dark-like-filled.svg'
 import unlike from '@/assets/icons/dark/dark-like-outline.svg'
+import SkeletonPostDetail from '@/components/community/SkeletonPostDetail.vue'
 
 let startEditFn = () => {}
 const {
@@ -47,51 +48,50 @@ startEditFn = startEdit
 </script>
 
 <template>
-  <div v-if="post" class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
-    <!-- Header -->
+  <div class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
+    <!-- header -->
     <CommunityHeaderOther
       :is-my-post="isMyPost && !isEditing"
       :menu-type="'more'"
       @navClick="clickBack"
       @menuClick="clickSetting"
     />
-
-    <!-- BottomSheet for post options -->
     <BottomSheetWrapper v-show="isBottomOpen" :show="isBottomOpen" @close="clickSetting">
       <BottomSheet type="post" @close="clickSetting" @select="handleSelect" />
     </BottomSheetWrapper>
 
-    <!-- Main content -->
+    <!-- main -->
     <main class="overflow-y-auto scrollbar-hide pb-[30px]" style="height: calc(100vh - 60px)">
-      <!-- User info -->
-      <section class="my-6 px-5 flex items-center justify-between">
-        <div class="flex items-center cursor-pointer" @click="goToUserProfile(post.user_id)">
-          <img
-            :src="post.profiles.image || post.profiles.avatar_url"
-            class="w-10 h-10 rounded-full mr-3"
-          />
-          <p class="font-bold">{{ post.profiles.username }}</p>
-        </div>
-        <p class="text-sm text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
-      </section>
+      <SkeletonPostDetail v-if="!post" />
+      <template v-else>
+        <!-- user info -->
+        <section class="my-6 px-5 flex items-center justify-between">
+          <div class="flex items-center cursor-pointer" @click="goToUserProfile(post.user_id)">
+            <img
+              :src="post.profiles.image || post.profiles.avatar_url"
+              class="w-10 h-10 rounded-full mr-3"
+            />
+            <p class="font-bold">{{ post.profiles.username }}</p>
+          </div>
+          <p class="text-sm text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
+        </section>
 
-      <!-- Editor or Content -->
-      <PostEditor
-        v-if="isEditing"
-        :model-value-content="editedContent"
-        :model-value-images="editableImages"
-        :model-value-category="editedCategory"
-        @update:modelValueContent="updateContent"
-        @update:modelValueImages="updateImages"
-        @update:modelValueCategory="updateCategory"
-        @cancel="cancelEdit"
-        @save="saveEdit"
-      />
-      <PostContent v-else :post="post" :image-list="imageList" />
+        <!-- editor or content -->
+        <PostEditor
+          v-if="isEditing"
+          :model-value-content="editedContent"
+          :model-value-images="editableImages"
+          :model-value-category="editedCategory"
+          @update:modelValueContent="updateContent"
+          @update:modelValueImages="updateImages"
+          @update:modelValueCategory="updateCategory"
+          @cancel="cancelEdit"
+          @save="saveEdit"
+        />
+        <PostContent v-else :post="post" :image-list="imageList" />
 
-      <!-- Like / Comment summary -->
-      <template v-if="!isEditing">
-        <section class="mx-[30px] mt-[30px] mb-[20px]">
+        <!-- like / comment summary -->
+        <section v-if="!isEditing" class="mx-[30px] mt-[30px] mb-[20px]">
           <div class="flex gap-3 justify-end mb-3">
             <div
               class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded cursor-pointer"
@@ -107,8 +107,9 @@ startEditFn = startEdit
           </div>
         </section>
 
-        <!-- Comments Section -->
+        <!-- comment list -->
         <CommentSection
+          v-if="!isEditing"
           ref="commentSectionRef"
           :post="post"
           :loginUserId="loginUserId"
@@ -118,6 +119,16 @@ startEditFn = startEdit
         />
       </template>
     </main>
+
+    <!-- footer ( comment input ) -->
+    <CommentSection
+      v-if="!post"
+      :post="{ comments: [] }"
+      :loginUserId="loginUserId"
+      @addComment="submitComment"
+      @editComment="editComment"
+      @deleteComment="deleteComment"
+    />
   </div>
 </template>
 
