@@ -100,7 +100,7 @@ const applyFilter = async () => {
     })
     console.log(`필터링 된 campList: ${campList.value.length}`, campList.value)
     // 20250613 검색 페이지 사용을 위한 로직 추가
-    emit('setFilterCampingList', campList.value)
+    emit('setFilterCampingList', campList.value, requestBody)
     emit('close')
     // end
   } catch (error) {

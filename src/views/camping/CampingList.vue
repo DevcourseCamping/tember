@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="flex-1 overflow-y-auto pb-10">
-      <BookmarkCard />
+      <BookmarkCard :campingList="campingList" mode="search" />
     </div>
     <NavBar />
   </div>
@@ -20,12 +20,18 @@ import HeaderSearch from '@/components/community/CommunityHeader.vue'
 import BookmarkCard from '@/components/common/BookmarkCard.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
+import { useUserStore } from '@/stores/userStore'
 
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import axios from 'axios'
 
 const isFilterModalOpen = ref(false)
-
-const filterCampingList = ref([])
+const page = ref(1)
+const size = ref(10)
+const campingList = ref([])
+const filterCampingList = ref(false)
+const filterRequestBody = ref(null)
+const total = ref(0)
 
 const handleFilterClick = () => {
   isFilterModalOpen.value = true
@@ -35,10 +41,74 @@ const handleFilterClose = () => {
   isFilterModalOpen.value = false
 }
 
-const setFilterCampingList = (campingList) => {
-  filterCampingList.value = campingList
-  console.log('filterCampingList', filterCampingList.value)
+const setFilterCampingList = (filterCampingList, requestBody) => {
+  filterCampingList.value = true
+  filterRequestBody.value = requestBody
+  const newCampingList = filterCampingList.map((item) => {
+    return {
+      camp_sites: item,
+    }
+  })
+  campingList.value = newCampingList
 }
+
+const getCampingList = async () => {
+  const profile = useUserStore()
+  const user = await profile.fetchUser()
+
+  const response = await axios.post(
+    'https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/camping',
+    {
+      ...filterRequestBody.value,
+      page: page.value,
+      pageSize: size.value,
+      userId: user.id,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+  total.value = response.data.total
+  const newCampingList = response.data.data.map((item) => {
+    return {
+      camp_sites: item,
+    }
+  })
+  campingList.value = [...campingList.value, ...newCampingList]
+}
+
+const isLoading = ref(false)
+
+const handleScroll = async () => {
+  const scrollPosition = window.scrollY
+  const windowHeight = window.innerHeight
+  const documentHeight = document.documentElement.scrollHeight
+
+  if (!isLoading.value && scrollPosition + windowHeight >= documentHeight - 100) {
+    isLoading.value = true
+    page.value++
+
+    if (total.value === campingList.value.length) {
+      isLoading.value = false
+      return
+    }
+    await getCampingList()
+    isLoading.value = false
+  }
+}
+
+onMounted(async () => {
+  if (!filterCampingList.value) {
+    await getCampingList()
+  }
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style lang="scss" scoped></style>
