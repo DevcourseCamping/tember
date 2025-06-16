@@ -21,7 +21,7 @@
     <div
       class="absolute bottom-0 right-0 z-10 bg-[#4B3C2F] dark:bg-[#2A2A2A] w-[100px] h-[40px] flex items-center justify-center gap-2 rounded-br-[20px] rounded-tl-[20px]"
     >
-      <span class="text-white text-sm font-bold">{{ reviewStar }}</span>
+      <span class="text-white text-[14px]">{{ reviewStar }}</span>
       <img :src="star_filled" alt="" class="w-[20px] h-[20px]" />
     </div>
   </div>
@@ -52,13 +52,13 @@ const props = defineProps({
 
 const reviewStar = computed(() => {
   if (props.review.length === 0) {
-    return '미평가  '
+    return '미평가'
   }
 
-  const totalStar = props.review.reduce((acc, cur) => acc + (cur.start_rating ?? 0), 0)
+  const totalStar = props.review.reduce((acc, cur) => acc + (cur.star_rating ?? 0), 0)
   const averageStar = props.review.length > 0 ? totalStar / props.review.length : 0
 
-  return averageStar === 0 ? '미평가' : averageStar
+  return averageStar === 0 ? '미평가' : averageStar.toFixed(1)
 })
 </script>
 

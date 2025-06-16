@@ -3,13 +3,12 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCommunityStore } from '@/stores/communityStore'
 import PostCard from '@/components/community/PostCard.vue'
-import HeaderSearch from '@/components/community/CommunityHeader.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
-import { useUserPage } from '@/composables/useUserPage'
 import { useUserStore } from '@/stores/userStore'
+import CommunityHeader from '@/components/community/CommunityHeader.vue'
 
 const isBottomOpen = ref(false)
 const inputValue = ref('')
@@ -36,7 +35,7 @@ const closeSheet = () => {
 }
 const router = useRouter()
 const goToCreatePost = () => {
-  router.push('/community/post/create')
+  router.push({ name: 'communityPostCreate' })
 }
 
 const goToLogin = () => {
@@ -46,9 +45,9 @@ const goToLogin = () => {
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
     <!-- header -->
-    <HeaderSearch
+    <CommunityHeader
       iconType="arrow"
       :inputValue="inputValue"
       @update:inputValue="inputValue = $event"
@@ -59,10 +58,10 @@ const goToLogin = () => {
       <PostCard :inputValue="inputValue" @click="goToLogin" />
     </main>
     <!-- nav -->
-    <NavBar />
+    <NavBar v-if="!isBottomOpen" class="absolute bottom-0" />
     <!-- create post button -->
     <div
-      class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px] cursor-pointer z-50"
+      class="w-[60px] h-[60px] absolute right-[20px] bottom-[80px] cursor-pointer z-50"
       @click="goToCreatePost"
     >
       <img :src="post" />

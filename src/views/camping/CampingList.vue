@@ -1,16 +1,21 @@
 <template>
   <div
-    class="w-full min-h-screen bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
+    class="w-full h-screen flex flex-col bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
   >
     <div class="sticky top-0 z-30 bg-white">
-      <HeaderSearch @handleFilterClick="handleFilterClick" />
-      <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 bg-white overflow-y-auto">
+      <HeaderSearch @handleFilterClick="handleFilterClick" @update:inputValue="handleInput" />
+      <div
+        v-if="isFilterModalOpen"
+        class="fixed inset-0 z-50 bg-white overflow-y-auto no-scrollbar"
+      >
         <SearchFilter @close="handleFilterClose" @setFilterCampingList="setFilterCampingList" />
       </div>
     </div>
-    <div class="flex-1 overflow-y-auto pb-10">
+
+    <div ref="scrollContainer" class="flex-1 overflow-y-auto pb-10 no-scrollbar">
       <BookmarkCard :campingList="campingList" mode="search" />
     </div>
+
     <NavBar />
   </div>
 </template>
@@ -32,6 +37,8 @@ const campingList = ref([])
 const filterCampingList = ref(false)
 const filterRequestBody = ref(null)
 const total = ref(0)
+const keyword = ref('')
+const profile = useUserStore()
 
 const handleFilterClick = () => {
   isFilterModalOpen.value = true
@@ -41,7 +48,13 @@ const handleFilterClose = () => {
   isFilterModalOpen.value = false
 }
 
-const setFilterCampingList = (filterCampingList, requestBody) => {
+const handleInput = async (value) => {
+  keyword.value = value
+  page.value = 1
+  await getCampingList()
+}
+
+const setFilterCampingList = (filterCampingList, requestBody, totalNumber) => {
   filterCampingList.value = true
   filterRequestBody.value = requestBody
   const newCampingList = filterCampingList.map((item) => {
@@ -50,44 +63,57 @@ const setFilterCampingList = (filterCampingList, requestBody) => {
     }
   })
   campingList.value = newCampingList
-  total.value = newCampingList.length
+  total.value = totalNumber
 }
 
 const getCampingList = async () => {
-  const profile = useUserStore()
-  const user = await profile.fetchUser()
+  let user = null
+  if (!profile.user) {
+    user = await profile.fetchUser()
+  }
 
-  const response = await axios.post(
-    'https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/camping',
-    {
-      ...filterRequestBody.value,
-      page: page.value,
-      pageSize: size.value,
-      userId: user.id,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
+  const requestBody = {
+    ...filterRequestBody.value,
+    page: page.value,
+    pageSize: size.value,
+    userId: user !== null ? user.id : profile.user.id,
+  }
+  if (keyword.value) {
+    requestBody.keyword = keyword.value
+  }
+  try {
+    const response = await axios.post(
+      'https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/camping',
+      requestBody,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    },
-  )
-  total.value = response.data.total
-  const newCampingList = response.data.data.map((item) => {
-    return {
+    )
+    total.value = response.data.total
+    const newCampingList = response.data.data.map((item) => ({
       camp_sites: item,
+    }))
+    if (keyword.value !== '' && page.value === 1) {
+      campingList.value = newCampingList
+    } else {
+      campingList.value = [...campingList.value, ...newCampingList]
     }
-  })
-  campingList.value = [...campingList.value, ...newCampingList]
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const isLoading = ref(false)
+const scrollContainer = ref(null)
 
 const handleScroll = async () => {
-  const scrollPosition = window.scrollY
-  const windowHeight = window.innerHeight
-  const documentHeight = document.documentElement.scrollHeight
+  const el = scrollContainer.value
+  if (!el) return
 
-  if (!isLoading.value && scrollPosition + windowHeight >= documentHeight - 100) {
+  const scrollBottom = el.scrollTop + el.clientHeight
+  if (!isLoading.value && scrollBottom >= el.scrollHeight - 200) {
     if (total.value === campingList.value.length) return
     isLoading.value = true
     page.value++
@@ -100,12 +126,26 @@ onMounted(async () => {
   if (!filterCampingList.value) {
     await getCampingList()
   }
-  window.addEventListener('scroll', handleScroll)
+  scrollContainer.value?.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  scrollContainer.value?.removeEventListener('scroll', handleScroll)
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html,
+body {
+  overflow: auto;
+}
+</style>

@@ -47,3 +47,22 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.swiper-pagination {
+  bottom: 10px !important;
+  text-align: center;
+}
+
+.swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background: var(--primary-50) !important;
+  opacity: 1;
+  margin: 0 4px;
+  border-radius: 999px;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--primary) !important;
+}

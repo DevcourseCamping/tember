@@ -2,7 +2,7 @@
   <div id="location-info">
     <div class="m-[10px] p-[20px]">
       <span class="text-[#222222] text-md font-bold dark:text-white">위치 정보</span>
-      <div class="mt-[20px] mb-[15px] dark:text-white">
+      <div class="mt-[20px] mb-[15px] dark:text-white text-[15px]">
         {{ campingLocation.add1 }} {{ campingLocation.add2 }}
       </div>
       <div class="h-[365px]">

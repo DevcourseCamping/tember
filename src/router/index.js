@@ -20,12 +20,12 @@ const router = createRouter({
       component: () => import('../views/community/CommunityPostList.vue'),
     },
     {
-      path: '/community/post/create',
+      path: '/community/post-create',
       name: 'communityPostCreate',
       component: () => import('../views/community/CommunityPostCreate.vue'),
     },
     {
-      path: '/community/post/:postId',
+      path: '/community/:postId',
       name: 'communityPostDetail',
       component: () => import('../views/community/CommunityPostDetail.vue'),
     },
@@ -69,6 +69,21 @@ const router = createRouter({
       name: 'Chatbot',
       component: () => import('../views/ChatBot.vue'),
     },
+    {
+      path: '/camping/:id/review/create',
+      name: 'campReviewCreate',
+      component: () => import('../views/review/ReviewPage.vue'),
+    },
+    {
+      path: '/camping/:id/review/edit/:reviewId',
+      name: 'campReviewEdit',
+      component: () => import('../views/review/ReviewPage.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFound.vue'),
+    }
   ],
 })
 
