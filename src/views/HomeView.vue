@@ -8,6 +8,11 @@ import 'swiper/css/free-mode'
 import { ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import ThemeIcon from '@/components/common/ThemeIcon.vue'
+import { computed } from 'vue';
+import { useThemeStore } from '@/stores/theme';
+
+const theme = useThemeStore();
+const isDark = computed(() => theme.isDark);
 
 const router = useRouter()
 
@@ -75,10 +80,12 @@ const handleCategoryClick = (category) => {
                 <div class="w-full h-[1px] bg-[--line] mt-[15px]"></div>
                 <div class="flex justify-end items-center gap-[10px]">
                   <ThemeIcon name="caravan-off"
+                  :is-dark="isDark"
                     class="w-[20px] h-[20px]"
                   />
-                  <ThemeIcon name="trailer-on" class="w-[20px] h-[20px]" />
-                  <ThemeIcon name="pet-on" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="trailer-on"
+                   :is-dark="isDark" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="pet-on" :is-dark="isDark" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -97,10 +104,11 @@ const handleCategoryClick = (category) => {
                 <div class="w-full h-[1px] bg-[--line] mt-[15px]"></div>
                 <div class="flex justify-end items-center gap-[10px]">
                   <ThemeIcon name="caravan-off"
+                  :is-dark="isDark"
                     class="w-[20px] h-[20px]"
                   />
-                  <ThemeIcon name="trailer-on" class="w-[20px] h-[20px]" />
-                  <ThemeIcon name="pet-on" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="trailer-on" :is-dark="isDark" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="pet-on" :is-dark="isDark" class="w-[20px] h-[20px]" />
                 </div>
               </div>
             </div>
@@ -112,6 +120,7 @@ const handleCategoryClick = (category) => {
         <ul class="flex flex-col gap-[40px]">
           <li class="flex items-start">
             <ThemeIcon name="caravan-on"
+            :is-dark="isDark"
               alt="개인 카라반"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -125,6 +134,7 @@ const handleCategoryClick = (category) => {
 
           <li class="flex items-start">
             <ThemeIcon name="trailer-on"
+            :is-dark="isDark"
               alt="트레일러"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -138,6 +148,7 @@ const handleCategoryClick = (category) => {
 
           <li class="flex items-start">
             <ThemeIcon name="pet-on"
+            :is-dark="isDark"
               alt="반려동물"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -185,10 +196,12 @@ const handleCategoryClick = (category) => {
                 <div class="w-full h-[1px] bg-[--line] mt-[10px] mb-[10px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
                   <ThemeIcon name="like-outline"
+                  :is-dark="isDark"
                     class="w-[20px] h-[20px]"
                   />
                   <p class="text-[14px] mr-[5px]">8</p>
-                  <ThemeIcon name="comment" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="comment"
+                  :is-dark="isDark" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
               </div>
@@ -207,10 +220,11 @@ const handleCategoryClick = (category) => {
                 <div class="w-full h-[1px] bg-[--line] mt-[10px] mb-[10px]"></div>
                 <div class="flex justify-end items-center gap-[5px]">
                   <ThemeIcon name="like-outline"
+                  :is-dark="isDark"
                     class="w-[20px] h-[20px]"
                   />
                   <p class="text-[14px] mr-[5px]">8</p>
-                  <ThemeIcon name="comment" class="w-[20px] h-[20px]" />
+                  <ThemeIcon name="comment" :is-dark="isDark" class="w-[20px] h-[20px]" />
                   <p class="text-[14px]">10</p>
                 </div>
               </div>

@@ -8,7 +8,11 @@ import caravan from '@/assets/icons/light/light-caravan-button.svg'
 import pet from '@/assets/icons/light/light-pet-button.svg'
 import chatbot from '@/assets/icons/chatbot-white.svg' */
 import ThemeIcon from '@/components/common/ThemeIcon.vue'
+import { computed } from 'vue';
+import { useThemeStore } from '@/stores/theme';
 
+const theme = useThemeStore();
+const isDark = computed(() => theme.isDark);
 
 const emit = defineEmits(['filterClick', 'categoryClick'])
 </script>
@@ -21,7 +25,7 @@ const emit = defineEmits(['filterClick', 'categoryClick'])
         class="relative h-[45px] flex items-center justify-between bg-[var(--popular)] rounded-[5px] px-5 py-3"
       >
         <div class="flex items-center w-full">
-          <ThemeIcon name="search" class="w-5 h-5 mr-[30px]" />
+          <ThemeIcon name="search" :is-dark="isDark" class="w-5 h-5 mr-[30px]" />
           <input
             type="text"
             placeholder="검색하기"
@@ -35,23 +39,23 @@ const emit = defineEmits(['filterClick', 'categoryClick'])
     </section>
     <section class="flex w-full px-[30px] pt-[25px] justify-between">
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'autoCamping')">
-        <ThemeIcon name="autoCamping" class="w-[45px] h-[45px]" />
+        <ThemeIcon name="autoCamping" :is-dark="isDark" class="w-[45px] h-[45px]" />
         <span class="text-sm mt-[5px] text-[--icon-text]">오토캠핑</span>
       </button>
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'glamping')">
-        <ThemeIcon name="glamping" class="w-[45px] h-[45px]" />
+        <ThemeIcon name="glamping" :is-dark="isDark" class="w-[45px] h-[45px]" />
         <span class="text-sm mt-[5px] text-[--icon-text]">글램핑</span>
       </button>
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'caravan')">
-        <ThemeIcon name="caravan" class="w-[45px] h-[45px]" />
+        <ThemeIcon name="caravan" :is-dark="isDark" class="w-[45px] h-[45px]" />
         <span class="text-sm mt-[5px] text-[--icon-text]">카라반</span>
       </button>
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'pet')">
-        <ThemeIcon name="pet" class="w-[45px] h-[45px]" />
+        <ThemeIcon name="pet" :is-dark="isDark" class="w-[45px] h-[45px]" />
         <span class="text-sm mt-[5px] text-[--icon-text]">반려동물</span>
       </button>
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'chatbot')">
-        <ThemeIcon name="chatbot" class="w-[45px] h-[45px]" />
+        <ThemeIcon name="chatbot" :is-dark="isDark" class="w-[45px] h-[45px]" />
         <span class="text-sm mt-[5px] text-[--icon-text]">챗봇</span>
       </button>
     </section>

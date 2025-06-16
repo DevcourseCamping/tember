@@ -1,12 +1,25 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import commentIcon from '../../assets/icons/light/light-comment.svg'
+import { computed, onMounted, ref, watch } from 'vue'
+/* import commentIcon from '../../assets/icons/light/light-comment.svg'
 import filledLikeIcon from '../../assets/icons/light/light-like-filled.svg'
-import outlineLikeIcon from '../../assets/icons/light/light-like-outline.svg'
+import outlineLikeIcon from '../../assets/icons/light/light-like-outline.svg' */
 import { useUserStore } from '@/stores/userStore'
 import { useUserApi } from '@/composables/useUserApi'
 import CommunitySkeleton from '../mypage/CommunitySkeleton.vue'
 import { useUserPage } from '@/composables/useUserPage'
+import ThemeIcon from '@/components/common/ThemeIcon.vue'
+import { useThemeStore } from '@/stores/theme';
+
+const theme = useThemeStore();
+const isDark = computed(() => theme.isDark);
+
+watch(
+  isDark,
+  (newValue) => {
+    console.log('[CommunityCard] isDark 값이 변경되었습니다:', newValue)
+  },
+  { immediate: true }, // immediate: true로 초기 값도 바로 확인
+)
 
 const profile = useUserStore()
 const posts = ref([])
@@ -96,10 +109,10 @@ onMounted(async () => {
             {{ post.category === 'pet' ? '반려동물' : '일반' }}
           </div>
           <div class="flex gap-[3px] text-[15px]">
-            <img :src="post.isLiked ? filledLikeIcon : outlineLikeIcon" alt="좋아요 아이콘" />
-            <p>{{ post.likeCount }}</p>
-            <img :src="commentIcon" alt="댓글 아이콘" class="pl-[10px]" />
-            <p>{{ post.commentCount }}</p>
+            <ThemeIcon :name="post.isLiked ? 'like-filled' : 'like-outline'" :is-dark="isDark" alt="좋아요 아이콘" />
+    <p>{{ post.likeCount }}</p>
+    <ThemeIcon name="comment" :is-dark="isDark" alt="댓글 아이콘" class="pl-[10px]" />
+    <p>{{ post.commentCount }}</p>
           </div>
         </div>
       </div>

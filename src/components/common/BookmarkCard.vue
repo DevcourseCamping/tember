@@ -5,6 +5,11 @@ import { useUserApi } from '@/composables/useUserApi'
 import BookmarkSkeleton from '../mypage/BookmarkSkeleton.vue'
 import ThemeIcon from '@/components/common/ThemeIcon.vue'
 import filledStarIcon from '../../assets/icons/star-filled.svg'
+import { computed } from 'vue';
+import { useThemeStore } from '@/stores/theme';
+
+const theme = useThemeStore();
+const isDark = computed(() => theme.isDark);
 
 const profile = useUserStore()
 const bookmarks = ref([])
@@ -70,6 +75,7 @@ onMounted(async () => {
             <p class="text-[13px] text-[var(--color-text-primary)]">{{ item.camp_sites.induty }}</p>
             <ThemeIcon
               :name="item.isMarked ? 'bookmark-filled' : 'bookmark-outline'"
+              :is-dark="isDark"
               alt="북마크"
               class="pr-[15px] w-[39px] h-[24px]"
             />
@@ -81,16 +87,19 @@ onMounted(async () => {
           <div class="flex gap-[20px] pb-[20px] pt-[20px]">
             <ThemeIcon
               :name="item.filter?.caravan ? 'caravan-on' : 'caravan-off'"
+              :is-dark="isDark"
               alt="카라반"
               class="w-[24px] h-[24px]"
             />
             <ThemeIcon
               :name="item.filter?.trailer ? 'trailer-on' : 'trailer-off'"
+              :is-dark="isDark"
               alt="트레일러"
               class="w-[24px] h-[24px]"
             />
             <ThemeIcon
               :name="item.filter?.pet ? 'pet-on' : 'pet-off'"
+              :is-dark="isDark"
               alt="반려동물"
               class="w-[24px] h-[24px]"
             />

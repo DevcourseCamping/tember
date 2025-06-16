@@ -1,15 +1,16 @@
 <script setup>
 import { computed } from 'vue'
-import { useDark } from '@vueuse/core'
 
 const props = defineProps({
   name: {
     type: String,
     required: true,
   },
+  isDark: {
+    type: Boolean,
+    default: false,
+  }
 })
-
-const isDark = useDark()
 
 const ICON_MAP = {
   autoCamping: 'auto-camping-button',
@@ -35,8 +36,8 @@ const iconSrc = computed(() => {
   const lightIconModule = lightIcons[lightKey]
   const darkIconModule = darkIcons[darkKey]
 
-  if (isDark.value && darkIconModule) {
-    return darkIconModule.default
+  if (props.isDark && darkIconModule) {
+    return darkIconModule.default;
   }
   
   if (lightIconModule) {

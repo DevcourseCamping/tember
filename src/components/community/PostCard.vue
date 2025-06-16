@@ -7,11 +7,16 @@ import { Pagination } from 'swiper/modules'
 import { useRouter } from 'vue-router'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import commentIcon from '../../assets/icons/light/light-comment.svg'
+/* import commentIcon from '../../assets/icons/light/light-comment.svg'
 import like from '../../assets/icons/light/light-like-filled.svg'
-import unlike from '../../assets/icons/light/light-like-outline.svg'
+import unlike from '../../assets/icons/light/light-like-outline.svg' */
 import SkeletonPostCard from './SkeletonPostCard.vue'
 import formDate from '@/utils/formDate'
+import { useThemeStore } from '@/stores/theme';
+import ThemeIcon from '@/components/common/ThemeIcon.vue';
+
+const theme = useThemeStore();
+const isDark = computed(() => theme.isDark);
 
 const communityStore = useCommunityStore()
 const { posts, loading } = storeToRefs(communityStore)
@@ -114,11 +119,11 @@ const goToUserProfile = (userId) => {
         </div>
         <template class="flex gap-4 text-sm cursor-pointer">
           <div class="flex gap-[3px]" @click.stop="toggleLike($event, post)">
-            <img :src="post.isLiked ? like : unlike" alt="좋아요 아이콘" />
+            <ThemeIcon :name="post.isLiked ? 'like-filled' : 'like-outline'" :is-dark="isDark" alt="좋아요 아이콘" />
             <p>{{ post.likeCount }}</p>
           </div>
           <div class="flex gap-[3px]">
-            <img :src="commentIcon" alt="댓글 아이콘" />
+            <ThemeIcon name="comment" :is-dark="isDark" alt="댓글 아이콘" class="pl-[10px]" />
             <p>{{ post.commentCount }}</p>
           </div>
         </template>
