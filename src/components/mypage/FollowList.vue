@@ -1,4 +1,5 @@
 <script setup>
+import { useUserPage } from '@/composables/useUserPage'
 import { useFollowStore } from '@/stores/followStore'
 import { useUserStore } from '@/stores/userStore'
 import { computed, ref } from 'vue'
@@ -10,7 +11,6 @@ const router = useRouter()
 const profile = useUserStore()
 const follow = useFollowStore()
 const myId = computed(() => profile.user?.id)
-
 const clickTab = ref(route.query.tab === 'following' ? 'following' : 'follower')
 
 const props = defineProps({
@@ -22,6 +22,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  isLoading: Boolean,
 })
 
 const goToUserProfile = (userId) => {
@@ -61,7 +62,7 @@ const goToUserProfile = (userId) => {
   <div class="h-[calc(100vh-80px)] overflow-y-auto px-[50px] py-[30px]">
     <section v-if="clickTab === 'follower'">
       <div
-        v-if="clickTab === 'follower' && followers.length === 0"
+        v-if="!props.isLoading && clickTab === 'follower' && followers.length === 0"
         class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)]"
       >
         아직 나를 팔로우한 캠퍼가 없습니다.
@@ -112,7 +113,7 @@ const goToUserProfile = (userId) => {
     </section>
     <section v-if="clickTab === 'following'">
       <div
-        v-if="clickTab === 'following' && followings.length === 0"
+        v-if="!props.isLoading && clickTab === 'following' && followings.length === 0"
         class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)]"
       >
         마음에 드는 캠퍼를 팔로우해보세요.

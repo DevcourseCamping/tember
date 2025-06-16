@@ -6,7 +6,7 @@ import { useFollowStore } from '@/stores/followStore'
 import { useUserStore } from '@/stores/userStore'
 import supabase from '@/utils/supabase'
 import { storeToRefs } from 'pinia'
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -15,13 +15,12 @@ const { isMyPage, targetUserId } = useUserPage()
 const follow = useFollowStore()
 const { followers, followings } = storeToRefs(follow)
 const otherUser = ref(null)
+const isLoading = ref(true)
 
 onMounted(async () => {
-  await profile.fetchUser()
-  await follow.fetchFollowing(targetUserId.value)
-  await follow.fetchFollowers(targetUserId.value)
-
-  if (!isMyPage.value) {
+  if (isMyPage.value) {
+    await profile.fetchUser()
+  } else {
     const { data, error } = await supabase
       .from('profiles')
       .select('username')
@@ -32,6 +31,16 @@ onMounted(async () => {
       otherUser.value = data
     }
   }
+  await follow.fetchFollowing(targetUserId.value)
+  await follow.fetchFollowers(targetUserId.value)
+
+  isLoading.value = false
+})
+
+onBeforeMount(() => {
+  follow.followers = []
+  follow.followings = []
+  otherUser.value = null
 })
 
 const clickClose = () => {
@@ -46,7 +55,7 @@ const clickClose = () => {
       @click="clickClose"
     />
     <!-- main -->
-    <FollowList :followers="followers" :followings="followings" />
+    <FollowList :followers="followers" :followings="followings" :is-loading="isLoading" />
   </div>
 </template>
 <style scoped></style>
