@@ -133,7 +133,7 @@ watch(
               class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
             >
               <p class="text-[var(--white)]">
-                {{ item.camp_sites.avg_rating ? item.camp_sites.avg_rating : '미평가' }}
+                {{ item.camp_sites.avg_rating ? item.camp_sites.avg_rating.toFixed(1) : '미평가' }}
               </p>
               <img :src="filledStarIcon" alt="별점" class="w-[20px] h-[20px]" />
             </div>
