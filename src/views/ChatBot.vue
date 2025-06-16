@@ -91,9 +91,7 @@ const scrollToBottom = () => {
 </script>
 
 <template>
-  <div
-    class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] flex flex-col left-1/2 -translate-x-1/2"
-  >
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-[var(--white)] flex flex-col">
     <header class="h-[90px] bg-[--primary] flex items-center px-6 rounded-b-lg flex-shrink-0">
       <img :src="close" class="w-5 h-5 mr-[30px] cursor-pointer" @click="handleClose" />
       <div class="flex items-center justify-center gap-4">
