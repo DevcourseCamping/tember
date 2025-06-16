@@ -40,7 +40,7 @@
           :key="item.name"
         >
           <img :src="item.image" alt="" />
-          <span class="text-[#222222] dark:text-white">{{ item.name }}</span>
+          <span class="text-[#222222] dark:text-white text-[14px]">{{ item.name }}</span>
         </div>
       </div>
     </div>

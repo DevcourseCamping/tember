@@ -21,7 +21,7 @@
     <div
       class="absolute bottom-0 right-0 z-10 bg-[#4B3C2F] dark:bg-[#2A2A2A] w-[100px] h-[40px] flex items-center justify-center gap-2 rounded-br-[20px] rounded-tl-[20px]"
     >
-      <span class="text-white text-sm font-bold">{{ reviewStar }}</span>
+      <span class="text-white text-[14px]">{{ reviewStar }}</span>
       <img :src="star_filled" alt="" class="w-[20px] h-[20px]" />
     </div>
   </div>
