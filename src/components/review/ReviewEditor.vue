@@ -76,7 +76,7 @@ const submitEdit = async () => {
 
 <template>
   <main
-    class="fixed w-full max-w-[500px] overflow-y-auto scrollbar-hide px-[30px]"
+    class="mx-auto w-full max-w-[500px] overflow-y-auto scrollbar-hide px-[30px]"
     style="height: calc(80vh - 60px)"
   >
     <!-- rating -->

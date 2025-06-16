@@ -8,7 +8,6 @@ import NavBar from '@/components/common/NavBar.vue'
 import post from '@/assets/icons/light/light-post-opacity.svg'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
-import { useUserPage } from '@/composables/useUserPage'
 import { useUserStore } from '@/stores/userStore'
 
 const isBottomOpen = ref(false)
@@ -46,7 +45,7 @@ const goToLogin = () => {
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
     <!-- header -->
     <HeaderSearch
       iconType="arrow"
@@ -62,7 +61,7 @@ const goToLogin = () => {
     <NavBar />
     <!-- create post button -->
     <div
-      class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px] cursor-pointer z-50"
+      class="w-[60px] h-[60px] absolute right-[20px] bottom-[80px] cursor-pointer z-50"
       @click="goToCreatePost"
     >
       <img :src="post" />

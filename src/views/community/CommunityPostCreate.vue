@@ -32,7 +32,7 @@ const submitPost = async () => {
 }
 </script>
 <template>
-  <main class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <main class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
     <!-- header -->
     <HeaderSimple title="글쓰기" nav-type="close" center-content="title" @navClick="handleClose" />
     <!-- main -->
