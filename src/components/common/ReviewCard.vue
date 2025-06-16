@@ -30,8 +30,9 @@ onMounted(async () => {
   try {
     const { data, error } = await supabase
       .from('camp_reviews')
-      .select('*, profiles(*)')
+      .select('*, profiles(*), campName:camp_id(faclt_nm)')
       .eq('user_id', targetUserId.value)
+      .order('created_at', { ascending: false })
     if (error) {
       console.error(error)
     } else {
@@ -43,7 +44,7 @@ onMounted(async () => {
     isLoading.value = false
   }
 })
-
+const emit = defineEmits(['openBottomSheet'])
 const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
 </script>
 <template>
@@ -63,6 +64,7 @@ const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
         :key="review.id"
         class="mb-[30px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
         @mouseenter="hoverMoreIndex = index"
+        @click="emit('openBottomSheet', review)"
       >
         <div class="flex items-center justify-between pl-[15px] pt-[15px]">
           <div class="flex items-center">
@@ -82,7 +84,11 @@ const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
             {{ review.content }}
           </p>
         </div>
-        <div class="pt-[30px] pl-5 pr-5 flex gap-[27px] items-center">
+        <div class="pt-[30px] pl-5 pr-5 flex gap-[27px]">
+          <p class="font-bold text-[14px]">캠핑장</p>
+          <p class="text-[14px]">{{ review.campName.faclt_nm }}</p>
+        </div>
+        <div class="pt-[13px] pl-5 pr-5 flex gap-[27px] items-center">
           <p class="font-bold text-[14px]">만족도</p>
           <div class="flex gap-[3px] items-center">
             <img

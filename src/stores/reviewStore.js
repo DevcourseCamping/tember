@@ -32,7 +32,50 @@ export const useReviewStore = defineStore('review', () => {
 
       return true
     } catch (e) {
-      console.error('리뷰 등록 실패:', e)
+      console.error(e)
+      error.value = e.message
+      return false
+    } finally {
+      isSubmitting.value = false
+    }
+  }
+
+  const updateReview = async ({ reviewId, content, rating, cleanliness }) => {
+    isSubmitting.value = true
+    error.value = null
+
+    try {
+      const { error: updateError } = await supabase
+        .from('camp_reviews')
+        .update({
+          content,
+          star_rating: rating,
+          cleanliness,
+        })
+        .eq('id', reviewId)
+
+      if (updateError) throw updateError
+      return true
+    } catch (e) {
+      console.error(e)
+      error.value = e.message
+      return false
+    } finally {
+      isSubmitting.value = false
+    }
+  }
+
+  const deleteReview = async (reviewId) => {
+    isSubmitting.value = true
+    error.value = null
+
+    try {
+      const { error: deleteError } = await supabase.from('camp_reviews').delete().eq('id', reviewId)
+
+      if (deleteError) throw deleteError
+      return true
+    } catch (e) {
+      console.error(e)
       error.value = e.message
       return false
     } finally {
@@ -44,5 +87,7 @@ export const useReviewStore = defineStore('review', () => {
     isSubmitting,
     error,
     createReview,
+    updateReview,
+    deleteReview,
   }
 })
