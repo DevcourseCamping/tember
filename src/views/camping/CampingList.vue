@@ -46,8 +46,6 @@ const handleFilterClose = () => {
 const handleInput = async (value) => {
   keyword.value = value
   page.value = 1
-  console.log(value)
-
   await getCampingList()
 }
 
@@ -89,7 +87,7 @@ const getCampingList = async () => {
     const newCampingList = response.data.data.map((item) => ({
       camp_sites: item,
     }))
-    if (keyword.value === '' || page.value === 1) {
+    if (keyword.value !== '' && page.value === 1) {
       campingList.value = newCampingList
     } else {
       campingList.value = [...campingList.value, ...newCampingList]
@@ -106,7 +104,7 @@ const handleScroll = async () => {
   const windowHeight = window.innerHeight
   const documentHeight = document.documentElement.scrollHeight
 
-  if (!isLoading.value && scrollPosition + windowHeight >= documentHeight - 100) {
+  if (!isLoading.value && scrollPosition + windowHeight >= documentHeight - 200) {
     if (total.value === campingList.value.length) return
     isLoading.value = true
     page.value++
