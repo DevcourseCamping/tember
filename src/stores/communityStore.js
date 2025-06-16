@@ -173,6 +173,30 @@ export const useCommunityStore = defineStore('community', () => {
     }
   }
 
+  // submit comment
+  const submitComment = async (postId, content, commentInputRef) => {
+    try {
+      if (!content?.trim()) return
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const userId = session?.user?.id
+      if (!userId) throw new Error('Login is required.')
+
+      await addComment(postId, content.trim())
+
+      if (commentInputRef) commentInputRef.value = ''
+
+      const updatedPost = await getCommunityPostById(postId)
+
+      return updatedPost
+    } catch (e) {
+      console.error(e)
+      return null
+    }
+  }
+
   // update comment
   const updateComment = async (commentId, newContent) => {
     try {
@@ -322,6 +346,7 @@ export const useCommunityStore = defineStore('community', () => {
     toggleLike,
     toggleLikeById,
     addComment,
+    submitComment,
     updateComment,
     deleteComment,
     createPost,

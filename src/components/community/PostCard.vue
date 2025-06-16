@@ -22,7 +22,7 @@ const props = defineProps({
 
 const router = useRouter()
 const goToDetail = (postId) => {
-  router.push(`/community/post/${postId}`)
+  router.push({ name: 'communityPostDetail', params: { postId } })
 }
 const toggleLike = async (event, post) => {
   event.stopPropagation()
@@ -100,11 +100,12 @@ const goToUserProfile = (userId) => {
           </Swiper>
         </section>
       </div>
-      <div class="pt-5 pl-5 pr-5 text-[15px]" @click="goToDetail(post.id)">
-        <p class="break-words">
-          {{ post.content }}
-        </p>
-      </div>
+      <router-link
+        :to="{ name: 'communityPostDetail', params: { postId: post.id } }"
+        class="block pt-5 pl-5 pr-5 text-[15px]"
+      >
+        <p class="break-words">{{ post.content }}</p>
+      </router-link>
       <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[15px]">
         <div
           class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
@@ -126,23 +127,4 @@ const goToUserProfile = (userId) => {
     </div>
   </div>
 </template>
-<style scoped>
-:deep(.swiper-pagination) {
-  bottom: 10px !important;
-  text-align: center;
-}
-
-:deep(.swiper-pagination-bullet) {
-  width: 6px;
-  height: 6px;
-  background: var(--primary-30);
-  opacity: 1;
-  margin: 0 4px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-}
-
-:deep(.swiper-pagination-bullet-active) {
-  background: var(--primary);
-}
-</style>
+<style scoped></style>

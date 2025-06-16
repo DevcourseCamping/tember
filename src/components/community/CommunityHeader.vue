@@ -17,7 +17,6 @@ const emit = defineEmits(['iconClick', 'update:inputValue', 'handleFilterClick']
 
 const inputValue = ref('')
 
-// 키 입력과 조합 입력 모두를 실시간 반영
 const handleInput = (e) => {
   inputValue.value = e.target.value
   emit('update:inputValue', inputValue.value)

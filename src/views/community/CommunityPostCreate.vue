@@ -24,15 +24,15 @@ const submitPost = async () => {
   })
 
   if (success) {
-    alert('게시글 등록 완료')
-    router.push('/community')
+    alert('게시글이 등록되었습니다.')
+    router.push({ name: 'communityList' })
   } else {
-    alert('게시글 등록 실패')
+    alert('게시글 등록에 실패했습니다.')
   }
 }
 </script>
 <template>
-  <main class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <main class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
     <!-- header -->
     <HeaderSimple title="글쓰기" nav-type="close" center-content="title" @navClick="handleClose" />
     <!-- main -->
