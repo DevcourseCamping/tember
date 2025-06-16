@@ -130,7 +130,7 @@ watch(
               />
             </div>
             <div
-              class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
+              class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px] text-[14px]"
             >
               <p class="text-[var(--white)]">
                 {{ item.camp_sites.avg_rating ? item.camp_sites.avg_rating : '미평가' }}
