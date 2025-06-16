@@ -11,7 +11,7 @@ const emit = defineEmits(['close', 'select'])
 <template>
   <section class="flex flex-col absolute bottom-0 w-full bg-[var(--primary)] rounded-t-[15px]">
     <header class="flex justify-between pt-6 pb-4 px-[30px] items-center">
-      <p class="text-lg text-[var(--white)] font-bold">작업 선택</p>
+      <p class="text-lg text-[var(--icon-text)] font-bold">작업 선택</p>
       <button @click="emit('close')">
         <img :src="close" class="w-[18px] h-[18px] cursor-pointer" />
       </button>
@@ -22,7 +22,7 @@ const emit = defineEmits(['close', 'select'])
         class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">게시글 수정</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">게시글 수정</p>
       </div>
       <div
         class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
@@ -37,7 +37,7 @@ const emit = defineEmits(['close', 'select'])
         class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">리뷰 수정</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">리뷰 수정</p>
       </div>
       <div
         class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
@@ -52,7 +52,7 @@ const emit = defineEmits(['close', 'select'])
         class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">댓글 수정</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">댓글 수정</p>
       </div>
       <div
         class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
@@ -67,19 +67,19 @@ const emit = defineEmits(['close', 'select'])
         class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">프로필 수정</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">프로필 수정</p>
       </div>
       <div
         class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer border-b border-[var(--white-20)]"
         @click="emit('select', 'dark')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">다크모드</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">다크모드</p>
       </div>
       <div
         class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'logout')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">로그아웃</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">로그아웃</p>
       </div>
     </div>
     <!-- sort -->
@@ -88,13 +88,13 @@ const emit = defineEmits(['close', 'select'])
         class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'latest')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">최신순</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">최신순</p>
       </div>
       <div
         class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'popular')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">인기순</p>
+        <p class="ml-[25px] text-[var(--icon-text)] text-base">인기순</p>
       </div>
     </div>
   </section>

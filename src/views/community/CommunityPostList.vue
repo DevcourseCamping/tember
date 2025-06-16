@@ -1,18 +1,28 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCommunityStore } from '@/stores/communityStore'
 import PostCard from '@/components/community/PostCard.vue'
-import HeaderSearch from '@/components/common/HeaderSearch.vue'
+/* import HeaderSearch from '@/components/common/HeaderSearch.vue' */
+import HeaderSearch from '@/components/community/CommunityHeader.vue'
 import NavBar from '@/components/common/NavBar.vue'
-import post from '@/assets/icons/light/light-post-opacity.svg'
+/* import post from '@/assets/icons/light/light-post-opacity.svg' */
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
+import { useThemeStore } from '@/stores/theme'
+import lightPost from '@/assets/icons/light/light-post-opacity.svg'
+import darkPost from '@/assets/icons/dark/dark-post-opacity.svg'
 
 const isBottomOpen = ref(false)
 const inputValue = ref('')
 
 const communityStore = useCommunityStore()
+
+const themeStore = useThemeStore()
+
+const postIcon = computed(() => {
+  return themeStore.isDark ? darkPost : lightPost
+})
 const openBottomSheet = () => {
   isBottomOpen.value = true
 }
@@ -35,6 +45,7 @@ const router = useRouter()
 const goToCreatePost = () => {
   router.push('/community/post/create')
 }
+
 </script>
 <template>
   <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
@@ -56,7 +67,7 @@ const goToCreatePost = () => {
       class="w-[60px] h-[60px] fixed right-[20px] bottom-[80px] cursor-pointer z-50"
       @click="goToCreatePost"
     >
-      <img :src="post" />
+      <img :src="postIcon" />
     </div>
   </div>
   <BottomSheetWrapper :show="isBottomOpen" @close="closeSheet">
