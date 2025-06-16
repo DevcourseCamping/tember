@@ -94,13 +94,13 @@ const applyFilter = async () => {
     const camps = response.data.data
     campList.value = camps
 
-    camps.forEach((camp, index) => {
-      console.log(`캠핑장 ${index + 1}`)
-      console.log(`캠핑장 ${index + 1} 정보:`, camp)
-    })
-    console.log(`필터링 된 campList: ${campList.value.length}`, campList.value)
+    // camps.forEach((camp, index) => {
+    //   console.log(`캠핑장 ${index + 1}`)
+    //   console.log(`캠핑장 ${index + 1} 정보:`, camp)
+    // })
+    // console.log(`필터링 된 campList: ${campList.value.length}`, campList.value)
     // 20250613 검색 페이지 사용을 위한 로직 추가
-    emit('setFilterCampingList', campList.value, requestBody)
+    emit('setFilterCampingList', campList.value, requestBody, response.data.total)
     emit('close')
     // end
   } catch (error) {
