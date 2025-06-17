@@ -43,6 +43,7 @@ const goToLogin = () => {
     router.push({ name: 'login' })
   }
 }
+const categoryFilter = ref('all')
 </script>
 <template>
   <div class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)] dark:bg-[#121212]">
@@ -59,18 +60,30 @@ const goToLogin = () => {
       <!-- category filter -->
       <div class="flex gap-5 mx-[30px] mt-5">
         <button
-          class="w-20 h-[30px] text-[13px] bg-[var(--primary)] text-white rounded-[5px] cursor-pointer"
+          class="w-20 h-[30px] text-[13px] rounded-[5px] cursor-pointer"
+          :class="
+            categoryFilter === 'default'
+              ? 'bg-[var(--primary)] text-white dark:bg-[#3a3a3a]'
+              : 'bg-white  border border-[var(--primary)] dark:bg-[#121212] dark:text-white dark:border-[#ffffff50]'
+          "
+          @click="categoryFilter = categoryFilter === 'default' ? 'all' : 'default'"
         >
           일반
         </button>
         <button
-          class="w-20 h-[30px] text-[13px] bg-[#CEE8EC] text-[var(--primary)] rounded-[5px] cursor-pointer"
+          class="w-20 h-[30px] text-[13px] rounded-[5px] cursor-pointer"
+          :class="
+            categoryFilter === 'pet'
+              ? 'bg-[#D6E3ED] dark:bg-[#D6E3ED85] dark:text-white'
+              : 'bg-white  border border-[#D6E3ED] dark:bg-[#121212] dark:text-white dark:border-[#D6E3ED70]'
+          "
+          @click="categoryFilter = categoryFilter === 'pet' ? 'all' : 'pet'"
         >
           반려동물
         </button>
       </div>
       <!-- post list -->
-      <PostCard :inputValue="inputValue" @click="goToLogin" />
+      <PostCard :inputValue="inputValue" @click="goToLogin" :categoryFilter="categoryFilter" />
     </main>
     <!-- nav -->
     <NavBar v-if="!isBottomOpen" class="absolute bottom-0" />
