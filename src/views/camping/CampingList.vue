@@ -28,14 +28,14 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import axios from 'axios'
 
-const route=useRoute()
-const selectedCategory=ref(route.query.category||null)
+const route = useRoute()
+const selectedCategory = ref(route.query.category || null)
 
-const categoryMap={
-  autoCamping:'자동차야영장',
-  glamping:'글램핑',
-  caravan:'카라반',
-  pet:'반려동물',
+const categoryMap = {
+  autoCamping: '자동차야영장',
+  glamping: '글램핑',
+  caravan: '카라반',
+  pet: '반려동물',
 }
 
 const isFilterModalOpen = ref(false)
@@ -84,20 +84,19 @@ const getCampingList = async () => {
     ...filterRequestBody.value,
     page: page.value,
     pageSize: size.value,
-    userId: user !== null ? user.id : profile.user.id,
-    filters:{}
+    userId: user !== null ? user.id : profile.user?.id,
+    filters: {},
   }
   if (keyword.value) {
     requestBody.keyword = keyword.value
   }
 
-  if(selectedCategory.value){
-    if(selectedCategory.value==='pet'){
-      requestBody.filters.animalCmgCl=['가능']
-    }
-    else{
-const korCategory=categoryMap[selectedCategory.value]
-    if(korCategory) requestBody.filters.induty=[korCategory]
+  if (selectedCategory.value) {
+    if (selectedCategory.value === 'pet') {
+      requestBody.filters.animalCmgCl = ['가능']
+    } else {
+      const korCategory = categoryMap[selectedCategory.value]
+      if (korCategory) requestBody.filters.induty = [korCategory]
     }
   }
 
@@ -125,17 +124,20 @@ const korCategory=categoryMap[selectedCategory.value]
   }
 }
 
-onMounted(async()=>{
+onMounted(async () => {
   await getCampingList()
-  scrollContainer.value?.addEventListener('scroll',handleScroll)
+  scrollContainer.value?.addEventListener('scroll', handleScroll)
 })
 
-watch(()=>route.query.category,(newQ)=>{
-  selectedCategory.value=newQ||null
-  page.value=1
-  campingList.value=[]
-  getCampingList()
-})
+watch(
+  () => route.query.category,
+  (newQ) => {
+    selectedCategory.value = newQ || null
+    page.value = 1
+    campingList.value = []
+    getCampingList()
+  },
+)
 
 const isLoading = ref(false)
 const scrollContainer = ref(null)
