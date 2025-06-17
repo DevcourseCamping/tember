@@ -27,7 +27,7 @@ const handleCategoryClick = (category) => {
   if (category === 'chatbot') {
     router.push('/chatbot')
   } else {
-    router.push({path:'/search',query:{category}})
+    router.push({ path: '/search', query: { category } })
   }
 }
 
@@ -136,7 +136,7 @@ const fetchLatestReviews = async () => {
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C]">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C] flex flex-col">
     <HeaderSearchMain
       @filterClick="handleFilterClick"
       @categoryClick="handleCategoryClick"
