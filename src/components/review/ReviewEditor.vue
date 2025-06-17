@@ -77,7 +77,7 @@ const submitEdit = async () => {
 <template>
   <main
     class="mx-auto w-full max-w-[500px] overflow-y-auto scrollbar-hide px-[30px]"
-    style="height: calc(80vh - 60px)"
+    style="height: calc(100vh - 80px - 60px)"
   >
     <!-- rating -->
     <div class="flex flex-col items-center justify-center pt-[30px]">
@@ -139,7 +139,7 @@ const submitEdit = async () => {
       <p class="font-bold text-[18px]">한 줄 리뷰 작성해주세요.</p>
     </div>
 
-    <div class="flex items-center justify-center pt-[40px]">
+    <div class="flex items-center justify-center pt-[40px] pb-[30px]">
       <textarea
         v-model="reviewContent"
         maxlength="50"
