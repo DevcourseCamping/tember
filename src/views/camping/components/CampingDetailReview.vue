@@ -9,7 +9,7 @@
           }}</span>
         </div>
         <div class="flex items-center gap-2 cursor-pointer justify-center">
-          <img :src="light_post" alt="" class="w-[20px] h-[20px]" />
+          <img :src="themeStore.isDark ? dark_post : light_post" alt="" class="w-[20px] h-[20px]" />
           <router-link :to="loginUserId ? `/camping/${campingId}/review/create` : '/login'">
             <span class="text-[#222222] dark:text-white text-[15px] font-medium"
               >리뷰 등록하기</span
@@ -33,7 +33,11 @@
 // TODO: 리뷰 등록하기 버튼 클릭 시 리뷰 등록 페이지로 이동
 import { computed } from 'vue'
 import light_post from '../../../assets/icons/light/light-post.svg'
+import dark_post from '../../../assets/icons/dark/dark-post.svg'
 import ReviewCard from '../../../components/common/ReviewCard.vue'
+
+import { useThemeStore } from '@/stores/theme'
+const themeStore = useThemeStore()
 import { useUserStore } from '@/stores/userStore'
 import { storeToRefs } from 'pinia'
 
