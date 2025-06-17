@@ -161,6 +161,7 @@ const fetchLatestReviews = async () => {
           Popular
         </h2>
         <Swiper
+          v-if="allImagesLoaded"
           :slides-per-view="'auto'"
           :space-between="30"
           :centered-slides="true"
