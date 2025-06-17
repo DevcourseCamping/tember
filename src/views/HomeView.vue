@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/free-mode'
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { storeToRefs } from 'pinia'
@@ -40,6 +40,10 @@ const fetchPopularCamping = async () => {
     const data = await res.json()
     console.log('캠핑장 응답값:', data)
     popularCamping.value = data.campingData
+
+    nextTick(() => {
+      checkAllImagesLoaded()
+    })
   } catch (e) {
     console.error('로딩 실패', e)
   }
@@ -61,6 +65,28 @@ const groupedPopular = computed(() => {
 
 const communityStore = useCommunityStore()
 const { posts } = storeToRefs(communityStore)
+
+const allImagesLoaded = ref(false)
+const checkAllImagesLoaded = () => {
+  const images = document.querySelectorAll('.popular-slide-img')
+  let loadedCount = 0
+
+  images.forEach((img) => {
+    if (img.complete) {
+      loadedCount++
+    } else {
+      img.addEventListener('load', () => {
+        loadedCount++
+        if (loadedCount === images.length) {
+          allImagesLoaded.value = true
+        }
+      })
+    }
+  })
+  if (loadedCount === images.length) {
+    allImagesLoaded.value = true
+  }
+}
 
 onMounted(() => {
   fetchPopularCamping()
