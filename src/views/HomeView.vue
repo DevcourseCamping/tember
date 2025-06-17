@@ -155,7 +155,7 @@ const themeStore = useThemeStore()
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C]">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C] flex flex-col">
     <HeaderSearchMain
       @filterClick="handleFilterClick"
       @categoryClick="handleCategoryClick"
