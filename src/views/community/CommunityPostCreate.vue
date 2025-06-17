@@ -80,7 +80,7 @@ const submitPost = async () => {
 
     <!-- footer  -->
     <div
-      class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] dark:bg-[#3a3a3a] cursor-pointer flex justify-center items-center text-[var(--white)] text-lg"
+      class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] dark:bg-[#1a1a1a] cursor-pointer flex justify-center items-center text-[var(--white)] text-lg"
       @click="submitPost"
     >
       작성완료
