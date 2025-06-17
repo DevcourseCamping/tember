@@ -4,10 +4,7 @@
   >
     <div class="sticky top-0 z-30 bg-white">
       <HeaderSearch @handleFilterClick="handleFilterClick" @update:inputValue="handleInput" />
-      <div
-        v-if="isFilterModalOpen"
-        class="fixed inset-0 z-50 bg-white overflow-y-auto no-scrollbar"
-      >
+      <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 overflow-y-auto no-scrollbar">
         <SearchFilter @close="handleFilterClose" @setFilterCampingList="setFilterCampingList" />
       </div>
     </div>
