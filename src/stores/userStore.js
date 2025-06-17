@@ -17,7 +17,10 @@ export const useUserStore = defineStore('userStore', {
         data: { user },
         error,
       } = await supabase.auth.getUser()
-      if (error || !user) throw new Error('no 유저')
+      if (error || !user) {
+        this.user = null
+        return user
+      }
 
       const { getUser } = useUserApi()
       const data = await getUser(user.id)
