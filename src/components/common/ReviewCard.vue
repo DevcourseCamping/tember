@@ -20,9 +20,19 @@ const formDate = (newDate) => {
   return `${year}.${month}.${day}`
 }
 
-onMounted(async () => {
-  isLoading.value = true
+// 20250616 리뷰 카드 로직 추가
+const props = defineProps({
+  campingReviews: {
+    type: Array,
+    required: true,
+  },
+  mode: {
+    type: String,
+    required: true,
+  },
+})
 
+const getMyReview = async () => {
   if (!profile.user?.id) {
     await profile.fetchUser()
     isLoading.value = false
@@ -41,6 +51,16 @@ onMounted(async () => {
   } catch (error) {
     console.error(error)
   } finally {
+    isLoading.value = false
+  }
+}
+
+onMounted(async () => {
+  isLoading.value = true
+  if (props.mode !== 'detail') {
+    await getMyReview()
+  } else {
+    reviews.value = props.campingReviews
     isLoading.value = false
   }
 })
