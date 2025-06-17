@@ -7,8 +7,10 @@
     <div class="w-11 h-4 bg-[var(--grey)] opacity-30 rounded-sm" />
   </section>
   <div class="w-full h-[480px] mt-4 bg-[var(--grey)] opacity-30 rounded-sm" />
-  <div class="w-[460px] h-4 mx-5 mt-7 bg-[var(--grey)] opacity-30 rounded-sm" />
-  <div class="w-[420px] h-4 mx-5 mt-3 bg-[var(--grey)] opacity-30 rounded-sm" />
+  <div class="px-5">
+    <div class="w-full h-4 mt-7 bg-[var(--grey)] opacity-30 rounded-sm" />
+    <div class="w-5/6 h-4 mt-3 bg-[var(--grey)] opacity-30 rounded-sm" />
+  </div>
   <section class="mx-[30px] mb-[20px]">
     <div class="flex gap-3 justify-end mb-3 mt-[30px]">
       <div class="w-[63.78px] h-7 bg-[var(--grey)] opacity-30 rounded-sm" />

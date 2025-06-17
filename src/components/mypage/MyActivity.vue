@@ -8,7 +8,9 @@ import { useUserPage } from '@/composables/useUserPage'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import BottomSheet from '@/components/common/BottomSheet.vue'
 import supabase from '@/utils/supabase'
+import { useUserStore } from '@/stores/userStore'
 
+const profile = useUserStore()
 const { isMyPage } = useUserPage()
 const clickTab = ref('review')
 
@@ -17,10 +19,16 @@ const selectedReview = ref(null)
 const router = useRouter()
 
 const handleOpenBottomSheet = (review) => {
-  selectedReview.value = review
-  isBottomOpen.value = true
-}
+  const loginUserId = profile.user?.id
+  const reviewUserId = review.user_id
 
+  if (loginUserId === reviewUserId) {
+    selectedReview.value = review
+    isBottomOpen.value = true
+  } else {
+    router.push({ name: 'campingDetail', params: { id: review.camp_id } })
+  }
+}
 const handleSelect = async (key) => {
   isBottomOpen.value = false
 
@@ -45,6 +53,8 @@ const handleSelect = async (key) => {
       alert('리뷰가 삭제되었습니다.')
       window.location.reload()
     }
+  } else if (key === 'goToCamp') {
+    router.push({ name: 'campingDetail', params: { id: selectedReview.value.camp_id } })
   }
 }
 </script>

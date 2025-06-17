@@ -48,7 +48,7 @@ startEditFn = startEdit
 </script>
 
 <template>
-  <div class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
+  <div class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto flex flex-col">
     <!-- header -->
     <CommunityHeaderOther
       :is-my-post="isMyPost && !isEditing"
@@ -131,5 +131,3 @@ startEditFn = startEdit
     />
   </div>
 </template>
-
-<style scoped></style>
