@@ -1,5 +1,6 @@
 <script setup>
 import close from '@/assets/icons/close-white.svg'
+import { onMounted, ref, watch } from 'vue'
 const props = defineProps({
   type: {
     type: String, // post, review, my, sort
@@ -7,6 +8,19 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['close', 'select'])
+
+const isDark = ref(false)
+watch(isDark, (value) => {
+  localStorage.setItem('theme', value ? 'dark' : 'light')
+})
+
+onMounted(() => {
+  const save = localStorage.getItem('theme')
+  if (save === 'dark') {
+    isDark.value = true
+    document.documentElement.classList.add('dark')
+  }
+})
 </script>
 <template>
   <section
@@ -81,7 +95,9 @@ const emit = defineEmits(['close', 'select'])
         class="bg-[var(--primary)] dark:bg-[#1a1a1a] w-full h-[55px] flex items-center cursor-pointer border-b border-[var(--white-20)]"
         @click="emit('select', 'dark')"
       >
-        <p class="ml-[25px] text-[var(--white)] text-base">다크모드</p>
+        <p class="ml-[25px] text-[var(--white)] text-base" @click.prevent="toggleDarkMode">
+          {{ isDark ? '라이트 모드' : '다크 모드' }}
+        </p>
       </div>
       <div
         class="bg-[var(--primary)] dark:bg-[#1a1a1a] w-full h-[55px] flex items-center cursor-pointer"
