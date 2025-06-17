@@ -13,9 +13,10 @@
         </div>
       </div>
       <div class="w-full h-[390px] bg-[var(--grey)] mb-5"></div>
-      <div class="w-[398px] h-[14px] bg-[var(--grey)] rounded-sm mb-2 ml-5"></div>
-      <div class="w-[398px] h-[14px] bg-[var(--grey)] rounded-sm mb-2 ml-5"></div>
-      <div class="w-[365px] h-[14px] bg-[var(--grey)] rounded-sm mb-2 ml-5"></div>
+      <div class="w-full px-5">
+        <div class="w-full h-[14px] bg-[var(--grey)] rounded-sm mb-2"></div>
+        <div class="w-full h-[14px] bg-[var(--grey)] rounded-sm mb-2"></div>
+      </div>
 
       <div class="flex justify-between items-center mt-[40px] px-5">
         <div class="w-20 h-[30px] bg-[var(--grey)] rounded-sm"></div>
