@@ -64,7 +64,7 @@ const parseImage = (imageField) => {
 }
 </script>
 <template>
-  <div class="p-[30px] flex flex-col">
+  <div class="pl-[30px] pr-[30px] pt-[30px] flex flex-col">
     <div v-if="isLoading">
       <CommunitySkeleton v-for="n in 4" :key="n" />
     </div>

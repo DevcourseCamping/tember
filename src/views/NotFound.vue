@@ -1,14 +1,26 @@
 <script setup>
 import notfound from '@/assets/icons/light/light-404.svg'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToMain = () => {
+  router.push({ name: 'home' })
+}
 </script>
 <template>
-    <div class="w-[500px] h-screen bg-[var(--white)] mx-auto relative">
-  <img :src="notfound" class="w-[266px] h-[162px] absolute top-[250px] left-1/2 -translate-x-1/2" />
-  <div class="w-[440px] h-[60px] bg-[var(--primary)] rounded-md absolute top-[640px] left-1/2 -translate-x-1/2 flex items-center justify-center gap-5">
-    <p class="text-white text-sm">Go Back Home</p>
+  <div
+    class="max-w-[500px] mx-auto w-full h-screen bg-[var(--white)] flex flex-col justify-between items-center py-10"
+  >
+    <div class="pt-[250px]">
+      <img :src="notfound" class="w-[266px] h-[162px]" />
+    </div>
+
+    <div
+      class="w-full max-w-[400px] h-[60px] bg-[var(--primary)] rounded-md flex items-center justify-center gap-5"
+    >
+      <p class="text-white text-lg cursor-pointer" @click="goToMain">Go Back Home</p>
+    </div>
   </div>
-</div>
 </template>
-<style scoped>
-  
-</style>
+<style scoped></style>
