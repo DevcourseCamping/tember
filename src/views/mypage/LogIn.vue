@@ -30,12 +30,12 @@ const clickClose = () => {
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-[var(--white)] left-1/2 -translate-x-1/2">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
     <HeaderSimple title="로그인 / 회원가입" type="close" @click="clickClose" />
     <div class="flex flex-col items-center justify-center pt-[200px] gap-[100px]">
       <img :src="logo" class="w-[136px] h-[64px]" />
       <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center mb-[20px]">
+        <div class="flex items-center justify-center mb-[30px]">
           <hr class="w-[140px] border-t border-[var(--primary-20)]" />
           <p class="text-[14px] pl-[10px] pr-[10px] text-[var(--grey)]">로그인 / 회원가입</p>
           <hr class="w-[140px] border-t border-[var(--primary-20)]" />

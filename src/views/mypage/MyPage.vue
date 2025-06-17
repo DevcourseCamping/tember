@@ -50,7 +50,7 @@ const handleSelect = async (key) => {
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-white">
     <HeaderOther
       nav-type="back"
       :menu-type="isMyPage ? 'setting' : null"
@@ -65,6 +65,6 @@ const handleSelect = async (key) => {
       <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
     </BottomSheetWrapper>
 
-    <NavBar v-if="!isBottomOpen" class="absolute bottom-0 w-full h-[60px]" />
+    <NavBar v-if="!isBottomOpen" />
   </div>
 </template>

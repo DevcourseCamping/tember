@@ -68,7 +68,7 @@ const emit = defineEmits(['openBottomSheet'])
 const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
 </script>
 <template>
-  <div class="p-[30px] flex flex-col">
+  <div class="pl-[30px] pr-[30px] pt-[30px] flex flex-col">
     <div v-if="isLoading">
       <ReviewSkeleton v-for="n in 3" :key="n" class="mb-[30px]" />
     </div>
