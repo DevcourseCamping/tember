@@ -143,10 +143,7 @@ const fetchLatestReviews = async () => {
       @categoryClick="handleCategoryClick"
       class="min-h-[168px]"
     />
-    <div
-      v-if="isFilterModalOpen"
-      class="fixed inset-0 z-50 bg-white overflow-y-auto scrollbar-hide"
-    >
+    <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 overflow-y-auto scrollbar-hide">
       <SearchFilter @close="handleFilterClose" />
     </div>
 
