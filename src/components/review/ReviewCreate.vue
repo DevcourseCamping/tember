@@ -51,11 +51,11 @@ const submitReview = async () => {
 <template>
   <main
     class="mx-auto w-full max-w-[500px] overflow-y-auto scrollbar-hide px-[30px]"
-    style="height: calc(80vh - 60px)"
+    style="height: calc(100vh - 80px - 60px)"
   >
     <!-- rating -->
     <div class="flex flex-col items-center justify-center pt-[30px]">
-      <p class="font-bold text-[18px]">만족하셨나요?</p>
+      <p class="font-bold text-[18px] dark:text-white">만족하셨나요?</p>
     </div>
 
     <div class="flex items-center justify-center gap-[10px] pt-[40px]">
@@ -75,12 +75,12 @@ const submitReview = async () => {
     </div>
 
     <div class="flex items-center justify-center pt-[50px]">
-      <hr class="w-[440px] border-[var(--primary-20)]" />
+      <hr class="w-[440px] border-[var(--primary-20)] dark:border-[#ffffff30]" />
     </div>
 
     <!-- cleanliness -->
     <div class="flex flex-col items-center justify-center pt-[50px]">
-      <p class="font-bold text-[18px]">청결도는 어땠나요?</p>
+      <p class="font-bold text-[18px] dark:text-white">청결도는 어땠나요?</p>
     </div>
 
     <div class="flex flex-col items-center pt-[40px]">
@@ -88,12 +88,14 @@ const submitReview = async () => {
         <div v-for="(_, index) in labels" :key="index" class="flex items-center">
           <div
             class="w-[50px] h-[50px] rounded-full border transition-colors cursor-pointer"
-            :style="selected === index ? 'background-color: var(--primary)' : ''"
+            :class="[
+              selected === index ? 'bg-[var(--primary)] dark:bg-[#3A3A3A]' : 'bg-transparent',
+            ]"
             @click="selected = index"
           ></div>
           <div
             v-if="index < labels.length - 1"
-            class="h-[1px] w-[62px] bg-[var(--primary-30)] border border-dotted"
+            class="h-[1px] w-[62px] bg-[var(--primary-30)] dark:bg-[#ffffff30] border border-dotted"
           ></div>
         </div>
       </div>
@@ -102,7 +104,11 @@ const submitReview = async () => {
           v-for="(label, index) in labels"
           :key="index"
           class="text-[15px] font-semibold transition-colors"
-          :class="selected === index ? 'text-[var(--black)]' : 'text-[var(--grey)]'"
+          :class="
+            selected === index
+              ? 'text-[var(--black)] dark:text-white'
+              : 'text-[var(--grey)] dark:text-[#ffffff50]'
+          "
         >
           {{ label }}
         </p>
@@ -110,19 +116,19 @@ const submitReview = async () => {
     </div>
 
     <div class="flex items-center justify-center pt-[50px]">
-      <hr class="w-[440px] border-[var(--primary-20)]" />
+      <hr class="w-[440px] border-[var(--primary-20)] dark:border-[#ffffff30]" />
     </div>
 
     <!-- content -->
     <div class="flex flex-col items-center justify-center pt-[50px]">
-      <p class="font-bold text-[18px]">한 줄 리뷰 작성해주세요.</p>
+      <p class="font-bold text-[18px] dark:text-white">한 줄 리뷰 작성해주세요.</p>
     </div>
 
-    <div class="flex items-center justify-center pt-[40px]">
+    <div class="flex items-center justify-center pt-[40px] pb-[30px]">
       <textarea
         v-model="reviewContent"
         maxlength="50"
-        class="w-[430px] h-[173px] border border-[var(--primary-30)] rounded-[5px] focus:outline-none p-[25px] text-[15px] placeholder:text-[var(--grey)] resize-none"
+        class="w-[430px] h-[173px] border border-[var(--primary-30)] dark:border-[#ffffff30] rounded-[5px] focus:outline-none p-[25px] text-[15px] placeholder:text-[var(--grey)] dark:placeholder:text-[#ffffff50] resize-none dark:bg-[#121212] dark:text-white"
         placeholder="한 줄 리뷰를 작성해주세요. (50자 이내)"
       ></textarea>
     </div>
@@ -130,7 +136,7 @@ const submitReview = async () => {
 
   <!-- submit button -->
   <button
-    class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] flex justify-center items-center text-[18px] text-[var(--white)]"
+    class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] dark:bg-[#1a1a1a] flex justify-center items-center text-[18px] text-[var(--white)]"
     @click="submitReview"
   >
     등록하기

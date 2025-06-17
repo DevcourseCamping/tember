@@ -231,8 +231,6 @@ export const useCommunityStore = defineStore('community', () => {
       const token = session?.access_token
 
       if (!userId || !token) throw new Error('로그인이 필요합니다.')
-      console.log('userId 확인!', userId)
-      console.log('token 확인!', token)
 
       const formData = new FormData()
       images.forEach((img) => {
@@ -243,7 +241,6 @@ export const useCommunityStore = defineStore('community', () => {
       formData.append('category', category)
       formData.append('userId', userId)
 
-      console.log('formData 확인!')
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}: ${pair[1]}`)
       }
@@ -258,7 +255,7 @@ export const useCommunityStore = defineStore('community', () => {
 
       if (!res.ok) {
         const errorText = await res.text()
-        console.error('⚠️ 서버 응답 ⚠️', errorText)
+        console.error(errorText)
         throw new Error('게시글 등록 실패')
       }
 
@@ -309,7 +306,6 @@ export const useCommunityStore = defineStore('community', () => {
 
       if (!res.ok) throw new Error('게시글 수정 실패')
 
-      console.log('게시글 수정 완료')
       return true
     } catch (e) {
       console.error(e)
@@ -326,7 +322,6 @@ export const useCommunityStore = defineStore('community', () => {
       // delete post
       await supabase.from('posts').delete().eq('id', postId)
 
-      console.log('게시글 삭제 완료')
       return true
     } catch (e) {
       console.error(e)

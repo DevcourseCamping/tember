@@ -48,7 +48,9 @@ startEditFn = startEdit
 </script>
 
 <template>
-  <div class="w-full max-w-[500px] h-screen bg-[var(--white)] mx-auto">
+  <div
+    class="w-full max-w-[500px] h-screen bg-[var(--white)] dark:bg-[#121212] mx-auto flex flex-col"
+  >
     <!-- header -->
     <CommunityHeaderOther
       :is-my-post="isMyPost && !isEditing"
@@ -71,9 +73,11 @@ startEditFn = startEdit
               :src="post.profiles.image || post.profiles.avatar_url"
               class="w-10 h-10 rounded-full mr-3"
             />
-            <p class="font-bold">{{ post.profiles.username }}</p>
+            <p class="font-bold dark:text-[#ffffff]">{{ post.profiles.username }}</p>
           </div>
-          <p class="text-sm text-[var(--grey)]">{{ formDate(post.created_at) }}</p>
+          <p class="text-sm text-[var(--grey)] dark:text-[#ffffff50]">
+            {{ formDate(post.created_at) }}
+          </p>
         </section>
 
         <!-- editor or content -->
@@ -94,15 +98,21 @@ startEditFn = startEdit
         <section v-if="!isEditing" class="mx-[30px] mt-[30px] mb-[20px]">
           <div class="flex gap-3 justify-end mb-3">
             <div
-              class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded cursor-pointer"
+              class="flex items-center gap-2 bg-[var(--primary)] dark:bg-[#212121] px-3.5 py-1 rounded cursor-pointer"
               @click="clickLike"
             >
               <img :src="isLiked ? like : unlike" class="w-5 h-5" />
-              <span class="text-[var(--white)] text-sm">{{ post.likeCount }}</span>
+              <span class="text-[var(--white)] dark:text-[#ffffff] text-sm">{{
+                post.likeCount
+              }}</span>
             </div>
-            <div class="flex items-center gap-2 bg-[var(--primary)] px-3.5 py-1 rounded">
+            <div
+              class="flex items-center gap-2 bg-[var(--primary)] dark:bg-[#212121] px-3.5 py-1 rounded"
+            >
               <img :src="comment" class="w-5 h-5" />
-              <span class="text-[var(--white)] text-sm">{{ post.comments.length }}</span>
+              <span class="text-[var(--white)] dark:text-[#ffffff] text-sm">{{
+                post.comments.length
+              }}</span>
             </div>
           </div>
         </section>
@@ -131,5 +141,3 @@ startEditFn = startEdit
     />
   </div>
 </template>
-
-<style scoped></style>

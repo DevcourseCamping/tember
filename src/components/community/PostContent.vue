@@ -16,5 +16,5 @@ defineProps({
       </SwiperSlide>
     </Swiper>
   </section>
-  <p class="px-5 mt-6">{{ post.content }}</p>
+  <p class="px-5 mt-6 dark:text-[var(--white)]">{{ post.content }}</p>
 </template>

@@ -25,7 +25,9 @@ const emit = defineEmits(['navClick', 'menuClick'])
 </script>
 <template>
   <header>
-    <div class="w-full max-w-[500px] h-[80px] flex items-center px-[30px] justify-between relative">
+    <div
+      class="w-full max-w-[500px] h-[80px] flex items-center px-[30px] justify-between relative dark:bg-[#121212]"
+    >
       <button @click="emit('navClick')">
         <template v-if="props.navType === 'close'">
           <img :src="close" class="w-[18px] h-[18px] block dark:hidden" />
