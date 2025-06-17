@@ -31,16 +31,16 @@
   <div class="w-full relative">
     <div class="m-[10px] p-[20px]">
       <span class="text-[#222222] dark:text-white text-md font-bold">부대시설</span>
-      <div
-        class="flex items-center no-scrollbar gap-2 mt-[30px] w-full overflow-x-auto flex-nowrap"
-      >
+      <div class="grid gap-3 grid-cols-4 mt-[30px] w-full overflow-x-auto flex-nowrap">
         <div
-          class="w-[90px] flex-shrink-0 flex items-center justify-center flex-col gap-2"
+          class="flex justify-center items-center flex-col w-[80px] gap-2"
           v-for="item in sbrsCl"
           :key="item.name"
         >
           <img :src="item.image" alt="" />
-          <span class="text-[#222222] dark:text-white text-[14px]">{{ item.name }}</span>
+          <span class="text-[#222222] dark:text-white text-[14px] text-center">{{
+            item.name
+          }}</span>
         </div>
       </div>
     </div>
@@ -177,13 +177,4 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-</style>
+<style scoped></style>
