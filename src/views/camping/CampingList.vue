@@ -26,9 +26,20 @@ import BookmarkCard from '@/components/common/BookmarkCard.vue'
 import NavBar from '@/components/common/NavBar.vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import { useUserStore } from '@/stores/userStore'
+import { useRoute } from 'vue-router'
 
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import axios from 'axios'
+
+const route=useRoute()
+const selectedCategory=ref(route.query.category||null)
+
+const categoryMap={
+  autoCamping:'자동차야영장',
+  glamping:'글램핑',
+  caravan:'카라반',
+  pet:'반려동물',
+}
 
 const isFilterModalOpen = ref(false)
 const page = ref(1)
@@ -77,10 +88,17 @@ const getCampingList = async () => {
     page: page.value,
     pageSize: size.value,
     userId: user !== null ? user.id : profile.user.id,
+    filters:{}
   }
   if (keyword.value) {
     requestBody.keyword = keyword.value
   }
+
+  if(selectedCategory.value){
+    const kor=categoryMap[selectedCategory.value]
+    if(kor) requestBody.filters.induty=[kor]
+  }
+
   try {
     const response = await axios.post(
       'https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/camping',
@@ -104,6 +122,18 @@ const getCampingList = async () => {
     console.log(error)
   }
 }
+
+onMounted(async()=>{
+  await getCampingList()
+  scrollContainer.value?.addEventListener('scroll',handleScroll)
+})
+
+watch(()=>route.query.category,(newQ)=>{
+  selectedCategory.value=newQ||null
+  page.value=1
+  campingList.value=[]
+  getCampingList()
+})
 
 const isLoading = ref(false)
 const scrollContainer = ref(null)
