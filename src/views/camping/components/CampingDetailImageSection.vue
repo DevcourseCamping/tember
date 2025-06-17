@@ -12,7 +12,7 @@
     </div>
     <div class="absolute top-[20px] left-[20px] z-10">
       <img
-        :src="light_back_button"
+        :src="themeStore.isDark ? dark_back_button : light_back_button"
         alt=""
         class="w-[60px] h-[60px] cursor-pointer"
         @click="handleClickBackButton"
@@ -31,7 +31,10 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import light_back_button from '../../../assets/icons/light/light-back-button.svg'
+import dark_back_button from '../../../assets/icons/dark/dark-back-button.svg'
 import star_filled from '../../../assets/icons/star-filled.svg'
+import { useThemeStore } from '@/stores/theme'
+const themeStore = useThemeStore()
 
 const router = useRouter()
 

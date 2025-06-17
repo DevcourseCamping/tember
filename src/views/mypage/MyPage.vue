@@ -10,6 +10,9 @@ import NavBar from '@/components/common/NavBar.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import { useUserPage } from '@/composables/useUserPage'
 import { useUserStore } from '@/stores/userStore'
+import { useThemeStore } from '@/stores/theme'
+
+const themeStore = useThemeStore()
 
 const router = useRouter()
 const isBottomOpen = ref(false)
@@ -41,6 +44,8 @@ const handleSelect = async (key) => {
     router.push({ name: 'edit' })
   } else if (key === 'logout') {
     await handleLogout()
+  } else if (key === 'dark') {
+    themeStore.toggleTheme()
   }
 }
 </script>
