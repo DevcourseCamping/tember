@@ -10,8 +10,25 @@ import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { storeToRefs } from 'pinia'
 import supabase from '@/utils/supabase'
+import lightCaravanOn from '@/assets/icons/light/light-caravan-on.svg'
+import lightCaravanOff from '@/assets/icons/light/light-caravan-off.svg'
+import darkCaravanOn from '@/assets/icons/dark/dark-caravan-on.svg'
+import darkCaravanOff from '@/assets/icons/dark/dark-caravan-off.svg'
+import lightTrailerOn from '@/assets/icons/light/light-trailer-on.svg'
+import lightTrailerOff from '@/assets/icons/light/light-trailer-off.svg'
+import darkTrailerOn from '@/assets/icons/dark/dark-trailer-on.svg'
+import darkTrailerOff from '@/assets/icons/dark/dark-trailer-off.svg'
+import lightPetOn from '@/assets/icons/light/light-pet-on.svg'
+import lightPetOff from '@/assets/icons/light/light-pet-off.svg'
+import darkPetOn from '@/assets/icons/dark/dark-pet-on.svg'
+import darkPetOff from '@/assets/icons/dark/dark-pet-off.svg'
+import lightLike from '@/assets/icons/light/light-like-outline.svg'
+import darkLike from '@/assets/icons/dark/dark-like-outline.svg'
+import lightComment from '@/assets/icons/light/light-comment.svg'
+import darkComment from '@/assets/icons/dark/dark-comment.svg'
 import fillstar from '@/assets/icons/star-filled.svg'
 import emptystar from '@/assets/icons/star-outline.svg'
+import { useThemeStore } from '@/stores/theme'
 
 const router = useRouter()
 
@@ -27,7 +44,7 @@ const handleCategoryClick = (category) => {
   if (category === 'chatbot') {
     router.push('/chatbot')
   } else {
-    router.push({path:'/search',query:{category}})
+    router.push({ path: '/search', query: { category } })
   }
 }
 
@@ -133,6 +150,8 @@ const fetchLatestReviews = async () => {
 
   latestReviews.value = data
 }
+
+const themeStore = useThemeStore()
 </script>
 
 <template>
@@ -199,38 +218,44 @@ const fetchLatestReviews = async () => {
                     </p>
                   </div>
 
-                  <div class="w-full h-[1px] bg-[--primary] mt-[15px] dark:bg-[--white]"></div>
+                  <div class="w-full h-[1px] bg-[--primary] mt-[15px] dark:bg-[--white-30]"></div>
                   <div class="flex justify-end items-center gap-[10px]">
                     <img
-                      v-if="camp.carav_acmpny_at === 'Y'"
-                      src="@/assets/icons/light/light-caravan-on.svg"
-                      class="w-[20px] h-[20px]"
-                    />
-                    <img
-                      v-else
-                      src="@/assets/icons/light/light-caravan-off.svg"
-                      class="w-[20px] h-[20px]"
-                    />
-
-                    <img
-                      v-if="camp.trler_acmpny_at === 'Y'"
-                      src="@/assets/icons/light/light-trailer-on.svg"
-                      class="w-[20px] h-[20px]"
-                    />
-                    <img
-                      v-else
-                      src="@/assets/icons/light/light-trailer-off.svg"
+                      :src="
+                        camp.carav_acmpny_at === 'Y'
+                          ? themeStore.isDark
+                            ? darkCaravanOn
+                            : lightCaravanOn
+                          : themeStore.isDark
+                            ? darkCaravanOff
+                            : lightCaravanOff
+                      "
                       class="w-[20px] h-[20px]"
                     />
 
                     <img
-                      v-if="camp.animal_cmg_cl.includes('가능')"
-                      src="@/assets/icons/light/light-pet-on.svg"
+                      :src="
+                        camp.trler_acmpny_at === 'Y'
+                          ? themeStore.isDark
+                            ? darkTrailerOn
+                            : lightTrailerOn
+                          : themeStore.isDark
+                            ? darkTrailerOff
+                            : lightTrailerOff
+                      "
                       class="w-[20px] h-[20px]"
                     />
+
                     <img
-                      v-else
-                      src="@/assets/icons/light/light-pet-off.svg"
+                      :src="
+                        camp.animal_cmg_cl.includes('가능')
+                          ? themeStore.isDark
+                            ? darkPetOn
+                            : lightPetOn
+                          : themeStore.isDark
+                            ? darkPetOff
+                            : lightPetOff
+                      "
                       class="w-[20px] h-[20px]"
                     />
                   </div>
@@ -245,7 +270,7 @@ const fetchLatestReviews = async () => {
         <ul class="flex flex-col gap-[40px]">
           <li class="flex items-start">
             <img
-              src="../assets/icons/light/light-caravan-on.svg"
+              :src="darkCaravanOn"
               alt="개인 카라반"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -261,7 +286,7 @@ const fetchLatestReviews = async () => {
 
           <li class="flex items-start">
             <img
-              src="../assets/icons/light/light-trailer-on.svg"
+              :src="darkTrailerOn"
               alt="트레일러"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -277,7 +302,7 @@ const fetchLatestReviews = async () => {
 
           <li class="flex items-start">
             <img
-              src="../assets/icons/light/light-pet-on.svg"
+              :src="darkPetOn"
               alt="반려동물"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -332,18 +357,28 @@ const fetchLatestReviews = async () => {
                   class="w-[110px] h-full object-cover rounded-[5px]"
                 />
                 <div class="flex flex-col justify-between p-[15px] flex-1">
-                  <p class="text-[14px] text-[--black] leading-[1.4] line-clamp-3 min-h-[60px]">
+                  <p
+                    class="text-[14px] text-[--black] leading-[1.4] line-clamp-3 min-h-[60px] dark:text-[--white]"
+                  >
                     {{ post.content }}
                   </p>
 
-                  <div class="pt-[10px] border-t border-[--primary] mt-auto">
-                    <div class="flex justify-end items-center gap-[5px] text-[14px]">
+                  <div
+                    class="pt-[10px] border-t border-[--primary] mt-auto dark:border-[--white-30]"
+                  >
+                    <div
+                      class="flex justify-end items-center gap-[5px] text-[14px] dark:text-[--white]"
+                    >
                       <img
-                        src="@/assets/icons/light/light-like-outline.svg"
+                        :src="themeStore.isDark ? darkLike : lightLike"
                         class="w-[20px] h-[20px]"
                       />
                       <p class="mr-[5px]">{{ post.likeCount }}</p>
-                      <img src="@/assets/icons/light/light-comment.svg" class="w-[20px] h-[20px]" />
+
+                      <img
+                        :src="themeStore.isDark ? darkComment : lightComment"
+                        class="w-[20px] h-[20px]"
+                      />
                       <p>{{ post.commentCount }}</p>
                     </div>
                   </div>
@@ -362,7 +397,7 @@ const fetchLatestReviews = async () => {
           <div class="w-full max-w-[500px]">
             <Swiper
               :slides-per-view="'auto'"
-              :space-between="30"
+              :space-between="5"
               :centered-slides="true"
               :loop="true"
               :initial-slide="2"
@@ -375,7 +410,7 @@ const fetchLatestReviews = async () => {
                 class="!w-[257px] cursor-pointer"
                 @click="goToCampingDetail(review.camps.content_id)"
               >
-                <div class="bg-white p-4 text-center">
+                <div class="bg-white p-4 text-center dark:bg-[#121212]">
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
                   </h3>
