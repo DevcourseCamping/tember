@@ -27,8 +27,7 @@ const handleCategoryClick = (category) => {
   if (category === 'chatbot') {
     router.push('/chatbot')
   } else {
-    console.log('선택된 카테고리:', category)
-    // 다른 카테고리에 대한 처리도 여기에.. 다른 카테고리는 무슨 페이지가 나오는지 모르겠음 ㅠㅠ
+    router.push({path:'/search',query:{category}})
   }
 }
 
