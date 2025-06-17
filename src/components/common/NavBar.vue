@@ -10,6 +10,8 @@ import communityon from '@/assets/icons/nav/nav-community-on.svg'
 import communityoff from '@/assets/icons/nav/nav-community-off.svg'
 import myoff from '@/assets/icons/nav/nav-mypage-off.svg'
 import myon from '@/assets/icons/nav/nav-mypage-on.svg'
+import chatboton from '@/assets/icons/nav/nav-chatbot-on.svg'
+import chatbotoff from '@/assets/icons/nav/nav-chatbot-off.svg'
 import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
@@ -20,7 +22,9 @@ const tabs = [
   { name: 'home', label: '홈', path: '/', on: homeon, off: homeoff },
   { name: 'search', label: '검색', path: '/search', on: searchon, off: searchoff },
   { name: 'community', label: '커뮤니티', path: '/community', on: communityon, off: communityoff },
+  { name: 'chatbot', label: '챗봇', path: '/chatbot', on: chatboton, off: chatbotoff },
   { name: 'mypage', label: '마이', path: '/mypage', on: myon, off: myoff },
+  
 ]
 
 const currentTab = computed(() => {
