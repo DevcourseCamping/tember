@@ -9,7 +9,6 @@ import { computed, onMounted, ref } from 'vue'
 import SearchFilter from '@/components/searchfilter/SearchFilter.vue'
 import { useCommunityStore } from '@/stores/communityStore'
 import { storeToRefs } from 'pinia'
-import { useCampingStore } from '@/stores/campingStore'
 import supabase from '@/utils/supabase'
 import fillstar from '@/assets/icons/star-filled.svg'
 import emptystar from '@/assets/icons/star-outline.svg'
@@ -33,30 +32,40 @@ const handleCategoryClick = (category) => {
   }
 }
 
-const campingStore = useCampingStore()
-const popularList = computed(() =>
-  campingStore.campingList.map((item) => item.camp_sites).slice(0, 10),
-)
+const popularCamping = ref([])
+
+const fetchPopularCamping = async () => {
+  try {
+    const res = await fetch('https://bszdfvksgtumpbnekvnd.supabase.co/functions/v1/popular-camping')
+    const data = await res.json()
+    console.log('캠핑장 응답값:', data)
+    popularCamping.value = data.campingData
+  } catch (e) {
+    console.error('로딩 실패', e)
+  }
+}
+
+const groupedPopular = computed(() => {
+  const sorted = [...popularCamping.value].sort((a, b) => {
+    const ratingA = a.avg_rating ?? -1
+    const ratingB = b.avg_rating ?? -1
+    return ratingB - ratingA
+  })
+
+  const result = []
+  for (let i = 0; i < sorted.length; i += 2) {
+    result.push(sorted.slice(i, i + 2))
+  }
+  return result
+})
 
 const communityStore = useCommunityStore()
 const { posts } = storeToRefs(communityStore)
 
 onMounted(() => {
+  fetchPopularCamping()
   communityStore.getCommunityImagePosts({ maxLength: 8 })
-
-  if (campingStore.campingList.length === 0) {
-    campingStore.fetchCampingList()
-  }
-
   fetchLatestReviews()
-})
-
-const groupedPopular = computed(() => {
-  const result = []
-  for (let i = 0; i < popularList.value.length; i += 2) {
-    result.push(popularList.value.slice(i, i + 2))
-  }
-  return result
 })
 
 const groupedPosts = computed(() => {
@@ -102,7 +111,7 @@ const fetchLatestReviews = async () => {
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white]">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C]">
     <HeaderSearchMain
       @filterClick="handleFilterClick"
       @categoryClick="handleCategoryClick"
@@ -116,9 +125,15 @@ const fetchLatestReviews = async () => {
     </div>
 
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <section class="bg-[#FFFFFF] pt-[39px] pb-[39px]"></section>
-      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
-        <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">Popular</h2>
+      <section class="bg-[#FFFFFF] pt-[39px] pb-[39px] dark:bg-[#121212]"></section>
+      <section
+        class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
+      >
+        <h2
+          class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A] dark:text-[#EDE8E4]"
+        >
+          Popular
+        </h2>
         <Swiper
           :slides-per-view="'auto'"
           :space-between="30"
@@ -131,7 +146,6 @@ const fetchLatestReviews = async () => {
           <SwiperSlide
             v-for="(group, idx) in groupedPopular"
             :key="`popular-${idx}`"
-            @click="goToCampingDetail(camp.content_id)"
             class="!w-[300px] h-[136px] flex-shrink-0 cursor-pointer"
           >
             <div class="flex flex-col gap-[30px]">
@@ -139,7 +153,7 @@ const fetchLatestReviews = async () => {
                 v-for="camp in group"
                 :key="camp.content_id"
                 @click="goToCampingDetail(camp.content_id)"
-                class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden"
+                class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden dark:bg-[#2A2A2A]"
               >
                 <img
                   :src="
@@ -153,7 +167,7 @@ const fetchLatestReviews = async () => {
                 <div class="flex flex-col justify-between p-[10px] flex-1">
                   <div>
                     <p
-                      class="text-[15px] font-bold text-[--black] leading-tight line-clamp-1 mt-[10px]"
+                      class="text-[15px] font-bold text-[--black] leading-tight line-clamp-1 mt-[10px] dark:text-[--white]"
                     >
                       {{ camp.faclt_nm }}
                     </p>
@@ -162,7 +176,7 @@ const fetchLatestReviews = async () => {
                     </p>
                   </div>
 
-                  <div class="w-full h-[1px] bg-[--primary] mt-[15px]"></div>
+                  <div class="w-full h-[1px] bg-[--primary] mt-[15px] dark:bg-[--white]"></div>
                   <div class="flex justify-end items-center gap-[10px]">
                     <img
                       v-if="camp.carav_acmpny_at === 'Y'"
@@ -204,7 +218,7 @@ const fetchLatestReviews = async () => {
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[72px]">
+      <section class="bg-[--white] pt-[72px] pb-[72px] dark:bg-[#121212]">
         <ul class="flex flex-col gap-[40px]">
           <li class="flex items-start">
             <img
@@ -213,7 +227,9 @@ const fetchLatestReviews = async () => {
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222]">개인 카라반 동반</p>
+              <p class="text-[18px] font-bold text-[#222222] dark:text-[--white]">
+                개인 카라반 동반
+              </p>
               <p class="text-[15px] text-[--grey] mt-[10px]">
                 내 집처럼 편안하게 캠핑을 즐겨보세요
               </p>
@@ -227,7 +243,9 @@ const fetchLatestReviews = async () => {
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222]">개인 트레일러 동반</p>
+              <p class="text-[18px] font-bold text-[#222222] dark:text-[--white]">
+                개인 트레일러 동반
+              </p>
               <p class="text-[15px] text-[--grey] mt-[10px]">
                 트레일러와 함께 어디든 자유롭게 떠나요
               </p>
@@ -241,7 +259,7 @@ const fetchLatestReviews = async () => {
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222]">반려 동물 동반</p>
+              <p class="text-[18px] font-bold text-[#222222] dark:text-[--white]">반려 동물 동반</p>
               <p class="text-[15px] text-[--grey] mt-[10px]">
                 사랑하는 반려동물과 함께하는 특별한 추억을 만들어보세요
               </p>
@@ -250,7 +268,9 @@ const fetchLatestReviews = async () => {
         </ul>
       </section>
 
-      <section class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0">
+      <section
+        class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
+      >
         <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">
           Community
         </h2>
