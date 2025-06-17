@@ -42,7 +42,7 @@ const communityStore = useCommunityStore()
 const { posts } = storeToRefs(communityStore)
 
 onMounted(() => {
-  communityStore.getCommunityPosts({ page: 1, maxLength: 6 })
+  communityStore.getCommunityImagePosts({ maxLength: 8 })
 
   if (campingStore.campingList.length === 0) {
     campingStore.fetchCampingList()
@@ -68,7 +68,7 @@ const groupedPosts = computed(() => {
 })
 
 const goToDetail = (postId) => {
-  router.push(`/community/post/${postId}`)
+  router.push(`/community/${postId}`)
 }
 
 const goToCampingDetail = (id) => {
@@ -124,7 +124,7 @@ const fetchLatestReviews = async () => {
           :space-between="30"
           :centered-slides="true"
           :loop="true"
-          :initial-slide="2"
+          :initial-slide="0"
           grab-cursor
           class="px-[30px]"
         >
