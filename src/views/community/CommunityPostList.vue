@@ -53,8 +53,23 @@ const goToLogin = () => {
       @update:inputValue="inputValue = $event"
       @iconClick="openBottomSheet"
     />
-    <!-- post list -->
+
+    <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
+      <!-- category filter -->
+      <div class="flex gap-5 mx-[30px] mt-5">
+        <button
+          class="w-20 h-[30px] text-[13px] bg-[var(--primary)] text-white rounded-[5px] cursor-pointer"
+        >
+          일반
+        </button>
+        <button
+          class="w-20 h-[30px] text-[13px] bg-[#CEE8EC] text-[var(--primary)] rounded-[5px] cursor-pointer"
+        >
+          반려동물
+        </button>
+      </div>
+      <!-- post list -->
       <PostCard :inputValue="inputValue" @click="goToLogin" />
     </main>
     <!-- nav -->
