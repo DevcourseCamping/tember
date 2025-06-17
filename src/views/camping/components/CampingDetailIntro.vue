@@ -49,22 +49,41 @@
 
 <script setup>
 import light_amenity_electric from '../../../assets/icons/light/amenity/light-amenity-electric.svg'
+import dark_amenity_electric from '../../../assets/icons/dark/amenity/dark-amenity-electric.svg'
 import light_amenity_pool from '../../../assets/icons/light/amenity/light-amenity-pool.svg'
+import dark_amenity_pool from '../../../assets/icons/dark/amenity/dark-amenity-pool.svg'
 
 import light_amenity_playground from '../../../assets/icons/light/amenity/light-amenity-playground.svg'
+import dark_amenity_playground from '../../../assets/icons/dark/amenity/dark-amenity-playground.svg'
 import light_amenity_trampoline from '../../../assets/icons/light/amenity/light-amenity-trampoline.svg'
+import dark_amenity_trampoline from '../../../assets/icons/dark/amenity/dark-amenity-trampoline.svg'
 
 import light_amenity_gym from '../../../assets/icons/light/amenity/light-amenity-gym.svg'
+import dark_amenity_gym from '../../../assets/icons/dark/amenity/dark-amenity-gym.svg'
+
 import light_amenity_wifi from '../../../assets/icons/light/amenity/light-amenity-wifi.svg'
+import dark_amenity_wifi from '../../../assets/icons/dark/amenity/dark-amenity-wifi.svg'
 
 import light_amenity_firewood from '../../../assets/icons/light/amenity/light-amenity-firewood.svg'
+import dark_amenity_firewood from '../../../assets/icons/dark/amenity/dark-amenity-firewood.svg'
+
 import light_amenity_hot_water from '../../../assets/icons/light/amenity/light-amenity-hot-water.svg'
+import dark_amenity_hot_water from '../../../assets/icons/dark/amenity/dark-amenity-hot-water.svg'
 
 import light_amenity_trail from '../../../assets/icons/light/amenity/light-amenity-trail.svg'
+import dark_amenity_trail from '../../../assets/icons/dark/amenity/dark-amenity-trail.svg'
+
 import light_amenity_store from '../../../assets/icons/light/amenity/light-amenity-store.svg'
+import dark_amenity_store from '../../../assets/icons/dark/amenity/dark-amenity-store.svg'
 
 import light_amenity_dump_station from '../../../assets/icons/light/amenity/light-amenity-dump-station.svg'
+import dark_amenity_dump_station from '../../../assets/icons/dark/amenity/dark-amenity-dump-station.svg'
+
 import light_amenity_filed from '../../../assets/icons/light/amenity/light-amenity-filed.svg'
+import dark_amenity_filed from '../../../assets/icons/dark/amenity/dark-amenity-filed.svg'
+
+import { useThemeStore } from '@/stores/theme'
+const themeStore = useThemeStore()
 
 import { onMounted, ref } from 'vue'
 
@@ -85,62 +104,62 @@ const getSbrsCl = () => {
       switch (item) {
         case '전기':
           return {
-            image: light_amenity_electric,
+            image: themeStore.isDark ? dark_amenity_electric : light_amenity_electric,
             name: '전기',
           }
         case '무선인터넷':
           return {
-            image: light_amenity_wifi,
+            image: themeStore.isDark ? dark_amenity_wifi : light_amenity_wifi,
             name: '무선인터넷',
           }
         case '장작판매':
           return {
-            image: light_amenity_firewood,
+            image: themeStore.isDark ? dark_amenity_firewood : light_amenity_firewood,
             name: '장작판매',
           }
         case '온수':
           return {
-            image: light_amenity_hot_water,
+            image: themeStore.isDark ? dark_amenity_hot_water : light_amenity_hot_water,
             name: '온수',
           }
         case '트렘폴린':
           return {
-            image: light_amenity_trampoline,
+            image: themeStore.isDark ? dark_amenity_trampoline : light_amenity_trampoline,
             name: '트렘폴린',
           }
         case '물놀이장':
           return {
-            image: light_amenity_pool,
+            image: themeStore.isDark ? dark_amenity_pool : light_amenity_pool,
             name: '물놀이장',
           }
         case '놀이터':
           return {
-            image: light_amenity_playground,
+            image: themeStore.isDark ? dark_amenity_playground : light_amenity_playground,
             name: '놀이터',
           }
         case '산책로':
           return {
-            image: light_amenity_trail,
+            image: themeStore.isDark ? dark_amenity_trail : light_amenity_trail,
             name: '산책로',
           }
         case '운동장':
           return {
-            image: light_amenity_filed,
+            image: themeStore.isDark ? dark_amenity_filed : light_amenity_filed,
             name: '운동장',
           }
         case '운동시설':
           return {
-            image: light_amenity_gym,
+            image: themeStore.isDark ? dark_amenity_gym : light_amenity_gym,
             name: '운동시설',
           }
         case '마트.편의점':
           return {
-            image: light_amenity_store,
+            image: themeStore.isDark ? dark_amenity_store : light_amenity_store,
             name: '마트.편의점',
           }
         case '덤프스테이션':
           return {
-            image: light_amenity_dump_station,
+            image: themeStore.isDark ? dark_amenity_dump_station : light_amenity_dump_station,
             name: '덤프스테이션',
           }
         default:

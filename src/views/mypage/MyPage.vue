@@ -10,6 +10,9 @@ import NavBar from '@/components/common/NavBar.vue'
 import BottomSheetWrapper from '@/components/common/BottomSheetWrapper.vue'
 import { useUserPage } from '@/composables/useUserPage'
 import { useUserStore } from '@/stores/userStore'
+import { useThemeStore } from '@/stores/theme'
+
+const themeStore = useThemeStore()
 
 const router = useRouter()
 const isBottomOpen = ref(false)
@@ -41,11 +44,13 @@ const handleSelect = async (key) => {
     router.push({ name: 'edit' })
   } else if (key === 'logout') {
     await handleLogout()
+  } else if (key === 'dark') {
+    themeStore.toggleTheme()
   }
 }
 </script>
 <template>
-  <div class="fixed w-full max-w-[500px] h-screen bg-white left-1/2 -translate-x-1/2">
+  <div class="mx-auto w-full max-w-[500px] h-screen bg-white">
     <HeaderOther
       nav-type="back"
       :menu-type="isMyPage ? 'setting' : null"
@@ -60,6 +65,6 @@ const handleSelect = async (key) => {
       <BottomSheet type="my" @close="clickSetting" @select="handleSelect" />
     </BottomSheetWrapper>
 
-    <NavBar v-if="!isBottomOpen" class="absolute bottom-0 w-full h-[60px]" />
+    <NavBar v-if="!isBottomOpen" />
   </div>
 </template>

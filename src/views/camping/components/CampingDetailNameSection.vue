@@ -24,10 +24,21 @@ import light_trailer_on from '../../../assets/icons/light/light-trailer-on.svg'
 import light_trailer_off from '../../../assets/icons/light/light-trailer-off.svg'
 import light_pet_on from '../../../assets/icons/light/light-pet-on.svg'
 import light_pet_off from '../../../assets/icons/light/light-pet-off.svg'
+import dark_caravan_off from '../../../assets/icons/dark/dark-caravan-off.svg'
+import dark_caravan_on from '../../../assets/icons/dark/dark-caravan-on.svg'
+import dark_trailer_on from '../../../assets/icons/dark/dark-trailer-on.svg'
+import dark_trailer_off from '../../../assets/icons/dark/dark-trailer-off.svg'
+import dark_pet_on from '../../../assets/icons/dark/dark-pet-on.svg'
+import dark_pet_off from '../../../assets/icons/dark/dark-pet-off.svg'
 import light_bookmark_filled from '../../../assets/icons/light/light-bookmark-filled.svg'
 import light_bookmark_outlined from '../../../assets/icons/light/light-bookmark-outline.svg'
+import dark_bookmark_filled from '../../../assets/icons/dark/dark-bookmark-filled.svg'
+import dark_bookmark_outlined from '../../../assets/icons/dark/dark-bookmark-outline.svg'
 import supabase from '@/utils/supabase'
 import { onMounted, ref } from 'vue'
+
+import { useThemeStore } from '@/stores/theme'
+const themeStore = useThemeStore()
 
 const { campingName, campingInduty, campingId, campingCaravan, campingTrailer, campingPet } =
   defineProps({
@@ -57,10 +68,10 @@ const { campingName, campingInduty, campingId, campingCaravan, campingTrailer, c
     },
   })
 
-const bookmarkImage = ref(light_bookmark_outlined)
-const caravanImage = ref(light_caravan_off)
-const trailerImage = ref(light_trailer_off)
-const petImage = ref(light_pet_off)
+const bookmarkImage = ref(themeStore.isDark ? dark_bookmark_outlined : light_bookmark_outlined)
+const caravanImage = ref(themeStore.isDark ? dark_caravan_off : light_caravan_off)
+const trailerImage = ref(themeStore.isDark ? dark_trailer_off : light_trailer_off)
+const petImage = ref(themeStore.isDark ? dark_pet_off : light_pet_off)
 const userInfo = ref(null)
 const isBookmarked = ref(false)
 
@@ -105,10 +116,10 @@ const getBookmark = async () => {
       throw error
     }
     if (data.length > 0) {
-      bookmarkImage.value = light_bookmark_filled
+      bookmarkImage.value = themeStore.isDark ? dark_bookmark_filled : light_bookmark_filled
       isBookmarked.value = true
     } else {
-      bookmarkImage.value = light_bookmark_outlined
+      bookmarkImage.value = themeStore.isDark ? dark_bookmark_outlined : light_bookmark_outlined
       isBookmarked.value = false
     }
   } catch (error) {
@@ -129,13 +140,13 @@ onMounted(async () => {
   await getBookmark()
 
   if (campingCaravan === 'Y') {
-    caravanImage.value = light_caravan_on
+    caravanImage.value = themeStore.isDark ? dark_caravan_on : light_caravan_on
   }
   if (campingTrailer === 'Y') {
-    trailerImage.value = light_trailer_on
+    trailerImage.value = themeStore.isDark ? dark_trailer_on : light_trailer_on
   }
   if (campingPet === '가능' || campingPet === '가능(소형견)') {
-    petImage.value = light_pet_on
+    petImage.value = themeStore.isDark ? dark_pet_on : light_pet_on
   }
 })
 </script>

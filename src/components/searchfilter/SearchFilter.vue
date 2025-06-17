@@ -121,7 +121,9 @@ const applyFilter = async () => {
       </button>
     </div>
 
-    <div class="w-[440px] mx-auto bg-white rounded-md p-4 flex flex-col gap-6 overflow-y-hidden">
+    <div
+      class="max-w-[430px] box-border sm:mx-auto bg-white rounded-md flex flex-col overflow-y-hidden p-4 gap-6"
+    >
       <div class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] flex-shrink-0">
         <section class="flex flex-col gap-[15px]">
           <h2 class="text-[15px] text-[#222222]">지역</h2>
