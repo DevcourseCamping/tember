@@ -85,16 +85,16 @@ const handleCommentSelect = async (key) => {
 
   <!-- 댓글 입력창 -->
   <section
-    class="fixed bottom-0 flex items-center w-full max-w-[500px] h-[60px] bg-[var(--primary)] px-5"
+    class="fixed bottom-0 flex items-center w-full max-w-[500px] h-[60px] bg-[var(--primary)] dark:bg-[#181818] px-5"
   >
     <input
       v-model="commentInput"
-      class="bg-[var(--white)] px-4 py-2 w-full rounded text-sm focus:outline-none"
+      class="bg-[var(--white)] dark:bg-[#3A3A3A] px-4 py-2 w-full rounded text-sm focus:outline-none"
       placeholder="댓글을 입력해주세요"
       @keyup.enter="submitComment"
     />
     <button
-      class="w-[60px] h-10 ml-2 text-[var(--primary)] bg-[var(--white)] px-3 py-2 rounded text-[15px]"
+      class="w-[60px] h-10 ml-2 text-[var(--primary)] dark:text-[#ffffff] bg-[var(--white)] dark:bg-[#3A3A3A] px-3 py-2 rounded text-[15px]"
       @click="submitComment"
     >
       등록

@@ -58,14 +58,14 @@ const handleSave = () => {
     <ImageUploader v-model="localImages" :max="10" class="mb-4" />
 
     <!-- category -->
-    <p class="text-base mt-8">카테고리 선택</p>
+    <p class="text-base mt-8 dark:text-white">카테고리 선택</p>
     <div class="flex space-x-4 mt-4">
       <div
         :class="[
           'w-[70px] h-[35px] text-sm border rounded flex justify-center items-center cursor-pointer',
           localCategory === 'default'
-            ? 'bg-[var(--primary)] text-[var(--white)] border-[var(--primary)]'
-            : 'border-[var(--primary)] text-[var(--primary)]',
+            ? 'bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] border-[var(--primary)] dark:border-[#3a3a3a]'
+            : 'border-[var(--primary)] dark:border-[#3a3a3a] dark:text-white',
         ]"
         @click="selectCategory('default')"
       >
@@ -75,8 +75,8 @@ const handleSave = () => {
         :class="[
           'w-[90px] h-[35px] text-sm border rounded flex justify-center items-center cursor-pointer',
           localCategory === 'pet'
-            ? 'bg-[var(--primary)] text-[var(--white)] border-[var(--primary)]'
-            : 'border-[var(--primary)] text-[var(--primary)]',
+            ? 'bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] border-[var(--primary)] dark:border-[#3a3a3a]'
+            : 'border-[var(--primary)] dark:border-[#3a3a3a] dark:text-white',
         ]"
         @click="selectCategory('pet')"
       >
@@ -87,20 +87,20 @@ const handleSave = () => {
     <!-- content -->
     <textarea
       v-model="localContent"
-      class="w-full h-80 border border-[var(--primary-30)] p-3 rounded resize-none focus:outline-none mt-8"
+      class="w-full h-80 border border-[var(--primary-30)] dark:border-[#ffffff30] dark:bg-[#121212] dark:text-white placeholder:text-[var(--grey)] dark:placeholder:text-[#ffffff50] p-3 rounded resize-none focus:outline-none mt-8"
       placeholder="게시글 내용을 입력하세요"
     />
 
     <!-- save / cancel -->
     <div class="flex justify-end gap-3 mt-4">
       <button
-        class="w-20 h-[35px] rounded text-[var(--white)] bg-[var(--primary)] text-sm"
+        class="w-20 h-[35px] rounded text-[var(--white)] bg-[var(--primary)] dark:bg-[#3a3a3a] text-sm"
         @click="handleSave"
       >
         저장
       </button>
       <button
-        class="w-20 h-[35px] rounded border border-[var(--primary-30)] text-sm"
+        class="w-20 h-[35px] rounded border border-[var(--primary-30)] dark:border-[#3a3a3a] dark:text-white text-sm"
         @click="$emit('cancel')"
       >
         취소

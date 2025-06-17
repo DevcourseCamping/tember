@@ -4,6 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 
 import imgDelete from '@/assets/icons/light/light-delete.svg'
 import image from '@/assets/icons/light/light-image.svg'
+import d_imgDelete from '@/assets/icons/dark/dark-delete.svg'
+import d_image from '@/assets/icons/dark/dark-image.svg'
+;('../../assets/icons/dark/dark-delete.svg')
 
 const props = defineProps({
   modelValue: {
@@ -43,11 +46,14 @@ const deleteImage = (index) => {
   <div class="w-full max-w-[500px] flex gap-3 items-start scrollbar-hide overflow-visible">
     <!-- image upload button -->
     <div
-      class="w-[100px] h-[100px] my-[5px] border border-[var(--primary-30)] rounded flex flex-col justify-center items-center cursor-pointer mr-1 shrink-0"
+      class="w-[100px] h-[100px] my-[5px] border border-[var(--primary-30)] dark:border-[#3a3a3a] dark:bg-[#3a3a3a] rounded flex flex-col justify-center items-center cursor-pointer mr-1 shrink-0"
       @click="fileInput?.click()"
     >
-      <img :src="image" class="w-6 h-6 mb-1" />
-      <p class="text-sm text-[var(--primary)]">{{ modelValue.length }} / {{ max }}</p>
+      <img :src="image" class="w-6 h-6 mb-1 block dark:hidden" />
+      <img :src="d_image" class="w-6 h-6 mb-1 hidden dark:block" />
+      <p class="text-sm text-[var(--primary)] dark:text-white">
+        {{ modelValue.length }} / {{ max }}
+      </p>
     </div>
     <!-- image list -->
     <div class="w-full max-w-[325px] flex relative overflow-hidden">
@@ -64,7 +70,12 @@ const deleteImage = (index) => {
             />
             <img
               :src="imgDelete"
-              class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10 cursor-pointer"
+              class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10 cursor-pointer block dark:hidden"
+              @click.stop="deleteImage(i)"
+            />
+            <img
+              :src="d_imgDelete"
+              class="w-[25px] h-[25px] absolute -top-[5px] -right-[5px] z-10 cursor-pointer hidden dark:block"
               @click.stop="deleteImage(i)"
             />
           </div>
