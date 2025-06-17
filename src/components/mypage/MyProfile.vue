@@ -85,10 +85,10 @@ const clickFollow = (tab) => {
 
     <div class="pl-[45px]">
       <div class="flex items-center">
-        <p class="text-[18px] font-bold">{{ targetUser?.username }}</p>
+        <p class="text-[18px] font-bold dark:text-white">{{ targetUser?.username }}</p>
       </div>
       <div class="flex flex-col gap-[10px] text-4 pt-[5px]">
-        <div class="flex gap-[56px]">
+        <div class="flex gap-[56px] dark:text-white">
           <button @click="clickFollow('follower')">
             팔로워 <span class="font-semibold pl-[10px]">{{ targetUser?.followerCount }}</span>
           </button>
