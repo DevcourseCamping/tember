@@ -166,7 +166,7 @@ const themeStore = useThemeStore()
     </div>
 
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <section class="bg-[#FFFFFF] pt-[39px] pb-[39px] dark:bg-[#121212]"></section>
+      <section class="bg-[--white] pt-[39px] pb-[39px] gap-[50px] dark:bg-[#121212]"></section>
       <section
         class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
       >
@@ -209,10 +209,10 @@ const themeStore = useThemeStore()
 
                   <div
                     v-if="camp.avg_rating"
-                    class="absolute bottom-0 right-0 bg-[#5A4031] text-white text-[13px] px-[8px] py-[2px] rounded-tl-[5px] rounded-br-[5px] flex items-center gap-[4px]"
+                    class="absolute bottom-0 right-0 bg-[#5A4031] text-white text-[12px] px-[8px] py-[2px] rounded-tl-[5px] rounded-br-[5px] flex items-center gap-[4px]"
                   >
                     {{ camp.avg_rating.toFixed(1) }}
-                    <img :src="fillstar" class="w-[14px] h-[14px]" />
+                    <img :src="fillstar" class="w-[12px] h-[12px]" />
                   </div>
                 </div>
                 <div class="flex flex-col justify-between p-[10px] flex-1">
@@ -348,7 +348,7 @@ const themeStore = useThemeStore()
             :key="`group-${idx}`"
             class="!w-[300px] flex flex-col gap-[30px] flex-shrink-0"
           >
-            <div class="flex flex-col gap-[30px]">
+            <div class="flex flex-col gap-[30px] cursor-pointer">
               <div
                 v-for="post in group"
                 :key="post.id"
@@ -420,7 +420,7 @@ const themeStore = useThemeStore()
                 @click="goToCampingDetail(review.camps.content_id)"
               >
                 <div
-                  class="bg-white p-4 text-center shadow-md rounded-lg dark:bg-[#121212] dark:shadow-[0_2px_6px_rgba(255,255,255,0.2)]"
+                  class="h-[165px] bg-white p-4 text-center shadow-md rounded-lg dark:bg-[#121212] dark:shadow-[0_2px_6px_rgba(255,255,255,0.2)]"
                 >
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
