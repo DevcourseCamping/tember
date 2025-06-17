@@ -30,40 +30,40 @@ const goToUserProfile = (userId) => {
 }
 </script>
 <template>
-  <div class="relative">
+  <div class="relative dark:bg-[#121212]">
     <div class="flex justify-between px-[95px] pt-4 text-[15px]">
       <button
         @click="clickTab = 'follower'"
         :class="clickTab === 'follower' ? 'text-[var(--primary)] ' : 'text-[var(--primary-30)]'"
       >
-        <span class="mr-3 font-semibold">팔로워</span>
-        <span class="font-bold">{{ followers.length }}</span>
+        <span class="mr-3 font-semibold dark:text-white">팔로워</span>
+        <span class="font-bold dark:text-white">{{ followers.length }}</span>
       </button>
       <button
         @click="clickTab = 'following'"
         :class="clickTab === 'following' ? 'text-[var(--primary)]' : 'text-[var(--primary-30)]'"
       >
-        <span class="mr-3 font-semibold">팔로잉</span>
-        <span class="font-bold">{{ followings.length }}</span>
+        <span class="mr-3 font-semibold dark:text-white">팔로잉</span>
+        <span class="font-bold dark:text-white">{{ followings.length }}</span>
       </button>
     </div>
     <div
       v-if="clickTab === 'follower'"
-      class="absolute left-[0px] bottom-0 w-1/2 border-t-[2px] border-[var(--primary)]"
+      class="absolute left-[0px] bottom-0 w-1/2 border-t-[2px] border-[var(--primary)] dark:border-[#ffffff]/30"
     ></div>
     <div
       v-if="clickTab === 'following'"
-      class="absolute right-[0px] bottom-0 w-1/2 border-t-[2px] border-[var(--primary)]"
+      class="absolute right-[0px] bottom-0 w-1/2 border-t-[2px] border-[var(--primary)] dark:border-[#ffffff]/30"
     ></div>
 
     <hr class="mt-[10px] border border-[var(--primary-20)]" />
   </div>
 
-  <div class="h-[calc(100vh-80px)] overflow-y-auto px-[50px] py-[30px]">
+  <div class="h-[calc(100vh-80px)] overflow-y-auto px-[50px] py-[30px] dark:bg-[#121212]">
     <section v-if="clickTab === 'follower'">
       <div
         v-if="!props.isLoading && clickTab === 'follower' && followers.length === 0"
-        class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)]"
+        class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)] dark:text-[#ffffff]/50"
       >
         아직 나를 팔로우한 캠퍼가 없습니다.
       </div>
@@ -80,11 +80,14 @@ const goToUserProfile = (userId) => {
                   alt=""
                   class="w-[50px] h-[50px] rounded-full mr-[15px]"
                 />
-                <p v-text="follower.profiles.username" class="text-[15px] font-bold"></p>
+                <p
+                  v-text="follower.profiles.username"
+                  class="text-[15px] font-bold dark:text-white"
+                ></p>
               </div>
               <button
                 v-if="!follower.isFollow && follower.follower_id !== myId"
-                class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)]"
+                class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] dark:text-white bg-[#3A3A3A]"
                 @click="
                   async () => {
                     await follow.followUser(myId, follower.follower_id, 'followers')
@@ -96,7 +99,7 @@ const goToUserProfile = (userId) => {
               </button>
               <button
                 v-else-if="follower.isFollow && follower.follower_id !== myId"
-                class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px] text-[#222222] flex items-center justify-center"
+                class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px] text-[#222222] flex items-center justify-center dark:text-white dark:border-[#ffffff]/30"
                 @click="
                   async () => {
                     await follow.unfollowUser(myId, follower.follower_id, 'followers')
@@ -114,7 +117,7 @@ const goToUserProfile = (userId) => {
     <section v-if="clickTab === 'following'">
       <div
         v-if="!props.isLoading && clickTab === 'following' && followings.length === 0"
-        class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)]"
+        class="flex items-center justify-center text-[14px] text-[var(--grey)] h-[calc(100vh-250px)] dark:text-[#ffffff]/50"
       >
         마음에 드는 캠퍼를 팔로우해보세요.
       </div>
@@ -131,11 +134,14 @@ const goToUserProfile = (userId) => {
                   alt=""
                   class="w-[50px] h-[50px] rounded-full mr-[15px]"
                 />
-                <p v-text="following.profiles.username" class="text-[15px] font-bold"></p>
+                <p
+                  v-text="following.profiles.username"
+                  class="text-[15px] font-bold dark:text-white"
+                ></p>
               </div>
               <button
                 v-if="following.following_id !== myId"
-                class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px]"
+                class="w-20 h-[30px] text-[13px] border border-[var(--primary)] rounded-[5px] dark:text-white dark:border-[#ffffff]/30"
                 @click="follow.unfollowUser(myId, following.following_id, 'followings')"
               >
                 팔로우 취소

@@ -2,7 +2,14 @@
   <img
     :src="isBookmarked ? filledBookmarkIcon : outlineBookmarkIcon"
     alt="북마크"
-    class="pr-[15px]"
+    class="pr-[15px] block dark:hidden"
+    @click="toggleBookmark($event)"
+  />
+
+  <img
+    :src="isBookmarked ? darkFilledBookmarkIcon : darkOutlineBookmarkIcon"
+    alt="북마크"
+    class="pr-[15px] hidden dark:block"
     @click="toggleBookmark($event)"
   />
 </template>
@@ -12,6 +19,9 @@ import { ref } from 'vue'
 import supabase from '@/utils/supabase'
 import filledBookmarkIcon from '../../assets/icons/light/light-bookmark-filled.svg'
 import outlineBookmarkIcon from '../../assets/icons/light/light-bookmark-outline.svg'
+import darkFilledBookmarkIcon from '../../assets/icons/dark/dark-bookmark-filled.svg'
+import darkOutlineBookmarkIcon from '../../assets/icons/dark/dark-bookmark-outline.svg'
+
 import { useUserStore } from '@/stores/userStore'
 
 const profile = useUserStore()
