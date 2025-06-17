@@ -30,15 +30,16 @@ import { useRoute } from 'vue-router'
 
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import axios from 'axios'
+import { useCampingStore } from '@/stores/campingStore'
 
-const route=useRoute()
-const selectedCategory=ref(route.query.category||null)
+const route = useRoute()
+const selectedCategory = ref(route.query.category || null)
 
-const categoryMap={
-  autoCamping:'자동차야영장',
-  glamping:'글램핑',
-  caravan:'카라반',
-  pet:'반려동물',
+const categoryMap = {
+  autoCamping: '자동차야영장',
+  glamping: '글램핑',
+  caravan: '카라반',
+  pet: '반려동물',
 }
 
 const isFilterModalOpen = ref(false)
@@ -88,19 +89,18 @@ const getCampingList = async () => {
     page: page.value,
     pageSize: size.value,
     userId: user !== null ? user.id : profile.user.id,
-    filters:{}
+    filters: {},
   }
   if (keyword.value) {
     requestBody.keyword = keyword.value
   }
 
-  if(selectedCategory.value){
-    if(selectedCategory.value==='pet'){
-      requestBody.filters.animalCmgCl=['가능']
-    }
-    else{
-const korCategory=categoryMap[selectedCategory.value]
-    if(korCategory) requestBody.filters.induty=[korCategory]
+  if (selectedCategory.value) {
+    if (selectedCategory.value === 'pet') {
+      requestBody.filters.animalCmgCl = ['가능']
+    } else {
+      const korCategory = categoryMap[selectedCategory.value]
+      if (korCategory) requestBody.filters.induty = [korCategory]
     }
   }
 
@@ -128,17 +128,20 @@ const korCategory=categoryMap[selectedCategory.value]
   }
 }
 
-onMounted(async()=>{
+onMounted(async () => {
   await getCampingList()
-  scrollContainer.value?.addEventListener('scroll',handleScroll)
+  scrollContainer.value?.addEventListener('scroll', handleScroll)
 })
 
-watch(()=>route.query.category,(newQ)=>{
-  selectedCategory.value=newQ||null
-  page.value=1
-  campingList.value=[]
-  getCampingList()
-})
+watch(
+  () => route.query.category,
+  (newQ) => {
+    selectedCategory.value = newQ || null
+    page.value = 1
+    campingList.value = []
+    getCampingList()
+  },
+)
 
 const isLoading = ref(false)
 const scrollContainer = ref(null)
@@ -157,7 +160,15 @@ const handleScroll = async () => {
   }
 }
 
+const campingStore = useCampingStore()
+
 onMounted(async () => {
+  // store에 값이 있으면 여기서 종료 없으면 아래 getCampingList() 호출
+  if (campingStore.campingList.length > 0) {
+    campingList.value = campingStore.campingList
+    return
+  }
+
   if (!filterCampingList.value) {
     await getCampingList()
   }
@@ -166,6 +177,10 @@ onMounted(async () => {
 
 onUnmounted(() => {
   scrollContainer.value?.removeEventListener('scroll', handleScroll)
+
+  // store 초기화
+  campingStore.campingList = []
+  campingStore.total = 0
 })
 </script>
 
