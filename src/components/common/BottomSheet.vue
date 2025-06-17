@@ -9,7 +9,9 @@ const props = defineProps({
 const emit = defineEmits(['close', 'select'])
 </script>
 <template>
-  <section class="flex flex-col absolute bottom-0 w-full bg-[var(--primary)] rounded-t-[15px]">
+  <section
+    class="flex flex-col absolute bottom-0 w-full max-w-[500px] bg-[var(--primary)] rounded-t-[15px] pb-1"
+  >
     <header class="flex justify-between pt-6 pb-4 px-[30px] items-center">
       <p class="text-lg text-[var(--white)] font-bold">작업 선택</p>
       <button @click="emit('close')">
@@ -19,13 +21,13 @@ const emit = defineEmits(['close', 'select'])
     <!-- post -->
     <div v-if="props.type === 'post'" class="w-full flex flex-col px-5">
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">게시글 수정</p>
       </div>
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'delete')"
       >
         <p class="ml-[25px] text-[var(--red)] text-base">게시글 삭제</p>
@@ -34,13 +36,19 @@ const emit = defineEmits(['close', 'select'])
     <!-- review -->
     <div v-else-if="props.type === 'review'" class="w-full flex flex-col px-5">
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
+        @click="emit('select', 'goToCamp')"
+      >
+        <p class="ml-[25px] text-[var(--white)] text-base">캠핑장으로 이동</p>
+      </div>
+      <div
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer border-b border-[var(--white-20)]"
         @click="emit('select', 'edit')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">리뷰 수정</p>
       </div>
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'delete')"
       >
         <p class="ml-[25px] text-[var(--red)] text-base">리뷰 삭제</p>
@@ -49,13 +57,13 @@ const emit = defineEmits(['close', 'select'])
     <!-- comment -->
     <div v-else-if="props.type === 'comment'" class="w-full flex flex-col px-5">
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">댓글 수정</p>
       </div>
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'delete')"
       >
         <p class="ml-[25px] text-[var(--red)] text-base">댓글 삭제</p>
@@ -64,19 +72,19 @@ const emit = defineEmits(['close', 'select'])
     <!-- my -->
     <div v-else-if="props.type === 'my'" class="w-full flex flex-col px-5">
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'edit')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">프로필 수정</p>
       </div>
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer border-b border-[var(--white-20)]"
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer border-b border-[var(--white-20)]"
         @click="emit('select', 'dark')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">다크모드</p>
       </div>
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'logout')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">로그아웃</p>
@@ -85,13 +93,13 @@ const emit = defineEmits(['close', 'select'])
     <!-- sort -->
     <div v-else-if="props.type === 'sort'" class="w-full flex flex-col px-5">
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] border-b border-[var(--white-20)] flex items-center cursor-pointer"
         @click="emit('select', 'latest')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">최신순</p>
       </div>
       <div
-        class="bg-[var(--primary)] w-[460px] h-[55px] flex items-center cursor-pointer"
+        class="bg-[var(--primary)] w-full h-[55px] flex items-center cursor-pointer"
         @click="emit('select', 'popular')"
       >
         <p class="ml-[25px] text-[var(--white)] text-base">인기순</p>
