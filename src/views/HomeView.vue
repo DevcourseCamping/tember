@@ -171,7 +171,7 @@ const themeStore = useThemeStore()
         class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
       >
         <h2
-          class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A] dark:text-[#EDE8E4]"
+          class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[26px] text-[#4A4A4A] dark:text-[#EDE8E4]"
         >
           Popular
         </h2>
@@ -197,15 +197,24 @@ const themeStore = useThemeStore()
                 @click="goToCampingDetail(camp.content_id)"
                 class="w-[300px] h-[136px] bg-white rounded-[5px] shadow flex overflow-hidden dark:bg-[#2A2A2A]"
               >
-                <img
-                  :src="
-                    camp.first_image_url ||
-                    'https://images.unsplash.com/photo-1576176539998-0237d1ac6a85?w=900&auto=format&fit=crop'
-                  "
-                  alt="캠핑장 이미지"
-                  class="w-[110px] h-full object-cover rounded-[5px]"
-                />
+                <div class="relative">
+                  <img
+                    :src="
+                      camp.first_image_url ||
+                      'https://images.unsplash.com/photo-1576176539998-0237d1ac6a85?w=900&auto=format&fit=crop'
+                    "
+                    alt="캠핑장 이미지"
+                    class="w-[110px] h-full object-cover rounded-[5px]"
+                  />
 
+                  <div
+                    v-if="camp.avg_rating"
+                    class="absolute bottom-0 right-0 bg-[#5A4031] text-white text-[13px] px-[8px] py-[2px] rounded-tl-[5px] rounded-br-[5px] flex items-center gap-[4px]"
+                  >
+                    {{ camp.avg_rating.toFixed(1) }}
+                    <img :src="fillstar" class="w-[14px] h-[14px]" />
+                  </div>
+                </div>
                 <div class="flex flex-col justify-between p-[10px] flex-1">
                   <div>
                     <p
@@ -270,7 +279,7 @@ const themeStore = useThemeStore()
         <ul class="flex flex-col gap-[40px]">
           <li class="flex items-start">
             <img
-              :src="darkCaravanOn"
+              :src="themeStore.isDark ? darkCaravanOn : lightCaravanOn"
               alt="개인 카라반"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -286,7 +295,7 @@ const themeStore = useThemeStore()
 
           <li class="flex items-start">
             <img
-              :src="darkTrailerOn"
+              :src="themeStore.isDark ? darkTrailerOn : lightTrailerOn"
               alt="트레일러"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -302,7 +311,7 @@ const themeStore = useThemeStore()
 
           <li class="flex items-start">
             <img
-              :src="darkPetOn"
+              :src="themeStore.isDark ? darkPetOn : lightPetOn"
               alt="반려동물"
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
@@ -320,7 +329,7 @@ const themeStore = useThemeStore()
         class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
       >
         <h2
-          class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A] dark:text-[#EDE8E4]"
+          class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[26px] text-[#4A4A4A] dark:text-[#EDE8E4]"
         >
           Community
         </h2>
@@ -397,7 +406,7 @@ const themeStore = useThemeStore()
           <div class="w-full max-w-[500px]">
             <Swiper
               :slides-per-view="'auto'"
-              :space-between="5"
+              :space-between="10"
               :centered-slides="true"
               :loop="true"
               :initial-slide="2"
@@ -407,10 +416,12 @@ const themeStore = useThemeStore()
               <SwiperSlide
                 v-for="review in latestReviews"
                 :key="review.id"
-                class="!w-[257px] cursor-pointer"
+                class="!w-[257px] cursor-pointer mt-[5px] mb-[5px]"
                 @click="goToCampingDetail(review.camps.content_id)"
               >
-                <div class="bg-white p-4 text-center dark:bg-[#121212]">
+                <div
+                  class="bg-white p-4 text-center shadow-md rounded-lg dark:bg-[#121212] dark:shadow-[0_2px_6px_rgba(255,255,255,0.2)]"
+                >
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
                   </h3>
