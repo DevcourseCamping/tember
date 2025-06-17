@@ -1,5 +1,7 @@
 <template>
-  <div class="flex items-center justify-around gap-4 border-b border-b-[#4B3C2F50] p-[20px]">
+  <div
+    class="flex items-center justify-around gap-4 border border-b-[#4B3C2F50] p-[20px] dark:border-[#ffffff30]"
+  >
     <button @click="scrollTo('#basic-info')" class="text-[15px] text-[#222222] dark:text-white">
       기본 정보
     </button>

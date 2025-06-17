@@ -329,6 +329,50 @@ export const useCommunityStore = defineStore('community', () => {
     }
   }
 
+  // only imagePost list
+  const getCommunityImagePosts = async ({ page = 1, maxLength = 6, sorted = 'created' } = {}) => {
+    loading.value = true
+    error.value = null
+
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const userId = session?.user?.id
+
+      const { data, error: fetchError } = await useFetch('getPosts', {
+        page,
+        maxLength,
+        sorted,
+      })
+
+      if (fetchError) throw fetchError
+
+      const filtered = data.data.filter((post) => post.image !== null && post.image !== '')
+
+      const postsWithLikes = await Promise.all(
+        filtered.map(async (post) => {
+          if (!userId) return { ...post, isLiked: false }
+
+          const { data: likeData } = await supabase
+            .from('likes')
+            .select('id')
+            .eq('post_id', post.id)
+            .eq('user_id', userId)
+            .maybeSingle()
+
+          return { ...post, isLiked: !!likeData }
+        }),
+      )
+
+      posts.value = postsWithLikes
+    } catch (e) {
+      console.error(e)
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     posts,
     loading,
@@ -347,5 +391,6 @@ export const useCommunityStore = defineStore('community', () => {
     createPost,
     updatePost,
     deletePost,
+    getCommunityImagePosts,
   }
 })

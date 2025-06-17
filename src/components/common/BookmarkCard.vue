@@ -78,7 +78,7 @@ watch(
 )
 </script>
 <template>
-  <div class="p-[30px] flex flex-col">
+  <div class="pt-[30px] pl-[30px] pr-[30px] flex flex-col">
     <div v-if="isLoading">
       <BookmarkSkeleton v-for="n in 2" :key="n" class="mb-[30px]" />
     </div>
@@ -130,7 +130,7 @@ watch(
               />
             </div>
             <div
-              class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px]"
+              class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px] text-[14px]"
             >
               <p class="text-[var(--white)]">
                 {{ item.camp_sites.avg_rating ? item.camp_sites.avg_rating.toFixed(1) : '미평가' }}
