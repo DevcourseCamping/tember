@@ -271,7 +271,9 @@ const fetchLatestReviews = async () => {
       <section
         class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
       >
-        <h2 class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A]">
+        <h2
+          class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[20px] text-[#4A4A4A] dark:text-[#EDE8E4]"
+        >
           Community
         </h2>
 
@@ -294,7 +296,7 @@ const fetchLatestReviews = async () => {
                 v-for="post in group"
                 :key="post.id"
                 @click="goToDetail(post.id)"
-                class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden"
+                class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden dark:bg-[#2A2A2A]"
               >
                 <img
                   v-if="
@@ -329,8 +331,10 @@ const fetchLatestReviews = async () => {
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[160px] z-0">
-        <h2 class="text-center font-bold text-[20px] text-[#4A4A4A] mb-[50px]">Review</h2>
+      <section class="bg-[#FFFFFF] pt-[72px] pb-[160px] z-0 dark:bg-[#121212]">
+        <h2 class="text-center font-bold text-[20px] text-[#4A4A4A] mb-[50px] dark:text-[#EDE8E4]">
+          Review
+        </h2>
         <div class="flex justify-center">
           <div class="w-full max-w-[500px]">
             <Swiper
@@ -349,13 +353,13 @@ const fetchLatestReviews = async () => {
                 @click="goToCampingDetail(review.camps.content_id)"
               >
                 <div class="bg-white p-4 text-center">
-                  <h3 class="font-bold text-[15px] text-[#222222] mb-[10px]">
+                  <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
                   </h3>
                   <p class="text-[15px] text-[#4A4A4A] mb-[10px] line-clamp-2">
                     {{ review.content }}
                   </p>
-                  <p class="text-[13px] text-[--grey] mb-2">
+                  <p class="text-[13px] text-[--grey] mb-2 dark:text-[--white]">
                     {{ review.profiles.username }}
                   </p>
                   <div class="flex justify-center gap-[4px]">
