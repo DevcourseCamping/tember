@@ -2,8 +2,12 @@
 import axios from 'axios'
 import FilterTag from './FilterTag.vue'
 import close from '@/assets/icons/close-brown.svg'
+import darkClose from '@/assets/icons/close-white.svg'
 import { computed, ref } from 'vue'
 import { doList, sigunguMap } from './locationData'
+import { useThemeStore } from '@/stores/theme'
+
+const themeStore = useThemeStore()
 
 const selectedDo = ref('')
 const sigunguList = computed(() => sigunguMap[selectedDo.value] || [])
@@ -109,24 +113,26 @@ const applyFilter = async () => {
 }
 </script>
 <template>
-  <div class="max-w-[500px] h-[1700px] bg-[--white] mx-auto flex flex-col">
+  <div class="max-w-[500px] h-[1700px] bg-[--white] mx-auto flex flex-col dark:bg-[#121212]">
     <div class="relative w-full mb-4 flex justify-center">
-      <h1 class="text-center text-[18px] pt-[20px] text-[#222222]">검색</h1>
+      <h1 class="text-center text-[18px] pt-[20px] text-[--black] dark:text-[--white]">검색</h1>
 
       <button
         @click="$emit('close')"
         class="absolute top-[24px] left-[18px] w-[20px] h-[20px] flex items-center justify-center"
       >
-        <img :src="close" alt="닫기" class="w-[18px] h-[18px]" />
+        <img :src="themeStore.isDark ? darkClose : close" alt="닫기" class="w-[18px] h-[18px]" />
       </button>
     </div>
 
     <div
-      class="max-w-[430px] box-border sm:mx-auto bg-white rounded-md flex flex-col overflow-y-hidden p-4 gap-6"
+      class="max-w-[430px] box-border sm:mx-auto bg-white rounded-md flex flex-col overflow-y-hidden p-4 gap-6 dark:bg-[#121212]"
     >
-      <div class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] flex-shrink-0">
+      <div
+        class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] flex-shrink-0 dark:bg-[#212121] dark:border-[#3A3A3A]"
+      >
         <section class="flex flex-col gap-[15px]">
-          <h2 class="text-[15px] text-[#222222]">지역</h2>
+          <h2 class="text-[15px] text-[#222222] dark:text-[--white]">지역</h2>
 
           <div class="flex rounded-md overflow-hidden h-[230px]">
             <div class="w-[90px] overflow-y-auto scrollbar-hide flex flex-col gap-[10px] pt-[17px]">
@@ -134,7 +140,11 @@ const applyFilter = async () => {
                 v-for="doItem in doList"
                 :key="doItem"
                 class="h-[30px] py-[2px] text-[14px] text-center cursor-pointer rounded-[5px]"
-                :class="selectedDo === doItem ? 'bg-[#4B3C2F] text-white' : 'text-[#222222]'"
+                :class="
+                  selectedDo === doItem
+                    ? 'bg-[--primary] text-white dark:bg-[#3A3A3A]'
+                    : 'text-[#222222] dark:text-[--white]'
+                "
                 @click="selectedDo = doItem"
               >
                 {{ doItem }}
@@ -146,10 +156,10 @@ const applyFilter = async () => {
                 @click="selectAllSigungu"
                 :class="
                   sigunguList.every((s) => selectedSigunguList.includes(s))
-                    ? 'bg-[#4B3C2F] text-white'
-                    : 'bg-white text-[#333]'
+                    ? 'bg-[#4B3C2F] text-white dark:bg-[#3A3A3A] dark:text-[--white]'
+                    : 'bg-white text-[#333] dark:bg-[#212121] dark:text-[--white]'
                 "
-                class="w-full border p-2 rounded text-sm"
+                class="w-full border p-2 rounded text-sm dark:border-[#3A3A3A]"
               >
                 전체 선택
               </button>
@@ -171,7 +181,7 @@ const applyFilter = async () => {
 
         <section class="flex justify-center mt-[20px]">
           <button
-            class="w-[380px] h-[45px] rounded-[5px] bg-[#4B3C2F] text-[13px] text-white"
+            class="w-[380px] h-[45px] rounded-[5px] bg-[#4B3C2F] text-[13px] text-white dark:bg-[#3A3A3A] dark:text-[--white]"
             @click="applyFilter"
           >
             선택하기
@@ -180,24 +190,26 @@ const applyFilter = async () => {
       </div>
 
       <div
-        class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] max-h-[1206px] flex flex-col"
+        class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] max-h-[1206px] flex flex-col dark:bg-[#212121] dark:border-[#3A3A3A]"
       >
         <button
           class="absolute top-[20px] right-[30px] w-[16px] h-[16px] flex items-center justify-center"
         >
-          <img :src="close" alt="닫기" class="w-[16px] h-[16px]" />
+          <img :src="themeStore.isDark ? darkClose : close" alt="닫기" class="w-[16px] h-[16px]" />
         </button>
 
         <div class="flex items-center gap-2 mb-[30px]">
-          <span class="text-[15px] text-[#222222]">필터</span>
-          <button class="text-[13px] text-[#A8AEB2]">초기화</button>
+          <span class="text-[15px] text-[--black] dark:text-[--white]">필터</span>
+          <button class="text-[13px] text-[#A8AEB2] dark:text-[--white-50]">초기화</button>
         </div>
 
         <section
           class="overflow-y-auto scrollbar-hide h-full pr-[4px] pb-[30px] flex flex-col gap-[25px]"
         >
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">숙소 유형</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              숙소 유형
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['일반야영장', '자동차야영장', '글램핑', '카라반', '캠프닉']"
@@ -215,7 +227,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">운영 기간</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              운영 기간
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['봄', '여름', '가을', '겨울']"
@@ -233,7 +247,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">운영일</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              운영일
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['평일', '평일+주말']"
@@ -251,7 +267,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">입지 구분</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              입지 구분
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['산', '강', '계곡', '호수', '숲', '섬', '도심', '해변']"
@@ -269,7 +287,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">부대시설</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              부대시설
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in [
@@ -300,7 +320,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">주변시설</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              주변시설
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in [
@@ -330,7 +352,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">테마환경</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              테마환경
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in [
@@ -361,7 +385,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">트레일러 가능</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              트레일러 가능
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['개인 트레일러 가능']"
@@ -379,7 +405,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">카라반 가능</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              카라반 가능
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['개인 카라반 가능']"
@@ -397,7 +425,9 @@ const applyFilter = async () => {
           </div>
 
           <div>
-            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px]">반려동물</h3>
+            <h3 class="text-[14px] text-[#A8AEB2] font-bold mb-[10px] dark:text-[--white-50]">
+              반려동물
+            </h3>
             <div class="flex flex-wrap gap-[10px]">
               <FilterTag
                 v-for="label in ['반려동물 가능', '소형견 가능']"
@@ -417,7 +447,7 @@ const applyFilter = async () => {
 
         <div class="mt-[10px] flex justify-center">
           <button
-            class="w-full h-[45px] rounded-[5px] text-[13px] text-white bg-[#3A2B1F]"
+            class="w-full h-[45px] rounded-[5px] text-[13px] text-white bg-[#3A2B1F] dark:bg-[#3A3A3A] dark:text-[--white]"
             @click="applyFilter"
           >
             필터 적용하기
