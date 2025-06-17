@@ -16,8 +16,8 @@ const toggle = () => {
     class="h-[30px] text-[12px] text-center rounded-[5px] px-[8px] border"
     :class="
       modelValue
-        ? 'bg-[--primary] text-[--white] border-[--primary]'
-        : 'bg-[--white] text-[--black] border-[#E0E0E0]'
+        ? 'bg-[--primary] text-[--white] border-[--primary] dark:bg-[#3A3A3A] dark:border-[#3A3A3A]'
+        : 'bg-[--white] text-[--black] border-[#E0E0E0] dark:bg-[#212121] dark:text-[--white] dark:border-[#3A3A3A]'
     "
   >
     {{ label }}
