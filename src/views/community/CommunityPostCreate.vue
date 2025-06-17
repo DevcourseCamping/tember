@@ -32,7 +32,7 @@ const submitPost = async () => {
 }
 </script>
 <template>
-  <main class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
+  <main class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)] dark:bg-[#121212]">
     <!-- header -->
     <HeaderSimple title="글쓰기" nav-type="close" center-content="title" @navClick="handleClose" />
     <!-- main -->
@@ -41,14 +41,14 @@ const submitPost = async () => {
       <section class="px-[30px]">
         <!-- image upload -->
         <ImageUploader v-model="editableImages" :max="10" />
-        <p class="text-lg mt-8">카테고리 선택</p>
+        <p class="text-lg mt-8 dark:text-white">카테고리 선택</p>
         <div class="flex space-x-[15px] mt-4">
           <div
             :class="[
               'w-[70px] h-[35px] text-sm border rounded-[5px] flex justify-center items-center cursor-pointer',
               category === 'default'
-                ? 'bg-[var(--primary)] text-[var(--white)] border-[var(--primary)]'
-                : 'border-[var(--primary)]',
+                ? 'bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] border-[var(--primary)] dark:border-[#3a3a3a]'
+                : 'border-[var(--primary)] dark:border-[#3a3a3a] dark:text-white',
             ]"
             @click="category = 'default'"
           >
@@ -58,8 +58,8 @@ const submitPost = async () => {
             :class="[
               'w-20 h-[35px] text-sm border rounded-[5px] flex justify-center items-center cursor-pointer',
               category === 'pet'
-                ? 'bg-[var(--primary)] text-[var(--white)] border-[var(--primary)]'
-                : 'border-[var(--primary)]',
+                ? 'bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] border-[var(--primary)] dark:border-[#3a3a3a]'
+                : 'border-[var(--primary)] dark:border-[#3a3a3a] dark:text-white',
             ]"
             @click="category = 'pet'"
           >
@@ -72,7 +72,7 @@ const submitPost = async () => {
         <textarea
           v-model="content"
           name="content"
-          class="w-full h-[400px] mx-[30px] border border-[var(--primary-30)] rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] text-base focus:outline-none"
+          class="w-full h-[400px] mx-[30px] border border-[var(--primary-30)] dark:text-white dark:border-[#ffffff30] dark:bg-[#121212] rounded-[5px] resize-none p-5 placeholder:font-normal placeholder:text-[var(--grey)] dark:placeholder:text-[#ffffff50] text-base focus:outline-none"
           placeholder="이곳에 글을 작성해주세요"
         ></textarea>
       </section>
@@ -80,7 +80,7 @@ const submitPost = async () => {
 
     <!-- footer  -->
     <div
-      class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] cursor-pointer flex justify-center items-center text-[var(--white)] text-lg"
+      class="absolute bottom-0 w-full h-[60px] bg-[var(--primary)] dark:bg-[#3a3a3a] cursor-pointer flex justify-center items-center text-[var(--white)] text-lg"
       @click="submitPost"
     >
       작성완료

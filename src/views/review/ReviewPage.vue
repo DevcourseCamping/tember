@@ -21,7 +21,7 @@ const handleClose = () => {
 </script>
 
 <template>
-  <div class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)]">
+  <div class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)] dark:bg-[#121212]">
     <!-- header -->
     <HeaderSimple :title="isEditMode ? '리뷰 수정' : '리뷰 쓰기'" @navClick="handleClose" />
 

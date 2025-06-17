@@ -43,7 +43,9 @@ onMounted(() => {
 })
 </script>
 <template>
-  <footer class="fixed bottom-0 w-full max-w-[500px] h-[60px] bg-[--primary] flex">
+  <footer
+    class="fixed bottom-0 w-full max-w-[500px] h-[60px] bg-[--primary] dark:bg-[#1a1a1a] flex"
+  >
     <div class="w-full px-8 flex justify-between items-center">
       <div
         v-for="tab in tabs"

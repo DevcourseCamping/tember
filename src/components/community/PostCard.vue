@@ -7,9 +7,12 @@ import { Pagination } from 'swiper/modules'
 import { useRouter } from 'vue-router'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import commentIcon from '../../assets/icons/light/light-comment.svg'
-import like from '../../assets/icons/light/light-like-filled.svg'
-import unlike from '../../assets/icons/light/light-like-outline.svg'
+import commentIcon from '@/assets/icons/light/light-comment.svg'
+import like from '@/assets/icons/light/light-like-filled.svg'
+import unlike from '@/assets/icons/light/light-like-outline.svg'
+import d_commentIcon from '@/assets/icons/dark/dark-comment.svg'
+import d_like from '@/assets/icons/dark/dark-like-filled.svg'
+import d_unlike from '@/assets/icons/dark/dark-like-outline.svg'
 import SkeletonPostCard from './SkeletonPostCard.vue'
 import formDate from '@/utils/formDate'
 
@@ -59,7 +62,7 @@ const goToUserProfile = (userId) => {
     <div
       v-for="post in filteredPosts"
       :key="post.id"
-      class="border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+      class="border border-[var(--primary-30)] dark:bg-[#212121] dark:border-[#3a3a3a30] rounded-[5px] cursor-pointer"
     >
       <div class="flex items-center justify-between pl-[15px] pt-[15px]">
         <div class="flex items-center" @click="goToUserProfile(post.user_id)">
@@ -69,8 +72,10 @@ const goToUserProfile = (userId) => {
             class="w-[52px] h-[52px] rounded-full mr-[15px]"
           />
           <div class="flex flex-col justify-center">
-            <p class="text-[14px] font-semibold">{{ post.profiles?.username || '익명' }}</p>
-            <p class="text-[13px] text-[var(--grey)]">
+            <p class="text-[14px] font-semibold dark:text-white">
+              {{ post.profiles?.username || '익명' }}
+            </p>
+            <p class="text-[13px] text-[var(--grey)] dark:text-[#ffffff50]">
               {{ formDate(post.created_at) }}
             </p>
           </div>
@@ -104,23 +109,33 @@ const goToUserProfile = (userId) => {
         :to="{ name: 'communityPostDetail', params: { postId: post.id } }"
         class="block pt-5 pl-5 pr-5 text-[15px]"
       >
-        <p class="break-words">{{ post.content }}</p>
+        <p class="break-words dark:text-white">{{ post.content }}</p>
       </router-link>
       <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[15px]">
         <div
-          class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
+          class="w-20 h-[30px] bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
           @click="goToDetail(post.id)"
         >
           {{ post.category === 'pet' ? '반려동물' : '일반' }}
         </div>
         <template class="flex gap-4 text-sm cursor-pointer">
-          <div class="flex gap-[3px]" @click.stop="toggleLike($event, post)">
-            <img :src="post.isLiked ? like : unlike" alt="좋아요 아이콘" />
-            <p>{{ post.likeCount }}</p>
+          <div class="flex gap-2" @click.stop="toggleLike($event, post)">
+            <img
+              :src="post.isLiked ? like : unlike"
+              alt="좋아요 아이콘"
+              class="block dark:hidden"
+            />
+            <img
+              :src="post.isLiked ? d_like : d_unlike"
+              alt="좋아요 아이콘"
+              class="hidden dark:block"
+            />
+            <p class="dark:text-white">{{ post.likeCount }}</p>
           </div>
-          <div class="flex gap-[3px]">
-            <img :src="commentIcon" alt="댓글 아이콘" />
-            <p>{{ post.commentCount }}</p>
+          <div class="flex gap-2">
+            <img :src="commentIcon" alt="댓글 아이콘" class="block dark:hidden" />
+            <img :src="d_commentIcon" alt="댓글 아이콘" class="hidden dark:block" />
+            <p class="dark:text-white">{{ post.commentCount }}</p>
           </div>
         </template>
       </div>

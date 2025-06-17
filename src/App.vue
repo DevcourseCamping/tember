@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-screen">
+  <div class="w-full h-screen dark:bg-[#1E1E1E]">
     <RouterView :key="$route.fullPath" />
   </div>
 </template>
