@@ -64,7 +64,7 @@ const categoryFilter = ref('all')
           :class="
             categoryFilter === 'default'
               ? 'bg-[var(--primary)] text-white dark:bg-[#3a3a3a]'
-              : 'bg-white  border border-[var(--primary)] dark:bg-[#121212] dark:text-white dark:border-[#ffffff50]'
+              : 'bg-white  border border-[var(--primary-70)] dark:bg-[#121212] dark:text-white dark:border-[#ffffff50]'
           "
           @click="categoryFilter = categoryFilter === 'default' ? 'all' : 'default'"
         >
@@ -75,7 +75,7 @@ const categoryFilter = ref('all')
           :class="
             categoryFilter === 'pet'
               ? 'bg-[#D6E3ED] dark:bg-[#D6E3ED85] dark:text-white'
-              : 'bg-white  border border-[#D6E3ED] dark:bg-[#121212] dark:text-white dark:border-[#D6E3ED70]'
+              : 'bg-white  border border-[#8DB8DD] dark:bg-[#121212] dark:text-white dark:border-[#D6E3ED70]'
           "
           @click="categoryFilter = categoryFilter === 'pet' ? 'all' : 'pet'"
         >
