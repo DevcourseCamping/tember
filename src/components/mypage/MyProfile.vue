@@ -100,7 +100,7 @@ const clickFollow = (tab) => {
         <div v-if="!isMyPage && targetUser">
           <button
             @click="toggleFollow"
-            class="w-[200px] h-[25px] bg-[var(--primary)] text-[var(--white)] rounded-[5px] text-[13px]"
+            class="w-[200px] h-[25px] bg-[var(--primary)] text-[var(--white)] rounded-[5px] text-[13px] dark:bg-[#3A3A3A] dark:text-white"
           >
             {{ isFollowing ? '팔로우 취소' : '팔로우' }}
           </button>
