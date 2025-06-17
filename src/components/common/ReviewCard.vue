@@ -82,7 +82,7 @@ const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
       <div
         v-for="review in reviews"
         :key="review.id"
-        class="mb-[30px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+        class="mb-[30px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer dark:border-white/30 dark:text-white"
         @mouseenter="hoverMoreIndex = index"
         @click="emit('openBottomSheet', review)"
       >
@@ -94,8 +94,12 @@ const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
               class="w-[52px] h-[52px] rounded-full mr-[15px]"
             />
             <div class="flex flex-col justify-center">
-              <p class="text-[14px] font-semibold">{{ review.profiles.username }}</p>
-              <p class="text-[13px] text-[var(--grey)]">{{ formDate(review.created_at) }}</p>
+              <p class="text-[14px] font-semibold">
+                {{ review.profiles.username }}
+              </p>
+              <p class="text-[13px] text-[var(--grey)] dark:text-white/50">
+                {{ formDate(review.created_at) }}
+              </p>
             </div>
           </div>
         </div>

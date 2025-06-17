@@ -85,10 +85,10 @@ const clickFollow = (tab) => {
 
     <div class="pl-[45px]">
       <div class="flex items-center">
-        <p class="text-[18px] font-bold">{{ targetUser?.username }}</p>
+        <p class="text-[18px] font-bold dark:text-white">{{ targetUser?.username }}</p>
       </div>
       <div class="flex flex-col gap-[10px] text-4 pt-[5px]">
-        <div class="flex gap-[56px]">
+        <div class="flex gap-[56px] dark:text-white">
           <button @click="clickFollow('follower')">
             팔로워 <span class="font-semibold pl-[10px]">{{ targetUser?.followerCount }}</span>
           </button>
@@ -100,7 +100,7 @@ const clickFollow = (tab) => {
         <div v-if="!isMyPage && targetUser">
           <button
             @click="toggleFollow"
-            class="w-[200px] h-[25px] bg-[var(--primary)] text-[var(--white)] rounded-[5px] text-[13px]"
+            class="w-[200px] h-[25px] bg-[var(--primary)] text-[var(--white)] rounded-[5px] text-[13px] dark:bg-[#3A3A3A] dark:text-white"
           >
             {{ isFollowing ? '팔로우 취소' : '팔로우' }}
           </button>

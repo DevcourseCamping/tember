@@ -5,6 +5,13 @@ import onPetIcon from '../../assets/icons/light/light-pet-on.svg'
 import offPetIcon from '../../assets/icons/light/light-pet-off.svg'
 import onTrailerIcon from '../../assets/icons/light/light-trailer-on.svg'
 import offTrailerIcon from '../../assets/icons/light/light-trailer-off.svg'
+import darkOnCaravanIcon from '../../assets/icons/dark/dark-caravan-on.svg'
+import darkOffCaravanIcon from '../../assets/icons/dark/dark-caravan-off.svg'
+import darkOnPetIcon from '../../assets/icons/dark/dark-pet-on.svg'
+import darkOffPetIcon from '../../assets/icons/dark/dark-pet-off.svg'
+import darkOnTrailerIcon from '../../assets/icons/dark/dark-trailer-on.svg'
+import darkOffTrailerIcon from '../../assets/icons/dark/dark-trailer-off.svg'
+
 import filledStarIcon from '../../assets/icons/star-filled.svg'
 import { useUserStore } from '@/stores/userStore'
 import { onMounted, ref, watch, toRefs } from 'vue'
@@ -92,7 +99,7 @@ watch(
       <div
         v-for="item in bookmarks"
         :key="item.camp_sites.content_id"
-        class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer"
+        class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer dark:bg-[#212121]"
       >
         <router-link :to="`/camping/${item.camp_sites.content_id}`">
           <img
@@ -102,35 +109,58 @@ watch(
           />
           <div class="flex flex-col pl-[15px]">
             <div class="flex items-center justify-between pt-[15px]">
-              <p class="text-[14px] text-[var(--black)]">{{ item.camp_sites.induty }}</p>
+              <p class="text-[14px] text-[var(--black)] dark:text-white">
+                {{ item.camp_sites.induty }}
+              </p>
               <BookmarkToggle
                 :campingId="item.camp_sites.content_id"
                 :isBookmark="mode === 'search' ? item.camp_sites.bookmark : true"
               />
             </div>
 
-            <p class="font-semibold text-[17px]">{{ item.camp_sites.faclt_nm }}</p>
-            <p class="text-[var(--grey)] pt-[5px] text-[15px]">{{ item.camp_sites.sigungu_nm }}</p>
+            <p class="font-semibold text-[17px] dark:text-white">{{ item.camp_sites.faclt_nm }}</p>
+            <p class="text-[var(--grey)] pt-[5px] text-[15px] dark:text-white/50">
+              {{ item.camp_sites.sigungu_nm }}
+            </p>
 
             <div class="flex gap-[20px] pb-[20px] pt-[20px]">
               <img
                 :src="item.camp_sites.carav_acmpny_at === 'Y' ? onCaravanIcon : offCaravanIcon"
                 alt="카라반"
-                class="w-[24px] h-[24px]"
+                class="w-[24px] h-[24px] block dark:hidden"
+              />
+              <img
+                :src="
+                  item.camp_sites.carav_acmpny_at === 'Y' ? darkOnCaravanIcon : darkOffCaravanIcon
+                "
+                alt="카라반"
+                class="w-[24px] h-[24px] hidden dark:block"
               />
               <img
                 :src="item.camp_sites.trler_acmpny_at === 'Y' ? onTrailerIcon : offTrailerIcon"
                 alt="트레일러"
-                class="w-[24px] h-[24px]"
+                class="w-[24px] h-[24px] block dark:hidden"
+              />
+              <img
+                :src="
+                  item.camp_sites.trler_acmpny_at === 'Y' ? darkOnTrailerIcon : darkOffTrailerIcon
+                "
+                alt="트레일러"
+                class="w-[24px] h-[24px] hidden dark:block"
               />
               <img
                 :src="item.camp_sites.animal_cmg_cl === '가능' ? onPetIcon : offPetIcon"
                 alt="반려동물"
-                class="w-[24px] h-[24px]"
+                class="w-[24px] h-[24px] block dark:hidden"
+              />
+              <img
+                :src="item.camp_sites.animal_cmg_cl === '가능' ? darkOnPetIcon : darkOffPetIcon"
+                alt="반려동물"
+                class="w-[24px] h-[24px] hidden dark:block"
               />
             </div>
             <div
-              class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px] text-[14px]"
+              class="absolute right-0 bottom-0 w-[100px] h-[36px] bg-[var(--primary)] flex items-center justify-center gap-[13px] rounded-tl-[5px] rounded-br-[5px] text-[14px] dark:bg-[#3a3a3a]"
             >
               <p class="text-[var(--white)]">
                 {{ item.camp_sites.avg_rating ? item.camp_sites.avg_rating.toFixed(1) : '미평가' }}
