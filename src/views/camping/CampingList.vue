@@ -95,8 +95,13 @@ const getCampingList = async () => {
   }
 
   if(selectedCategory.value){
-    const kor=categoryMap[selectedCategory.value]
-    if(kor) requestBody.filters.induty=[kor]
+    if(selectedCategory.value==='pet'){
+      requestBody.filters.animalCmgCl=['가능']
+    }
+    else{
+const korCategory=categoryMap[selectedCategory.value]
+    if(korCategory) requestBody.filters.induty=[korCategory]
+    }
   }
 
   try {
