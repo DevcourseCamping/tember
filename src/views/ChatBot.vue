@@ -141,7 +141,7 @@ const scrollToBottom = () => {
 
         <template v-if="message.sender === 'user'">
           <div
-            class="rounded-tr-none rounded-tl-lg rounded-br-lg rounded-bl-lg bg-[var(--primary)] dark:bg-[#B8D0D485] text-white rounded-xl px-6 py-4 max-w-[70%] text-sm"
+            class="rounded-tr-none rounded-tl-lg rounded-br-lg rounded-bl-lg bg-[var(--primary)] dark:bg-[#CEE8EC85] text-white rounded-xl px-6 py-4 max-w-[70%] text-sm"
           >
             {{ message.text }}
           </div>
