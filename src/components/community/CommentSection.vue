@@ -89,7 +89,7 @@ const handleCommentSelect = async (key) => {
   >
     <input
       v-model="commentInput"
-      class="bg-[var(--white)] dark:bg-[#3A3A3A] px-4 py-2 w-full rounded text-sm focus:outline-none"
+      class="bg-[var(--white)] dark:bg-[#3A3A3A] dark:text-white px-4 py-2 w-full rounded text-sm focus:outline-none"
       placeholder="댓글을 입력해주세요"
       @keyup.enter="submitComment"
     />
