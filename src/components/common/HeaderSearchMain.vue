@@ -12,9 +12,20 @@ import caravan from '@/assets/icons/light/light-caravan-button.svg'
 import darkcaravan from '@/assets/icons/dark/dark-caravan-button.svg'
 import pet from '@/assets/icons/light/light-pet-button.svg'
 import darkpet from '@/assets/icons/dark/dark-pet-button.svg'
+import { ref } from 'vue';
+//import { useRouter } from 'vue-router'
 /* import chatbot from '@/assets/icons/chatbot-white.svg' */
 
-const emit = defineEmits(['filterClick', 'categoryClick'])
+//const router=useRouter()
+const searchText=ref('')
+const emit = defineEmits(['filterClick', 'categoryClick','searchEnter'])
+
+const onEnter = () => {
+  const keyword = searchText.value.trim()
+  if (!keyword) return
+  emit('searchEnter', keyword)
+}
+
 </script>
 
 <template>
@@ -34,6 +45,8 @@ const emit = defineEmits(['filterClick', 'categoryClick'])
           <img :src="darksearch" class="w-5 h-5 mr-[30px] hidden dark:block" />
           <input
             type="text"
+            v-model="searchText"
+            @keyup.enter="onEnter"
             placeholder="검색하기"
             class="w-full h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px] bg-transparent dark:text-white"
           />

@@ -205,6 +205,10 @@ const resetFilter = () => {
       <div
         class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] max-h-[1206px] flex flex-col dark:bg-[#212121] dark:border-[#3A3A3A]"
       >
+        <button
+          class="absolute top-[20px] right-[30px] w-[16px] h-[16px] flex items-center justify-center"
+        ></button>
+
         <div class="flex items-center gap-2 mb-[30px]">
           <span class="text-[15px] text-[--black] dark:text-[--white]">필터</span>
           <button class="text-[13px] text-[#A8AEB2] dark:text-[--white-50]" @click="resetFilter">

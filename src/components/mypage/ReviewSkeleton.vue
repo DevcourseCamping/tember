@@ -1,6 +1,8 @@
 <script setup></script>
 <template>
-  <div class="mb-[30px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer">
+  <div
+    class="mb-[30px] border border-[var(--primary-30)] rounded-[5px] cursor-pointer dark:border-white/30"
+  >
     <div class="flex items-center justify-between pl-[15px] pt-[15px]">
       <div class="flex items-center">
         <div class="w-[52px] h-[52px] rounded-full mr-[15px] bg-[var(--grey)] opacity-30"></div>
