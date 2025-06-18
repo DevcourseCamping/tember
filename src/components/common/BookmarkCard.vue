@@ -90,11 +90,18 @@ watch(
       <BookmarkSkeleton v-for="n in 2" :key="n" class="mb-[30px]" />
     </div>
     <div
-      v-else-if="bookmarks.length === 0"
+      v-if="bookmarks.length === 0 && props.mode === 'bookmark'"
       class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-450px)]"
     >
       북마크한 캠핑장이 없습니다.
     </div>
+    <div
+      v-else-if="Array.isArray(campingList) && campingList.length === 0 && props.mode === 'search'"
+      class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-330px)]"
+    >
+      필터링된 캠핑장이 없습니다.
+    </div>
+
     <div v-else>
       <div
         v-for="item in bookmarks"
