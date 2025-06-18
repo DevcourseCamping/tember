@@ -21,6 +21,7 @@ const { posts, loading } = storeToRefs(communityStore)
 
 const props = defineProps({
   inputValue: String,
+  categoryFilter: String,
 })
 
 const router = useRouter()
@@ -41,13 +42,6 @@ const parseImage = (imageField) => {
   }
 }
 
-const filteredPosts = computed(() => {
-  if (!props.inputValue?.trim()) return posts.value
-  return posts.value.filter((post) =>
-    post.content.toLowerCase().includes(props.inputValue.trim().toLowerCase()),
-  )
-})
-
 onMounted(() => {
   communityStore.getCommunityPosts()
 })
@@ -55,9 +49,27 @@ onMounted(() => {
 const goToUserProfile = (userId) => {
   router.push({ name: 'user-profile', params: { id: userId } })
 }
+
+const filteredPosts = computed(() => {
+  let result = posts.value
+
+  if (props.inputValue?.trim()) {
+    result = result.filter((post) =>
+      post.content.toLowerCase().includes(props.inputValue.trim().toLowerCase()),
+    )
+  }
+
+  if (props.categoryFilter === 'default') {
+    result = result.filter((post) => post.category === 'default')
+  } else if (props.categoryFilter === 'pet') {
+    result = result.filter((post) => post.category === 'pet')
+  }
+
+  return result
+})
 </script>
 <template>
-  <div class="p-[30px] flex flex-col gap-[30px]">
+  <div class="px-[30px] pt-5 pb-[30px] flex flex-col gap-[30px]">
     <SkeletonPostCard v-if="loading" />
     <div
       v-for="post in filteredPosts"
@@ -112,12 +124,29 @@ const goToUserProfile = (userId) => {
         <p class="break-words dark:text-white">{{ post.content }}</p>
       </router-link>
       <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[15px]">
-        <div
+        <!-- <div
           class="w-20 h-[30px] bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
           @click="goToDetail(post.id)"
         >
           {{ post.category === 'pet' ? '반려동물' : '일반' }}
-        </div>
+        </div> -->
+        <template v-if="post.category === 'pet'">
+          <div
+            class="w-20 h-[30px] bg-[#D6E3ED] dark:bg-[#D6E3ED85] dark:text-white text-[12px] rounded-[5px] flex items-center justify-center"
+            @click="goToDetail(post.id)"
+          >
+            반려동물
+          </div>
+        </template>
+        <template v-else>
+          <div
+            class="w-20 h-[30px] bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center"
+            @click="goToDetail(post.id)"
+          >
+            일반
+          </div>
+        </template>
+
         <template class="flex gap-4 text-sm cursor-pointer">
           <div class="flex gap-2" @click.stop="toggleLike($event, post)">
             <img

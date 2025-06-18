@@ -158,7 +158,7 @@ const fetchLatestReviews = async () => {
     `,
     )
     .order('star_rating', { ascending: false })
-    .limit(8)
+    .limit(6)
 
   if (error) {
     console.error('리뷰 가져오기 실패:', error)
@@ -194,7 +194,7 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
       <SearchFilter @close="handleFilterClose" @setFilterCampingList="handleRedirectToSearch" />
     </div>
 
-    <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
+    <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 255px - 60px)">
       <section class="bg-[--white] pt-[13px] pb-[13px] gap-[50px] dark:bg-[#121212]"></section>
       <section
         class="bg-[#F2F2F2] overflow-hidden relative pt-[78px] pb-[66px] z-0 dark:bg-[#1C1C1C]"
@@ -208,11 +208,9 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
           v-if="allImagesLoaded"
           :slides-per-view="'auto'"
           :space-between="30"
-          :centered-slides="true"
-          :loop="true"
-          :initial-slide="0"
-          grab-cursor
-          class="px-[30px]"
+          :centered-slides="false"
+          class="w-full"
+          :style="{ paddingLeft: '45px', paddingRight: '45px' }"
         >
           <SwiperSlide
             v-for="(group, idx) in groupedPopular"
@@ -313,12 +311,8 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222] dark:text-[--white]">
-                개인 카라반 동반
-              </p>
-              <p class="text-[15px] text-[--grey] mt-[10px]">
-                내 집처럼 편안하게 캠핑을 즐겨보세요
-              </p>
+              <p class="text-base font-bold text-[#222222] dark:text-[--white]">개인 카라반 동반</p>
+              <p class="text-sm text-[--grey] mt-[10px]">내 집처럼 편안하게 캠핑을 즐겨보세요</p>
             </div>
           </li>
 
@@ -329,12 +323,10 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222] dark:text-[--white]">
+              <p class="text-base font-bold text-[#222222] dark:text-[--white]">
                 개인 트레일러 동반
               </p>
-              <p class="text-[15px] text-[--grey] mt-[10px]">
-                트레일러와 함께 어디든 자유롭게 떠나요
-              </p>
+              <p class="text-sm text-[--grey] mt-[10px]">트레일러와 함께 어디든 자유롭게 떠나요</p>
             </div>
           </li>
 
@@ -345,8 +337,8 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
               class="w-[30px] h-[30px] ml-[42px] mr-[20px] flex-shrink-0"
             />
             <div>
-              <p class="text-[18px] font-bold text-[#222222] dark:text-[--white]">반려 동물 동반</p>
-              <p class="text-[15px] text-[--grey] mt-[10px]">
+              <p class="text-base font-bold text-[#222222] dark:text-[--white]">반려 동물 동반</p>
+              <p class="text-sm text-[--grey] mt-[10px]">
                 사랑하는 반려동물과 함께하는 특별한 추억을 만들어보세요
               </p>
             </div>
@@ -366,11 +358,9 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
         <Swiper
           :slides-per-view="'auto'"
           :space-between="30"
-          :centered-slides="true"
-          :loop="true"
-          :initial-slide="2"
-          grab-cursor
-          class="px-[30px]"
+          :centered-slides="false"
+          class="w-full"
+          :style="{ paddingLeft: '45px', paddingRight: '45px' }"
         >
           <SwiperSlide
             v-for="(group, idx) in groupedPosts"
@@ -422,7 +412,7 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[132px] z-0 dark:bg-[#121212]">
+      <section class="bg-[#FFFFFF] pt-[50px] pb-[50px] z-0 dark:bg-[#121212]">
         <h2 class="text-center font-bold text-[20px] text-[#4A4A4A] mb-[50px] dark:text-[#EDE8E4]">
           Review
         </h2>
@@ -430,12 +420,9 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
           <div class="w-full max-w-[500px]">
             <Swiper
               :slides-per-view="'auto'"
-              :space-between="20"
-              :centered-slides="true"
-              :loop="true"
-              :initial-slide="2"
-              grab-cursor
+              :space-between="30"
               class="px-[30px]"
+              :style="{ paddingLeft: '45px', paddingRight: '45px' }"
             >
               <SwiperSlide
                 v-for="review in latestReviews"
@@ -444,7 +431,7 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
                 @click="goToCampingDetail(review.camps.content_id)"
               >
                 <div
-                  class="h-[165px] bg-white p-4 text-center shadow-md rounded-lg dark:bg-[#121212] dark:shadow-[0_2px_6px_rgba(255,255,255,0.2)]"
+                  class="h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-[#ffffff30] rounded-[5px] dark:bg-[#121212]"
                 >
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}

@@ -43,6 +43,7 @@ const goToLogin = () => {
     router.push({ name: 'login' })
   }
 }
+const categoryFilter = ref('all')
 </script>
 <template>
   <div class="relative mx-auto w-full max-w-[500px] h-screen bg-[var(--white)] dark:bg-[#121212]">
@@ -53,9 +54,36 @@ const goToLogin = () => {
       @update:inputValue="inputValue = $event"
       @iconClick="openBottomSheet"
     />
-    <!-- post list -->
+
+    <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <PostCard :inputValue="inputValue" @click="goToLogin" />
+      <!-- category filter -->
+      <div class="flex gap-[10px] mx-[30px] mt-5">
+        <button
+          class="w-20 h-[30px] text-[13px] rounded-[5px] cursor-pointer"
+          :class="
+            categoryFilter === 'default'
+              ? 'bg-[var(--primary)] text-white dark:bg-[#3a3a3a]'
+              : 'bg-white  border border-[var(--primary-70)] dark:bg-[#121212] dark:text-white dark:border-[#ffffff50]'
+          "
+          @click="categoryFilter = categoryFilter === 'default' ? 'all' : 'default'"
+        >
+          일반
+        </button>
+        <button
+          class="w-20 h-[30px] text-[13px] rounded-[5px] cursor-pointer"
+          :class="
+            categoryFilter === 'pet'
+              ? 'bg-[#D6E3ED] dark:bg-[#D6E3ED85] dark:text-white'
+              : 'bg-white  border border-[#8DB8DD] dark:bg-[#121212] dark:text-white dark:border-[#D6E3ED70]'
+          "
+          @click="categoryFilter = categoryFilter === 'pet' ? 'all' : 'pet'"
+        >
+          반려동물
+        </button>
+      </div>
+      <!-- post list -->
+      <PostCard :inputValue="inputValue" @click="goToLogin" :categoryFilter="categoryFilter" />
     </main>
     <!-- nav -->
     <NavBar v-if="!isBottomOpen" class="absolute bottom-0" />

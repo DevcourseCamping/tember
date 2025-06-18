@@ -1,6 +1,7 @@
 <template>
+  <!-- 250618 border 삭제 ( header, nav 양 옆 여백 제거 ) -->
   <div
-    class="w-full h-screen flex flex-col bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
+    class="w-full h-screen flex flex-col bg-white dark:bg-[#121212] dark:border-black relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
   >
     <div class="sticky top-0 z-30 bg-white">
       <HeaderSearch @handleFilterClick="handleFilterClick" @update:inputValue="handleInput" />
