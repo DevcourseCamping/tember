@@ -42,7 +42,7 @@ const handleInput = (e) => {
           :value="inputValue"
           type="text"
           placeholder="검색하기"
-          class="flex-grow h-full dark:bg-[#3a3a3a] focus:outline-none placeholder:text-[var(--grey)] dark:placeholder:text-[#ffffff50] text-[15px]"
+          class="flex-grow h-full dark:bg-[#3a3a3a] dark:text-white focus:outline-none placeholder:text-[var(--grey)] dark:placeholder:text-[#ffffff50] text-[15px]"
           @input="handleInput"
         />
         <!-- 20250613 검색 페이지 사용을 위한 로직 추가 -->
