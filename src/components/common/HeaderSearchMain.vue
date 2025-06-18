@@ -29,14 +29,18 @@ const onEnter = () => {
 </script>
 
 <template>
-  <header class="bg-[var(--primary)] flex flex-col items-center pt-5 pb-[22px] dark:bg-[#181818]">
+  <header
+    class="bg-[var(--primary)] flex flex-col items-center pt-5 pb-[22px] dark:bg-[#181818] px-[30px]"
+  >
     <img :src="logo" class="w-[106px] h-[53px]" />
 
-    <section class="w-full px-[22px] mt-[22px]">
+    <section class="w-full mt-[22px]">
       <div
-        class="relative h-[45px] flex items-center bg-[var(--white)] dark:bg-[#3a3a3a] rounded-[5px] px-5"
+        class="relative h-[45px] flex items-center bg-[var(--white)] dark:bg-[#3a3a3a] rounded-[5px]"
       >
-        <div class="flex items-center w-full">
+        <div
+          class="w-full relative h-[45px] flex items-center justify-between bg-[var(--white)] dark:bg-[#3a3a3a] rounded-[5px] px-5 py-3"
+        >
           <img :src="search" class="w-5 h-5 mr-[30px] block dark:hidden" />
           <img :src="darksearch" class="w-5 h-5 mr-[30px] hidden dark:block" />
           <input
@@ -47,14 +51,14 @@ const onEnter = () => {
             class="w-full h-full focus:outline-none placeholder:text-[var(--grey)] text-[15px] bg-transparent dark:text-white"
           />
           <button @click="emit('filterClick')">
-            <img :src="filter" class="w-5 h-5 block dark:hidden" />
+            <img :src="filter" class="w-6 h-6 block dark:hidden" />
             <img :src="darkfilter" class="w-5 h-5 hidden dark:block" />
           </button>
         </div>
       </div>
     </section>
 
-    <section class="flex w-full px-[22px] mt-[23px] justify-center gap-x-[50px]">
+    <section class="flex w-full mt-[23px] justify-around">
       <button class="flex flex-col items-center" @click="emit('categoryClick', 'autoCamping')">
         <img :src="auto" class="w-[45px] h-[45px] block dark:hidden" />
         <img :src="darkauto" class="w-[45px] h-[45px] hidden dark:block" />
