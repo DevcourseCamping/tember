@@ -113,7 +113,7 @@ const clickClose = () => {
         :class="[
           'w-full max-w-[400px] h-[60px] rounded-[5px] mt-[200px] text-[var(--white)]',
           isSaving
-            ? 'bg-gray-300 text-gray-600 cursor-not-allowed dark:bg-[#515151] dark:text-gray-400'
+            ? 'bg-[var(--primary-30)] text-white cursor-not-allowed dark:bg-[#515151] dark:text-gray-400'
             : 'bg-[var(--primary)] dark:bg-[#3A3A3A]',
         ]"
       >
