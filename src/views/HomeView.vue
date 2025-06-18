@@ -49,6 +49,13 @@ const handleCategoryClick = (category) => {
   }
 }
 
+const handleTextSearch = async (keyword) => {
+  if (!keyword.trim()) {
+    return;
+  }
+  router.push({ path: '/search', query: { keyword } });
+};
+
 const popularCamping = ref([])
 
 const fetchPopularCamping = async () => {
@@ -176,7 +183,13 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
 
 <template>
   <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C] flex flex-col">
-    <HeaderSearchMain @filterClick="handleFilterClick" @categoryClick="handleCategoryClick" />
+    <HeaderSearchMain
+    :inputValue="keyword"
+  @update:inputValue="val => keyword.value = val"
+      @filterClick="handleFilterClick"
+      @categoryClick="handleCategoryClick"
+      @searchEnter="handleTextSearch"
+    />
     <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 overflow-y-auto scrollbar-hide">
       <SearchFilter @close="handleFilterClose" @setFilterCampingList="handleRedirectToSearch" />
     </div>
