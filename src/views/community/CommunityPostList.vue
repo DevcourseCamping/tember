@@ -58,7 +58,7 @@ const categoryFilter = ref('all')
     <!-- main -->
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
       <!-- category filter -->
-      <div class="flex gap-5 mx-[30px] mt-5">
+      <div class="flex gap-[10px] mx-[30px] mt-5">
         <button
           class="w-20 h-[30px] text-[13px] rounded-[5px] cursor-pointer"
           :class="
