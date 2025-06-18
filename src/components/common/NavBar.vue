@@ -24,7 +24,6 @@ const tabs = [
   { name: 'community', label: '커뮤니티', path: '/community', on: communityon, off: communityoff },
   { name: 'chatbot', label: '챗봇', path: '/chatbot', on: chatboton, off: chatbotoff },
   { name: 'mypage', label: '마이', path: '/mypage', on: myon, off: myoff },
-  
 ]
 
 const currentTab = computed(() => {
@@ -47,8 +46,10 @@ onMounted(() => {
 })
 </script>
 <template>
-  <footer class="fixed bottom-0 w-full max-w-[500px] h-[60px] bg-[--primary] flex dark:bg-[#1A1A1A]">
-    <div class="w-full px-8 flex justify-between items-center">
+  <footer
+    class="fixed bottom-0 w-full max-w-[500px] h-[60px] bg-[--primary] flex dark:bg-[#1A1A1A]"
+  >
+    <div class="w-full px-8 flex justify-around items-center">
       <div
         v-for="tab in tabs"
         :key="tab.name"
