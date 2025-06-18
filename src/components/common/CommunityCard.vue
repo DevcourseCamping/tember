@@ -129,7 +129,12 @@ const parseImage = (imageField) => {
         </div>
         <div class="flex items-center justify-between pl-[20px] pr-[20px] pt-[30px] pb-[10px]">
           <div
-            class="w-20 h-[30px] bg-[var(--primary)] text-[var(--white)] text-[12px] rounded-[5px] flex items-center justify-center dark:bg-[#3a3a3a]"
+            :class="[
+              'w-20 h-[30px] text-[12px] rounded-[5px] flex items-center justify-center',
+              post.category === 'pet'
+                ? 'bg-[#D6E3ED] dark:bg-[#D6E3ED85] text-black dark:text-white border  dark:border-[#3a3a3a]'
+                : 'bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] border border-[var(--primary)] dark:border-[#3a3a3a]',
+            ]"
             @click="goToDetail(post.id)"
           >
             {{ post.category === 'pet' ? '반려동물' : '일반' }}
