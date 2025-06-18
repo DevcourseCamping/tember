@@ -111,6 +111,19 @@ const applyFilter = async () => {
     console.error('조회 실패:', error)
   }
 }
+
+const resetFilter = () => {
+  selectedInduty.value = []
+  selectedOperPdCl.value = []
+  selectedOperDeCl.value = []
+  selectedLctCl.value = []
+  selectedTrler.value = []
+  selectedCaravan.value = []
+  selectedAnimal.value = []
+  selectedSbrsCl.value = []
+  selectedPosblFcltyCl.value = []
+  selectedThema.value = []
+}
 </script>
 <template>
   <div class="max-w-[500px] h-[1700px] bg-[--white] mx-auto flex flex-col dark:bg-[#121212]">
@@ -200,7 +213,9 @@ const applyFilter = async () => {
 
         <div class="flex items-center gap-2 mb-[30px]">
           <span class="text-[15px] text-[--black] dark:text-[--white]">필터</span>
-          <button class="text-[13px] text-[#A8AEB2] dark:text-[--white-50]">초기화</button>
+          <button class="text-[13px] text-[#A8AEB2] dark:text-[--white-50]" @click="resetFilter">
+            초기화
+          </button>
         </div>
 
         <section

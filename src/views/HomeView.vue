@@ -29,6 +29,7 @@ import darkComment from '@/assets/icons/dark/dark-comment.svg'
 import fillstar from '@/assets/icons/star-filled.svg'
 import emptystar from '@/assets/icons/star-outline.svg'
 import { useThemeStore } from '@/stores/theme'
+import { useCampingStore } from '@/stores/campingStore'
 
 const router = useRouter()
 
@@ -111,9 +112,18 @@ onMounted(() => {
 })
 
 const groupedPosts = computed(() => {
+  const postsWithImage = posts.value.filter((post) => {
+    try {
+      const images = JSON.parse(post.image || '[]')
+      return Array.isArray(images) && images.length > 0 && images[0] !== ''
+    } catch {
+      return false
+    }
+  })
+
   const result = []
-  for (let i = 0; i < posts.value.length; i += 2) {
-    result.push(posts.value.slice(i, i + 2))
+  for (let i = 0; i < postsWithImage.length; i += 2) {
+    result.push(postsWithImage.slice(i, i + 2))
   }
   return result
 })
@@ -152,6 +162,16 @@ const fetchLatestReviews = async () => {
 }
 
 const themeStore = useThemeStore()
+const campingStore = useCampingStore()
+
+const handleRedirectToSearch = (campList, requestBody, total) => {
+  campingStore.campingList = campList.map((item) => ({
+    camp_sites: item,
+  }))
+  campingStore.total = total
+
+  router.push({ name: 'search' })
+}
 </script>
 
 <template>
@@ -161,13 +181,13 @@ const themeStore = useThemeStore()
       @categoryClick="handleCategoryClick"
     />
     <div v-if="isFilterModalOpen" class="fixed inset-0 z-50 overflow-y-auto scrollbar-hide">
-      <SearchFilter @close="handleFilterClose" />
+      <SearchFilter @close="handleFilterClose" @setFilterCampingList="handleRedirectToSearch" />
     </div>
 
     <main class="overflow-y-auto scrollbar-hide" style="height: calc(100vh - 168px - 60px)">
-      <section class="bg-[--white] pt-[39px] pb-[39px] gap-[50px] dark:bg-[#121212]"></section>
+      <section class="bg-[--white] pt-[13px] pb-[13px] gap-[50px] dark:bg-[#121212]"></section>
       <section
-        class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
+        class="bg-[#F2F2F2] overflow-hidden relative pt-[78px] pb-[66px] z-0 dark:bg-[#1C1C1C]"
       >
         <h2
           class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[26px] text-[#4A4A4A] dark:text-[#EDE8E4]"
@@ -208,7 +228,7 @@ const themeStore = useThemeStore()
 
                   <div
                     v-if="camp.avg_rating"
-                    class="absolute bottom-0 right-0 bg-[#5A4031] text-white text-[12px] px-[8px] py-[2px] rounded-tl-[5px] rounded-br-[5px] flex items-center gap-[4px]"
+                    class="absolute bottom-0 right-0 bg-[#5A4031] text-[--white] text-[12px] px-[8px] py-[2px] rounded-tl-[5px] rounded-br-[5px] flex items-center gap-[4px] dark:bg-[#3A3A3A]"
                   >
                     {{ camp.avg_rating.toFixed(1) }}
                     <img :src="fillstar" class="w-[12px] h-[12px]" />
@@ -274,7 +294,7 @@ const themeStore = useThemeStore()
         </Swiper>
       </section>
 
-      <section class="bg-[--white] pt-[72px] pb-[72px] dark:bg-[#121212]">
+      <section class="bg-[--white] pt-[74px] pb-[74px] dark:bg-[#121212]">
         <ul class="flex flex-col gap-[40px]">
           <li class="flex items-start">
             <img
@@ -325,7 +345,7 @@ const themeStore = useThemeStore()
       </section>
 
       <section
-        class="bg-[#F2F2F2] overflow-hidden relative pt-[72px] pb-[72px] z-0 dark:bg-[#1C1C1C]"
+        class="bg-[#F2F2F2] overflow-hidden relative pt-[80px] pb-[52px] z-0 dark:bg-[#1C1C1C]"
       >
         <h2
           class="font-bold text-[17px] ml-[20px] mt-[-52px] mb-[26px] text-[#4A4A4A] dark:text-[#EDE8E4]"
@@ -355,11 +375,6 @@ const themeStore = useThemeStore()
                 class="w-[300px] h-[142px] bg-white rounded-[5px] shadow flex overflow-hidden dark:bg-[#2A2A2A]"
               >
                 <img
-                  v-if="
-                    post.image &&
-                    JSON.parse(post.image).length > 0 &&
-                    JSON.parse(post.image)[0] !== ''
-                  "
                   :src="JSON.parse(post.image)[0]"
                   alt="커뮤니티 이미지"
                   class="w-[110px] h-full object-cover rounded-[5px]"
@@ -397,7 +412,7 @@ const themeStore = useThemeStore()
         </Swiper>
       </section>
 
-      <section class="bg-[#FFFFFF] pt-[72px] pb-[160px] z-0 dark:bg-[#121212]">
+      <section class="bg-[#FFFFFF] pt-[72px] pb-[132px] z-0 dark:bg-[#121212]">
         <h2 class="text-center font-bold text-[20px] text-[#4A4A4A] mb-[50px] dark:text-[#EDE8E4]">
           Review
         </h2>
@@ -405,7 +420,7 @@ const themeStore = useThemeStore()
           <div class="w-full max-w-[500px]">
             <Swiper
               :slides-per-view="'auto'"
-              :space-between="10"
+              :space-between="20"
               :centered-slides="true"
               :loop="true"
               :initial-slide="2"
@@ -424,7 +439,9 @@ const themeStore = useThemeStore()
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
                   </h3>
-                  <p class="text-[15px] text-[#4A4A4A] mb-[10px] line-clamp-2">
+                  <p
+                    class="text-[15px] text-[#4A4A4A] mb-[10px] line-clamp-2 dark:text-[--white-50]"
+                  >
                     {{ review.content }}
                   </p>
                   <p class="text-[13px] text-[--grey] mb-2 dark:text-[--white]">
