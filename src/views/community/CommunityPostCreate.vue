@@ -58,8 +58,8 @@ const submitPost = async () => {
             :class="[
               'w-20 h-[35px] text-sm border rounded-[5px] flex justify-center items-center cursor-pointer',
               category === 'pet'
-                ? 'bg-[var(--primary)] dark:bg-[#3a3a3a] text-[var(--white)] border-[var(--primary)] dark:border-[#3a3a3a]'
-                : 'border-[var(--primary)] dark:border-[#3a3a3a] dark:text-white',
+                ? 'bg-[#D6E3ED] dark:bg-[#D6E3ED85] dark:text-white  dark:border-[#3a3a3a]'
+                : 'border-[#8DB8DD] dark:border-[#3a3a3a] dark:text-white',
             ]"
             @click="category = 'pet'"
           >
