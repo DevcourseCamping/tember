@@ -126,14 +126,21 @@ const getCampingList = async () => {
 }
 
 onMounted(async () => {
-  await getCampingList()
+  if (route.query.keyword) {
+    keyword.value = route.query.keyword
+    page.value = 1
+    campingList.value = []
+    await getCampingList()
+  } else {
+    await getCampingList()
+  }
   scrollContainer.value?.addEventListener('scroll', handleScroll)
 })
 
 watch(
-  () => route.query.category,
+  () => route.query.keyword,
   (newQ) => {
-    selectedCategory.value = newQ || null
+    keyword.value = newQ || null
     page.value = 1
     campingList.value = []
     getCampingList()
