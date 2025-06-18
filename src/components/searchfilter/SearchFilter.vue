@@ -207,9 +207,7 @@ const resetFilter = () => {
       >
         <button
           class="absolute top-[20px] right-[30px] w-[16px] h-[16px] flex items-center justify-center"
-        >
-          <img :src="themeStore.isDark ? darkClose : close" alt="닫기" class="w-[16px] h-[16px]" />
-        </button>
+        ></button>
 
         <div class="flex items-center gap-2 mb-[30px]">
           <span class="text-[15px] text-[--black] dark:text-[--white]">필터</span>
