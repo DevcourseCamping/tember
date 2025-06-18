@@ -3,7 +3,7 @@
     <div class="w-full h-full">
       <div
         role="status"
-        class="flex items-center justify-center h-full w-full bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700"
+        class="flex items-center justify-center h-full w-full bg-[var(--grey)] opacity-30 rounded-sm"
       >
         <svg
           class="w-10 h-10 text-gray-200 dark:text-gray-600"
@@ -23,14 +23,14 @@
   <div class="w-full relative">
     <div class="m-[10px] p-[20px] mb-0">
       <div class="flex items-center gap-2">
-        <div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-20 mb-2"></div>
+        <div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-20 mb-2"></div>
       </div>
       <div class="flex items-center justify-between gap-2">
-        <div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-48 mb-4"></div>
+        <div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-48 mb-4"></div>
         <div class="flex items-center gap-4">
-          <div class="h-7 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-7 mb-4"></div>
-          <div class="h-7 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-7 mb-4"></div>
-          <div class="h-7 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-7 mb-4"></div>
+          <div class="h-7 bg-[var(--grey)] opacity-30 rounded-sm w-7 mb-4"></div>
+          <div class="h-7 bg-[var(--grey)] opacity-30 rounded-sm w-7 mb-4"></div>
+          <div class="h-7 bg-[var(--grey)] opacity-30 rounded-sm w-7 mb-4"></div>
         </div>
       </div>
     </div>
@@ -48,37 +48,37 @@
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">환경</span>
         <span class="text-[#222222]">
-          <div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-40"></div>
+          <div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-40"></div>
         </span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">사업주체</span>
         <span class="text-[#222222]"
-          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-40"></div
+          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">운영기간</span>
         <span class="text-[#222222]"
-          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-40"></div
+          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">운영일</span>
         <span class="text-[#222222]"
-          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-40"></div
+          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">예약 방법</span>
         <span class="text-[#222222]"
-          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-40"></div
+          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-40"></div
         ></span>
       </div>
       <div class="flex items-center justify-start gap-12">
         <span class="text-[#A8AEB2] w-[65px]">화로대</span>
         <span class="text-[#222222]"
-          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm dark:bg-gray-700 w-40"></div
+          ><div class="h-5 bg-[var(--grey)] opacity-30 rounded-sm w-40"></div
         ></span>
       </div>
     </div>
