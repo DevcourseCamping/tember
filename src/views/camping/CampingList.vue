@@ -85,7 +85,7 @@ const getCampingList = async () => {
     ...filterRequestBody.value,
     page: page.value,
     pageSize: size.value,
-    userId: user !== null ? user.id : profile.user.id,
+    userId: user !== null ? user.id : profile.user?.id,
     filters: {},
   }
   if (keyword.value) {
