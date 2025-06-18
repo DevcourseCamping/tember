@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full h-screen flex flex-col bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
+    class="w-full h-screen flex flex-col bg-white dark:bg-[#121212] border-l border-r border-gray-200 dark:border-black relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
   >
     <div class="sticky top-0 z-30 bg-white">
       <HeaderSearch @handleFilterClick="handleFilterClick" @update:inputValue="handleInput" />
@@ -28,14 +28,14 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import axios from 'axios'
 
-const route=useRoute()
-const selectedCategory=ref(route.query.category||null)
+const route = useRoute()
+const selectedCategory = ref(route.query.category || null)
 
-const categoryMap={
-  autoCamping:'자동차야영장',
-  glamping:'글램핑',
-  caravan:'카라반',
-  pet:'반려동물',
+const categoryMap = {
+  autoCamping: '자동차야영장',
+  glamping: '글램핑',
+  caravan: '카라반',
+  pet: '반려동물',
 }
 
 const isFilterModalOpen = ref(false)
@@ -85,19 +85,18 @@ const getCampingList = async () => {
     page: page.value,
     pageSize: size.value,
     userId: user !== null ? user.id : profile.user.id,
-    filters:{}
+    filters: {},
   }
   if (keyword.value) {
     requestBody.keyword = keyword.value
   }
 
-  if(selectedCategory.value){
-    if(selectedCategory.value==='pet'){
-      requestBody.filters.animalCmgCl=['가능']
-    }
-    else{
-const korCategory=categoryMap[selectedCategory.value]
-    if(korCategory) requestBody.filters.induty=[korCategory]
+  if (selectedCategory.value) {
+    if (selectedCategory.value === 'pet') {
+      requestBody.filters.animalCmgCl = ['가능']
+    } else {
+      const korCategory = categoryMap[selectedCategory.value]
+      if (korCategory) requestBody.filters.induty = [korCategory]
     }
   }
 
@@ -125,17 +124,20 @@ const korCategory=categoryMap[selectedCategory.value]
   }
 }
 
-onMounted(async()=>{
+onMounted(async () => {
   await getCampingList()
-  scrollContainer.value?.addEventListener('scroll',handleScroll)
+  scrollContainer.value?.addEventListener('scroll', handleScroll)
 })
 
-watch(()=>route.query.category,(newQ)=>{
-  selectedCategory.value=newQ||null
-  page.value=1
-  campingList.value=[]
-  getCampingList()
-})
+watch(
+  () => route.query.category,
+  (newQ) => {
+    selectedCategory.value = newQ || null
+    page.value = 1
+    campingList.value = []
+    getCampingList()
+  },
+)
 
 const isLoading = ref(false)
 const scrollContainer = ref(null)
