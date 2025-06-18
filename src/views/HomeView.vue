@@ -431,7 +431,7 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
                 @click="goToCampingDetail(review.camps.content_id)"
               >
                 <div
-                  class="h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-white/30 rounded-[5px] dark:bg-[#121212]"
+                  class="flex flex-col items-center justify-center h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-white/30 rounded-[5px] dark:bg-[#121212]"
                 >
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
