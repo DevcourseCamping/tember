@@ -85,7 +85,7 @@ watch(
 )
 </script>
 <template>
-  <div class="pt-[30px] pl-[30px] pr-[30px] flex flex-col">
+  <div class="pt-[30px] pl-[30px] pr-[30px] pb-[20px] flex flex-col">
     <div v-if="isLoading">
       <BookmarkSkeleton v-for="n in 3" :key="n" class="mb-[30px]" />
     </div>
