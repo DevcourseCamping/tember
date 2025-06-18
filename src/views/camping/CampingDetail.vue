@@ -1,39 +1,41 @@
 <template>
   <div
-    class="w-full dark:bg-black min-h-screen bg-white border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
+    class="h-screen w-full dark:bg-black bg-white dark:border-black border-l border-r border-gray-200 relative z-20 transition-colors duration-300 md:w-[500px] md:mx-auto 2xl:w-[500px] 2xl:mx-auto"
   >
-    <template v-if="loading">
-      <CampingDetailSkeleton />
-    </template>
-    <template v-else>
-      <CampingDetailImageSection
-        :camping-image="campingDetail.campInfo.first_image_url"
-        :review="campingDetail.campReview"
-      />
-      <CampingDetailNameSection
-        :camping-name="campingDetail.campInfo.faclt_nm"
-        :camping-induty="campingDetail.campInfo.induty"
-        :camping-id="campingDetail.campInfo.content_id"
-        :camping-caravan="campingDetail.campInfo.carav_acmpny_at"
-        :camping-trailer="campingDetail.campInfo.trler_acmpny_at"
-        :camping-pet="campingDetail.campInfo.animal_cmg_cl"
-      />
-      <CampingDetailBtnGroup />
-      <CampingDetailIntro :camping-detail="campingDetail.campInfo" />
-      <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailInfo :camping-intro="campingDetail.campInfo.intro" />
-      <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailLocation
-        :camping-location="{
-          x: campingDetail.campInfo.map_x,
-          y: campingDetail.campInfo.map_y,
-          add1: campingDetail.campInfo.addr1,
-          add2: campingDetail.campInfo.addr2,
-        }"
-      />
-      <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
-      <CampingDetailReview :camping-review="campingDetail.campReview" :camping-id="campingId" />
-    </template>
+    <div class="h-full overflow-y-auto scrollbar-hide">
+      <template v-if="loading">
+        <CampingDetailSkeleton />
+      </template>
+      <template v-else>
+        <CampingDetailImageSection
+          :camping-image="campingDetail.campInfo.first_image_url"
+          :review="campingDetail.campReview"
+        />
+        <CampingDetailNameSection
+          :camping-name="campingDetail.campInfo.faclt_nm"
+          :camping-induty="campingDetail.campInfo.induty"
+          :camping-id="campingDetail.campInfo.content_id"
+          :camping-caravan="campingDetail.campInfo.carav_acmpny_at"
+          :camping-trailer="campingDetail.campInfo.trler_acmpny_at"
+          :camping-pet="campingDetail.campInfo.animal_cmg_cl"
+        />
+        <CampingDetailBtnGroup />
+        <CampingDetailIntro :camping-detail="campingDetail.campInfo" />
+        <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
+        <CampingDetailInfo :camping-intro="campingDetail.campInfo.intro" />
+        <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
+        <CampingDetailLocation
+          :camping-location="{
+            x: campingDetail.campInfo.map_x,
+            y: campingDetail.campInfo.map_y,
+            add1: campingDetail.campInfo.addr1,
+            add2: campingDetail.campInfo.addr2,
+          }"
+        />
+        <hr class="mx-5 border-b border-b-[#4B3C2F50] dark:border-b-[#dbdbdb50]" />
+        <CampingDetailReview :camping-review="campingDetail.campReview" :camping-id="campingId" />
+      </template>
+    </div>
   </div>
 </template>
 
