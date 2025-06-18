@@ -27,6 +27,7 @@ import { useRoute } from 'vue-router'
 
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import axios from 'axios'
+import { useCampingStore } from '@/stores/campingStore'
 
 const route = useRoute()
 const selectedCategory = ref(route.query.category || null)
@@ -156,7 +157,15 @@ const handleScroll = async () => {
   }
 }
 
+const campingStore = useCampingStore()
+
 onMounted(async () => {
+  // store에 값이 있으면 여기서 종료 없으면 아래 getCampingList() 호출
+  if (campingStore.campingList.length > 0) {
+    campingList.value = campingStore.campingList
+    return
+  }
+
   if (!filterCampingList.value) {
     await getCampingList()
   }
@@ -165,6 +174,10 @@ onMounted(async () => {
 
 onUnmounted(() => {
   scrollContainer.value?.removeEventListener('scroll', handleScroll)
+
+  // store 초기화
+  campingStore.campingList = []
+  campingStore.total = 0
 })
 </script>
 
