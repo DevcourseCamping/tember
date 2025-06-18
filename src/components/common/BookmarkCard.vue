@@ -14,13 +14,11 @@ import darkOffTrailerIcon from '../../assets/icons/dark/dark-trailer-off.svg'
 
 import filledStarIcon from '../../assets/icons/star-filled.svg'
 import { useUserStore } from '@/stores/userStore'
-import { useRouter } from 'vue-router'
 import { onMounted, ref, watch, toRefs } from 'vue'
 import { useUserApi } from '@/composables/useUserApi'
 import BookmarkSkeleton from '../mypage/BookmarkSkeleton.vue'
 import BookmarkToggle from './BookmarkToggle.vue'
 
-const router = useRouter()
 const profile = useUserStore()
 const bookmarks = ref([])
 const defaultImage =
@@ -85,10 +83,6 @@ watch(
   },
   { immediate: true },
 )
-
-const navigateTo = (path) => {
-  router.push(path)
-}
 </script>
 <template>
   <div class="pt-[30px] pl-[30px] pr-[30px] flex flex-col">
@@ -114,7 +108,7 @@ const navigateTo = (path) => {
         :key="item.camp_sites.content_id"
         class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer dark:bg-[#212121]"
       >
-        <div @click="navigateTo(`/camping/${item.camp_sites.content_id}?mode=${mode}`)">
+        <router-link :to="`/camping/${item.camp_sites.content_id}?mode=${mode}`">
           <img
             :src="item.camp_sites.first_image_url ? item.camp_sites.first_image_url : defaultImage"
             alt="임시 캠핑장 이미지"
@@ -181,7 +175,7 @@ const navigateTo = (path) => {
               <img :src="filledStarIcon" alt="별점" class="w-[20px] h-[20px]" />
             </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
