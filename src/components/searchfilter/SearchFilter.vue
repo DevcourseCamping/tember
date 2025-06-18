@@ -127,12 +127,12 @@ const resetFilter = () => {
 </script>
 <template>
   <div class="max-w-[500px] h-[1700px] bg-[--white] mx-auto flex flex-col dark:bg-[#121212]">
-    <div class="relative w-full mb-4 flex justify-center">
+    <div class="relative w-full mb-4 flex justify-center items-center">
       <h1 class="text-center text-[18px] pt-[20px] text-[--black] dark:text-[--white]">검색</h1>
 
       <button
         @click="$emit('close')"
-        class="absolute top-[24px] left-[18px] w-[20px] h-[20px] flex items-center justify-center"
+        class="absolute top-[24px] left-[30px] w-[20px] h-[20px] flex items-center justify-center"
       >
         <img :src="themeStore.isDark ? darkClose : close" alt="닫기" class="w-[18px] h-[18px]" />
       </button>
@@ -205,12 +205,6 @@ const resetFilter = () => {
       <div
         class="relative bg-white rounded-md p-[20px] border border-[#E0E0E0] max-h-[1206px] flex flex-col dark:bg-[#212121] dark:border-[#3A3A3A]"
       >
-        <button
-          class="absolute top-[20px] right-[30px] w-[16px] h-[16px] flex items-center justify-center"
-        >
-          <img :src="themeStore.isDark ? darkClose : close" alt="닫기" class="w-[16px] h-[16px]" />
-        </button>
-
         <div class="flex items-center gap-2 mb-[30px]">
           <span class="text-[15px] text-[--black] dark:text-[--white]">필터</span>
           <button class="text-[13px] text-[#A8AEB2] dark:text-[--white-50]" @click="resetFilter">
