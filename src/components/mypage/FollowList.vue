@@ -87,7 +87,7 @@ const goToUserProfile = (userId) => {
               </div>
               <button
                 v-if="!follower.isFollow && follower.follower_id !== myId"
-                class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] dark:text-white bg-[#3A3A3A]"
+                class="w-20 h-[30px] text-[13px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] dark:text-white dark:bg-[#3A3A3A]"
                 @click="
                   async () => {
                     await follow.followUser(myId, follower.follower_id, 'followers')
