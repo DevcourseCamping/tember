@@ -127,7 +127,7 @@ const resetFilter = () => {
 </script>
 <template>
   <div class="max-w-[500px] h-[1700px] bg-[--white] mx-auto flex flex-col dark:bg-[#121212]">
-    <div class="relative w-full mb-4 flex justify-center items-center">
+    <div class="relative w-full mb-4 flex justify-center">
       <h1 class="text-center text-[18px] pt-[20px] text-[--black] dark:text-[--white]">검색</h1>
 
       <button
