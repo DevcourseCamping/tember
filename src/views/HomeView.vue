@@ -30,9 +30,10 @@ import fillstar from '@/assets/icons/star-filled.svg'
 import emptystar from '@/assets/icons/star-outline.svg'
 import { useThemeStore } from '@/stores/theme'
 import { useCampingStore } from '@/stores/campingStore'
+import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
-
+const profile = useUserStore()
 const isFilterModalOpen = ref(false)
 
 const handleFilterClick = () => {
@@ -136,6 +137,10 @@ const groupedPosts = computed(() => {
 })
 
 const goToDetail = (postId) => {
+  if (!profile.user?.id) {
+    router.push({ name: 'login' })
+    return
+  }
   router.push(`/community/${postId}`)
 }
 
