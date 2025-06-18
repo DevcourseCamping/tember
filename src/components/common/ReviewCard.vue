@@ -70,7 +70,7 @@ const cleanlinessLabels = ['아쉬워요', '보통이에요', '최고에요']
 <template>
   <div class="pl-[30px] pr-[30px] pt-[30px] flex flex-col">
     <div v-if="isLoading">
-      <ReviewSkeleton v-for="n in 3" :key="n" class="mb-[30px]" />
+      <ReviewSkeleton v-for="n in 4" :key="n" class="mb-[30px]" />
     </div>
     <div
       v-else-if="reviews.length === 0"

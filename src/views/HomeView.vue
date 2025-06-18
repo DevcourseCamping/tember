@@ -51,10 +51,10 @@ const handleCategoryClick = (category) => {
 
 const handleTextSearch = async (keyword) => {
   if (!keyword.trim()) {
-    return;
+    return
   }
-  router.push({ path: '/search', query: { keyword } });
-};
+  router.push({ path: '/search', query: { keyword } })
+}
 
 const popularCamping = ref([])
 
@@ -184,8 +184,8 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
 <template>
   <div class="mx-auto w-full max-w-[500px] h-screen bg-[--white] dark:bg-[#1C1C1C] flex flex-col">
     <HeaderSearchMain
-    :inputValue="keyword"
-  @update:inputValue="val => keyword.value = val"
+      :inputValue="keyword"
+      @update:inputValue="(val) => (keyword.value = val)"
       @filterClick="handleFilterClick"
       @categoryClick="handleCategoryClick"
       @searchEnter="handleTextSearch"
@@ -431,7 +431,7 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
                 @click="goToCampingDetail(review.camps.content_id)"
               >
                 <div
-                  class="h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-[#ffffff30] rounded-[5px] dark:bg-[#121212]"
+                  class="h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-white/30 rounded-[5px] dark:bg-[#121212]"
                 >
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}

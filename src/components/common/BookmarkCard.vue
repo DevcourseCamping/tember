@@ -87,10 +87,10 @@ watch(
 <template>
   <div class="pt-[30px] pl-[30px] pr-[30px] flex flex-col">
     <div v-if="isLoading">
-      <BookmarkSkeleton v-for="n in 2" :key="n" class="mb-[30px]" />
+      <BookmarkSkeleton v-for="n in 3" :key="n" class="mb-[30px]" />
     </div>
     <div
-      v-if="bookmarks.length === 0 && props.mode === 'bookmark'"
+      v-else-if="bookmarks.length === 0 && props.mode === 'bookmark'"
       class="text-center text-[var(--grey)] text-[14px] flex items-center justify-center h-[calc(100vh-450px)]"
     >
       북마크한 캠핑장이 없습니다.
