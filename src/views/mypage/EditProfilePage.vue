@@ -14,6 +14,7 @@ const fileInput = ref(null)
 const previewImg = ref(null)
 const selectedImg = ref(null)
 const isLoading = ref(true)
+const isSaving = ref(false)
 
 onMounted(async () => {
   isLoading.value = true
@@ -35,6 +36,7 @@ const handleImage = async (e) => {
 }
 
 const save = async () => {
+  isSaving.value = true
   const formData = new FormData()
   formData.append('username', username.value)
   formData.append('userId', profile.user.id)
@@ -54,6 +56,7 @@ const save = async () => {
     console.error(error)
   }
 
+  isSaving.value = false
   router.push({ name: 'mypage' })
 }
 
@@ -106,9 +109,15 @@ const clickClose = () => {
 
       <button
         @click="save"
-        class="w-full max-w-[400px] h-[60px] bg-[var(--primary)] rounded-[5px] text-[var(--white)] mt-[200px] dark:bg-[#3A3A3A]"
+        :disabled="isSaving"
+        :class="[
+          'w-full max-w-[400px] h-[60px] rounded-[5px] mt-[200px] text-[var(--white)]',
+          isSaving
+            ? 'bg-gray-300 text-gray-600 cursor-not-allowed dark:bg-[#515151] dark:text-gray-400'
+            : 'bg-[var(--primary)] dark:bg-[#3A3A3A]',
+        ]"
       >
-        저장하기
+        {{ isSaving ? '저장 중...' : '저장하기' }}
       </button>
     </div>
   </div>
