@@ -49,7 +49,7 @@ onMounted(() => {
   <footer
     class="fixed bottom-0 w-full max-w-[500px] h-[60px] bg-[--primary] flex dark:bg-[#1A1A1A]"
   >
-    <div class="w-full px-8 flex justify-around items-center">
+    <div class="w-full flex justify-around items-center">
       <div
         v-for="tab in tabs"
         :key="tab.name"
