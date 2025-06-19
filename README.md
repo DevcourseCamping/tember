@@ -262,8 +262,11 @@ src
 - 별점, 한 줄 리뷰, 작성자 정보를 함께 표시합니다.
 - 리뷰 카드 클릭 시 해당 캠핑장의 상세 페이지로 이동합니다.
 
-![alt text](home-l.gif)
-![alt text](filter-search-l.gif)
+![alt text](./gif/home-l.gif)
+![alt text](./gif/home-d.gif)
+
+![alt text](./gif/filter-search-l.gif)
+![alt text](./gif/filter-search-d.gif)
 
 <br>
 
@@ -293,8 +296,11 @@ src
 - 위치 정보는 지도 기반 마커로 시각화되어 표시됩니다.
 - 로그인한 사용자는 리뷰 작성이 가능하며, 작성 즉시 하단 리뷰 리스트와 마이페이지 리뷰 탭에 반영됩니다.
 
-![alt text](filter-l.gif)
-![alt text](review-l.gif)
+![alt text](./gif/filter-l.gif)
+![alt text](./gif/filter-d.gif)
+
+![alt text](./gif/review-l.gif)
+![alt text](./gif/review-d.gif)
 
 #### 5.2.6. 캠핑장 아이콘 표시
 
@@ -314,7 +320,8 @@ src
 - 게시글을 최신순, 인기순으로 정렬할 수 있습니다.
 - 일반 태그 및 반려동물 태그를 통한 게시글 필터링이 가능합니다.
 
-![alt text](search-sort-l.gif)
+![alt text](./gif/search-sort-l.gif)
+![alt text](./gif/search-sort-d.gif)
 
 #### 5.3.3. 게시글 목록
 
@@ -322,7 +329,8 @@ src
 - 게시글 클릭 시 해당 게시글 상세 페이지로 이동합니다.
 - 작성자 프로필 클릭 시 해당 사용자의 프로필 페이지로 이동합니다.
 
-![alt text](list-l.gif)
+![alt text](./gif/list-l.gif)
+![alt text](./gif/list-d.gif)
 
 #### 5.3.4. 게시글 상세 페이지
 
@@ -330,7 +338,8 @@ src
 - 게시글 작성자 본인일 경우 수정 및 삭제가 가능합니다.
 - 댓글 또는 게시글 내 프로필 클릭 시 해당 사용자의 프로필 페이지로 이동합니다.
 
-![alt text](detail-l-1.gif)
+![alt text](./gif/detail-l.gif)
+![alt text](./gif/detail-d.gif)
 
 #### 5.3.5. 게시글 작성 기능
 
@@ -339,7 +348,8 @@ src
 - 게시글 작성 시 일반 / 반려동물 카테고리 중 하나를 선택할 수 있습니다.
 - 내용 입력 후 작성 완료 시 커뮤니티에 게시글이 업로드됩니다.
 
-![alt text](post-l.gif)
+![alt text](./gif/post-l.gif)
+![alt text](./gif/post-d.gif)
 
 <br>
 
@@ -350,27 +360,26 @@ src
 - 프로필 사진, 닉네임, 팔로워 수 / 팔로잉 수를 표시합니다.
 - 상단 설정 아이콘 클릭 시 프로필 수정, 다크 모드 전환, 로그아웃 기능이 표시됩니다.
 
-![alt text](login-logout-l.gif)
+![alt text](./gif/login-logout-l.gif)
+![alt text](./gif/login-logout-d.gif)
 
 #### 5.4.2. 프로필 수정
 
 - 프로필 사진을 변경할 수 있습니다.
 - 닉네임 수정 후 저장 시 즉시 반영됩니다.
 
-![alt text](profile-l.gif)
+![alt text](./gif/profile-l.gif)
+![alt text](./gif/profile-d.gif)
 
-#### 5.4.3. 다크 모드
-
-- 다크 모드 버튼 클릭 시 전체 UI가 다크 모드로 전환됩니다.
-
-#### 5.4.4. 팔로워 / 팔로잉 리스트
+#### 5.4.3. 팔로워 / 팔로잉 리스트
 
 - 리스트에서 팔로우 취소 및 맞팔로우가 가능합니다.
 - 리스트 내 사용자 프로필 클릭 시 해당 사용자의 프로필 페이지로 이동합니다.
 
-![alt text](follow-l.gif)
+![alt text](./gif/follow-l.gif)
+![alt text](./gif/follow-d.gif)
 
-#### 5.4.5. 사용자 활동 탭
+#### 5.4.4. 사용자 활동 탭
 
 **[리뷰 탭]**
 
@@ -387,7 +396,12 @@ src
 - 사용자가 북마크한 캠핑장 카드 리스트를 확인할 수 있습니다.
 - 북마크 아이콘 클릭 시 북마크를 해제할 수 있습니다.
 
-![alt text](activity-l.gif)
+![alt text](./gif/activity-l.gif)
+![alt text](./gif/activity-d.gif)
+
+#### 5.4.5. 다크 모드
+
+- 다크 모드 버튼 클릭 시 전체 UI가 다크 모드로 전환됩니다.
 
 <br>
 
@@ -396,7 +410,8 @@ src
 - 웹사이트 내에서 캠핑 관련 궁금한 점을 실시간으로 질문할 수 있는 챗봇 기능을 제공합니다.
 - 사용자는 캠핑장 추천, 반려동물 동반 여부, 리뷰 확인 등 다양한 질문을 챗봇을 통해 해결할 수 있습니다.
 
-![alt text](chatbot-l.gif)
+![alt text](./gif/chatbot-l.gif)
+![alt text](./gif/chatbot-d.gif)
 
 <br>
 
@@ -502,6 +517,10 @@ API 요청은 정상적으로 이루어졌고 응답 또한 정상적으로 수�
 <br>
 
 **박서영**
+
+이번 프로젝트를 통해 코드 로직에 대한 이해도가 이전보다 훨씬 높아졌고, 특히 팔로우/팔로워, 마이페이지, 프로필 수정 기능을 직접 구현하면서 많은 것을 배울 수 있었습니다. 처음 접한 Supabase는 다소 낯설고 어려웠지만, 프로젝트를 진행하면서 점차 개념에 익숙해지고, 활용법에 대한 이해도도 함께 높아졌습니다.
+다만, 컴포넌트 분리나 코드 리팩토링 등의 부분에서는 아직 미숙함을 느꼈고, 이러한 부족함은 앞으로 작은 프로젝트들을 꾸준히 진행하며 보완해나갈 계획입니다.
+이번 경험을 통해 현재 제 실력을 객관적으로 돌아볼 수 있었고, 앞으로 어떤 부분을 중점적으로 학습하고 성장시켜야 할지 명확하게 알 수 있었습니다.
 
 <br>
 
