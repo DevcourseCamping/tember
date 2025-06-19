@@ -32,7 +32,7 @@ Netlify (배포)
 
 | 심유진 |
 |:------:|
-| <img src="https://raw.githubusercontent.com/DevcourseCamping/PJ3_Tember/main/.github/images/youjin430.png" width="120" /> |
+| <img src="https://github.com/youjin430.png" width="120" /> |
 | [@youjin430](https://github.com/youjin430) |
 
 
