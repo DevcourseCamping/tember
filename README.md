@@ -42,22 +42,18 @@ Netlify (배포)
 |:------:|
 | <img src="https://github.com/youjin430.png" width="120" /> |
 | [@youjin430](https://github.com/youjin430) |
-
 | 이민지 |
 |:------:|
 | <img src="https://github.com/mjlee38.png" width="120" /> |
 | [@youjin430](https://github.com/mjlee38) |
-
 | 박서영 |
 |:------:|
 | <img src="https://github.com/sduddla.png" width="120" /> |
 | [@youjin430](https://github.com/sduddla) |
-
 | 권태훈 |
 |:------:|
 | <img src="https://github.com/KwonTaeHun00.png" width="120" /> |
 | [@youjin430](https://github.com/KwonTaeHun00) |
-
 | 박상윤 |
 |:------:|
 | <img src="https://github.com/ygvbhy.png" width="120" /> |
