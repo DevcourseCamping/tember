@@ -34,12 +34,21 @@ import light_back_button from '../../../assets/icons/light/light-back-button.svg
 import dark_back_button from '../../../assets/icons/dark/dark-back-button.svg'
 import star_filled from '../../../assets/icons/star-filled.svg'
 import { useThemeStore } from '@/stores/theme'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const mode = route.query.mode
+
 const themeStore = useThemeStore()
 
 const router = useRouter()
 
 const handleClickBackButton = () => {
-  router.go(-1)
+  if (mode === 'bookmark') {
+    router.push('/mypage')
+  } else {
+    router.push('/search')
+  }
 }
 
 const props = defineProps({

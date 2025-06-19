@@ -85,7 +85,7 @@ watch(
 )
 </script>
 <template>
-  <div class="pt-[30px] pl-[30px] pr-[30px] flex flex-col">
+  <div class="pt-[30px] pl-[30px] pr-[30px] pb-[20px] flex flex-col">
     <div v-if="isLoading">
       <BookmarkSkeleton v-for="n in 3" :key="n" class="mb-[30px]" />
     </div>
@@ -108,7 +108,7 @@ watch(
         :key="item.camp_sites.content_id"
         class="mb-[30px] relative border border-[var(--primary-30)] rounded-[5px] cursor-pointer dark:bg-[#212121]"
       >
-        <router-link :to="`/camping/${item.camp_sites.content_id}`">
+        <router-link :to="`/camping/${item.camp_sites.content_id}?mode=${mode}`">
           <img
             :src="item.camp_sites.first_image_url ? item.camp_sites.first_image_url : defaultImage"
             alt="임시 캠핑장 이미지"

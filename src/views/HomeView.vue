@@ -30,9 +30,10 @@ import fillstar from '@/assets/icons/star-filled.svg'
 import emptystar from '@/assets/icons/star-outline.svg'
 import { useThemeStore } from '@/stores/theme'
 import { useCampingStore } from '@/stores/campingStore'
+import { useUserStore } from '@/stores/userStore'
 
 const router = useRouter()
-
+const profile = useUserStore()
 const isFilterModalOpen = ref(false)
 
 const handleFilterClick = () => {
@@ -136,6 +137,10 @@ const groupedPosts = computed(() => {
 })
 
 const goToDetail = (postId) => {
+  if (!profile.user?.id) {
+    router.push({ name: 'login' })
+    return
+  }
   router.push(`/community/${postId}`)
 }
 
@@ -431,7 +436,7 @@ const handleRedirectToSearch = (campList, requestBody, total) => {
                 @click="goToCampingDetail(review.camps.content_id)"
               >
                 <div
-                  class="h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-white/30 rounded-[5px] dark:bg-[#121212]"
+                  class="flex flex-col items-center justify-center h-[165px] bg-white p-4 text-center border border-[var(--primary-30)] dark:border-white/30 rounded-[5px] dark:bg-[#121212]"
                 >
                   <h3 class="font-bold text-[15px] text-[#222222] mb-[10px] dark:text-[--white]">
                     {{ review.camps.faclt_nm }}
