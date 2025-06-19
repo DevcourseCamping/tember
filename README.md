@@ -38,26 +38,11 @@ Netlify (배포)
 
 👥 팀 소개
 
-| 심유진 |
-|:------:|
-| <img src="https://github.com/youjin430.png" width="120" /> |
-| [@youjin430](https://github.com/youjin430) |
-| 이민지 |
-|:------:|
-| <img src="https://github.com/mjlee38.png" width="120" /> |
-| [@mjlee38](https://github.com/mjlee38) |
-| 박서영 |
-|:------:|
-| <img src="https://github.com/sduddla.png" width="120" /> |
-| [@sduddla](https://github.com/sduddla) |
-| 권태훈 |
-|:------:|
-| <img src="https://github.com/KwonTaeHun00.png" width="120" /> |
-| [@KwonTaeHun00](https://github.com/KwonTaeHun00) |
-| 박상윤 |
-|:------:|
-| <img src="https://github.com/ygvbhy.png" width="120" /> |
-| [@ygvbhy](https://github.com/ygvbhy) |
+| 심유진 | 이민지 | 박서영 | 권태훈 | 박상윤 |
+|:------:|:-----:|:------:|:------:|
+| <img src="https://github.com/youjin430.png" width="80"/> | <img src="https://github.com/mjlee38.png" width="80"/> | <img src="https://github.com/sduddla.png" width="80"/> | <img src="https://github.com/KwonTaeHun00.png" width="80"/> | <img src="https://github.com/ygvbhy.png" width="80"/>
+| [@youjin430](https://github.com/youjin430) | [@mjlee38](https://github.com/mjlee38) | [@sduddla](https://github.com/sduddla) | [@KwonTaeHun00](https://github.com/KwonTaeHun00) | [@ygvbhy](https://github.com/ygvbhy)
+
 
 
 📄 페이지별 기능  
