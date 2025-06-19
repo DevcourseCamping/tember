@@ -37,7 +37,7 @@
 
 | 구분             | 사용 기술                                                                                                                                                                                                                                                                                                                    |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 프론트엔드       | ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)                                                                                                                                                                                                 |
+| 프론트엔드       | ![Vue](https://img.shields.io/badge/vue-%2335495e.svg?style=for-the-badge&logo=vue.js&logoColor=%234FC08D) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)                                                                                      |
 | 협업 툴          | ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white) |
 | 서비스 배포 환경 | ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=%2300C7B7)                                                                                                                                                                                                          |
 | 디자인           | ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)                                                                                                                                                                                                                    |
@@ -45,6 +45,107 @@
 <br>
 
 ## 2. 폴더 구조
+
+```
+src
+├── App.vue
+├── assets
+│   ├── fonts
+│   ├── icons
+│   ├── main.css
+│   └── tailwind.css
+├── components
+│   ├── common
+│   │   ├── BookmarkCard.vue
+│   │   ├── BookmarkToggle.vue
+│   │   ├── BottomSheet.vue
+│   │   ├── BottomSheetWrapper.vue
+│   │   ├── CommunityCard.vue
+│   │   ├── HeaderOther.vue
+│   │   ├── HeaderSearch.vue
+│   │   ├── HeaderSearchMain.vue
+│   │   ├── HeaderSimple.vue
+│   │   ├── LoadingVue.vue
+│   │   ├── NavBar.vue
+│   │   └── ReviewCard.vue
+│   ├── community
+│   │   ├── CommentItem.vue
+│   │   ├── CommentSection.vue
+│   │   ├── CommunityHeader.vue
+│   │   ├── CommunityHeaderOther.vue
+│   │   ├── ImageUploader.vue
+│   │   ├── PostCard.vue
+│   │   ├── PostContent.vue
+│   │   ├── PostEditor.vue
+│   │   ├── SkeletonPostCard.vue
+│   │   └── SkeletonPostDetail.vue
+│   ├── mypage
+│   │   ├── BookmarkSkeleton.vue
+│   │   ├── CommunitySkeleton.vue
+│   │   ├── FollowList.vue
+│   │   ├── MyActivity.vue
+│   │   ├── MyProfile.vue
+│   │   ├── ProfileSkeleton.vue
+│   │   └── ReviewSkeleton.vue
+│   ├── review
+│   │   ├── ReviewCreate.vue
+│   │   └── ReviewEditor.vue
+│   └── searchfilter
+│       ├── FilterTag.vue
+│       ├── locationData.js
+│       └── SearchFilter.vue
+├── composables
+│   ├── useFetch.js
+│   ├── usePostDetail.js
+│   ├── usePostEditor.js
+│   ├── useUserApi.js
+│   └── useUserPage.js
+├── directives
+├── layouts
+├── lib
+├── main.js
+├── plugins
+├── router
+│   └── index.js
+├── stores
+│   ├── campingStore.js
+│   ├── communityStore.js
+│   ├── followStore.js
+│   ├── reviewStore.js
+│   ├── theme.js
+│   └── userStore.js
+├── utils
+│   ├── formDate.js
+│   └── supabase.js
+└── views
+    ├── camping
+    │   ├── CampingDetail.vue
+    │   ├── CampingList.vue
+    │   └── components
+    │       ├── CampingDetailBtnGroup.vue
+    │       ├── CampingDetailImageSection.vue
+    │       ├── CampingDetailInfo.vue
+    │       ├── CampingDetailIntro.vue
+    │       ├── CampingDetailLocation.vue
+    │       ├── CampingDetailNameSection.vue
+    │       ├── CampingDetailReview.vue
+    │       └── CampingDetailSkeleton.vue
+    ├── ChatBot.vue
+    ├── community
+    │   ├── CommunityPostCreate.vue
+    │   ├── CommunityPostDetail.vue
+    │   └── CommunityPostList.vue
+    ├── HomeView.vue
+    ├── mypage
+    │   ├── EditProfilePage.vue
+    │   ├── FollowPage.vue
+    │   ├── LogIn.vue
+    │   └── MyPage.vue
+    ├── NotFound.vue
+    └── review
+        └── ReviewPage.vue
+
+```
 
 <br>
 
