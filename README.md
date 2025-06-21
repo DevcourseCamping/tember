@@ -1,6 +1,6 @@
 # Tember
 
-![alt text](tember.png)
+![alt text](./gif/tember.png)
 
 <br>
 
@@ -284,11 +284,11 @@ src
 - 별점, 한 줄 리뷰, 작성자 정보를 함께 표시합니다.
 - 리뷰 카드 클릭 시 해당 캠핑장의 상세 페이지로 이동합니다.
 
-<img src="./gif/home-l.gif" width="400" />
-<img src="./gif/home-d.gif" width="400" />
+<img src="./gif/home-l.gif" width="500" />
+<img src="./gif/home-d.gif" width="500" />
 
-<img src="./gif/filter-search-l.gif" width="400" />
-<img src="./gif/filter-search-d.gif" width="400" />
+<img src="./gif/filter-search-l.gif" width="500" />
+<img src="./gif/filter-search-d.gif" width="500" />
 
 <br>
 
@@ -318,11 +318,11 @@ src
 - 위치 정보는 지도 기반 마커로 시각화되어 표시됩니다.
 - 로그인한 사용자는 리뷰 작성이 가능하며, 작성 즉시 하단 리뷰 리스트와 마이페이지 리뷰 탭에 반영됩니다.
 
-<img src="./gif/filter-l.gif" width="400" />
-<img src="./gif/filter-d.gif" width="400" />
+<img src="./gif/filter-l.gif" width="500" />
+<img src="./gif/filter-d.gif" width="500" />
 
-<img src="./gif/review-l.gif" width="400" />
-<img src="./gif/review-d.gif" width="400" />
+<img src="./gif/review-l.gif" width="500" />
+<img src="./gif/review-d.gif" width="500" />
 
 #### 5.2.6. 캠핑장 아이콘 표시
 
@@ -342,8 +342,8 @@ src
 - 게시글을 최신순, 인기순으로 정렬할 수 있습니다.
 - 일반 태그 및 반려동물 태그를 통한 게시글 필터링이 가능합니다.
 
-<img src="./gif/search-sort-l.gif" width="400" />
-<img src="./gif/search-sort-d.gif" width="400" />
+<img src="./gif/search-sort-l.gif" width="500" />
+<img src="./gif/search-sort-d.gif" width="500" />
 
 #### 5.3.3. 게시글 목록
 
@@ -351,8 +351,8 @@ src
 - 게시글 클릭 시 해당 게시글 상세 페이지로 이동합니다.
 - 작성자 프로필 클릭 시 해당 사용자의 프로필 페이지로 이동합니다.
 
-<img src="./gif/list-l.gif" width="400" />
-<img src="./gif/list-d.gif" width="400" />
+<img src="./gif/list-l.gif" width="500" />
+<img src="./gif/list-d.gif" width="500" />
 
 #### 5.3.4. 게시글 상세 페이지
 
@@ -360,8 +360,8 @@ src
 - 게시글 작성자 본인일 경우 수정 및 삭제가 가능합니다.
 - 댓글 또는 게시글 내 프로필 클릭 시 해당 사용자의 프로필 페이지로 이동합니다.
 
-<img src="./gif/detail-l.gif" width="400" />
-<img src="./gif/detail-d.gif" width="400" />
+<img src="./gif/detail-l.gif" width="500" />
+<img src="./gif/detail-d.gif" width="500" />
 
 #### 5.3.5. 게시글 작성 기능
 
@@ -370,8 +370,8 @@ src
 - 게시글 작성 시 일반 / 반려동물 카테고리 중 하나를 선택할 수 있습니다.
 - 내용 입력 후 작성 완료 시 커뮤니티에 게시글이 업로드됩니다.
 
-<img src="./gif/post-l.gif" width="400" />
-<img src="./gif/post-d.gif" width="400" />
+<img src="./gif/post-l.gif" width="500" />
+<img src="./gif/post-d.gif" width="500" />
 
 <br>
 
@@ -382,24 +382,24 @@ src
 - 프로필 사진, 닉네임, 팔로워 수 / 팔로잉 수를 표시합니다.
 - 상단 설정 아이콘 클릭 시 프로필 수정, 다크 모드 전환, 로그아웃 기능이 표시됩니다.
 
-<img src="./gif/login-logout-l.gif" width="400" />
-<img src="./gif/login-logout-d.gif" width="400" />
+<img src="./gif/login-logout-l.gif" width="500" />
+<img src="./gif/login-logout-d.gif" width="500" />
 
 #### 5.4.2. 프로필 수정
 
 - 프로필 사진을 변경할 수 있습니다.
 - 닉네임 수정 후 저장 시 즉시 반영됩니다.
 
-<img src="./gif/profile-l.gif" width="400" />
-<img src="./gif/profile-d.gif" width="400" />
+<img src="./gif/profile-l.gif" width=500" />
+<img src="./gif/profile-d.gif" width="500" />
 
 #### 5.4.3. 팔로워 / 팔로잉 리스트
 
 - 리스트에서 팔로우 취소 및 맞팔로우가 가능합니다.
 - 리스트 내 사용자 프로필 클릭 시 해당 사용자의 프로필 페이지로 이동합니다.
 
-<img src="./gif/follow-l.gif" width="400" />
-<img src="./gif/follow-d.gif" width="400" />
+<img src="./gif/follow-l.gif" width="500" />
+<img src="./gif/follow-d.gif" width="500" />
 
 #### 5.4.4. 사용자 활동 탭
 
@@ -418,8 +418,8 @@ src
 - 사용자가 북마크한 캠핑장 카드 리스트를 확인할 수 있습니다.
 - 북마크 아이콘 클릭 시 북마크를 해제할 수 있습니다.
 
-<img src="./gif/activity-l.gif" width="400" />
-<img src="./gif/activity-d.gif" width="400" />
+<img src="./gif/activity-l.gif" width="500" />
+<img src="./gif/activity-d.gif" width="500" />
 
 #### 5.4.5. 다크 모드
 
@@ -432,8 +432,8 @@ src
 - 웹사이트 내에서 캠핑 관련 궁금한 점을 실시간으로 질문할 수 있는 챗봇 기능을 제공합니다.
 - 사용자는 캠핑장 추천, 반려동물 동반 여부, 리뷰 확인 등 다양한 질문을 챗봇을 통해 해결할 수 있습니다.
 
-<img src="./gif/chatbot-l.gif" width="400" />
-<img src="./gif/chatbot-d.gif" width="400" />
+<img src="./gif/chatbot-l.gif" width="500" />
+<img src="./gif/chatbot-d.gif" width="500" />
 
 <br>
 
