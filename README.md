@@ -390,7 +390,7 @@ src
 - 프로필 사진을 변경할 수 있습니다.
 - 닉네임 수정 후 저장 시 즉시 반영됩니다.
 
-<img src="./gif/profile-l.gif" width=500" />
+<img src="./gif/profile-l.gif" width="500" />
 <img src="./gif/profile-d.gif" width="500" />
 
 #### 5.4.3. 팔로워 / 팔로잉 리스트
