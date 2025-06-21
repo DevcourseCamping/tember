@@ -25,7 +25,6 @@
 |     **심유진** <br>[@youjin430](https://github.com/youjin430)     |    **권태훈**<br>[@KwonTaeHun00](https://github.com/KwonTaeHun00)    |       **박상윤**<br>[@ygvbhy](https://github.com/ygvbhy)       |      **박서영**<br>[@sduddla](https://github.com/sduddla)       |         **이민지**<br>[@mjlee38](https://github.com/mjlee38)          |
 | :---------------------------------------------------------------: | :------------------------------------------------------------------: | :------------------------------------------------------------: | :-------------------------------------------------------------: | :-------------------------------------------------------------------: |
 | <img src="https://github.com/youjin430.png" height=150 width=150> | <img src="https://github.com/KwonTaeHun00.png" height=150 width=150> | <img src="https://github.com/ygvbhy.png" height=150 width=150> | <img src="https://github.com/sduddla.png" height=150 width=150> | <img src="https://github.com/mjlee38.png" width="150" height="150" /> |
-|                               팀장                                |                                 팀원                                 |                              팀원                              |                              팀원                               |                                 팀원                                  |
 
 <br>
 
